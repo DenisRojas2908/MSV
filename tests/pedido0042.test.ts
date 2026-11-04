@@ -24,9 +24,10 @@ describe('pedido N.° 0042', () => {
     expect(formatearSoles(r.liquidacionTotal)).toBe('S/ 478.33');
   });
   it('el comprador paga 490.60: la comisión nunca se suma a su total', () => {
+    // Literales de §A.2: paga S/ 490.60, no S/ 502.87 (490.60 + 12.27).
     expect(formatearSoles(totalComprador(r))).toBe('S/ 490.60');
-    expect(totalComprador(r)).not.toBe(r.total + r.comisionTotal);
-    expect(r.total - r.comisionTotal).toBe(r.liquidacionTotal);
+    expect(formatearSoles(totalComprador(r))).not.toBe('S/ 502.87');
+    expect(formatearSoles(r.liquidacionTotal)).toBe('S/ 478.33');
   });
   it('Qhapaq eligió el aceite aunque Wayna era S/ 1.10 más barato', () => {
     const o = ofertas();
