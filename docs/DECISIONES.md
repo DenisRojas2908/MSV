@@ -68,3 +68,9 @@ Se usa el valor de «Mientras no se decida».
 - **D-38 · Controles del expositor fuera del marco** (04/11/2026). Atajos como «Cargar pedido N.° 0042» se dibujan sobre el marco, no dentro, y nunca salen en capturas.
 - **D-39 · Empate total en el orden** (04/11/2026). Si tras D-12 sigue el empate, se conserva el orden de §A.2 (orden estable). No ocurre con los datos de la demo.
 - **D-40 · Porcentajes en puntos básicos** (04/11/2026). 0.3 % = 30 pb, para comparar con el umbral de 1 % sin floats.
+- **D-41 · Montos sin «S/» en columnas** (04/11/2026). La tabla «Cómo se reparte tu pago» de M4-4 muestra los montos sin «S/» y con «S/» en el encabezado, como la tabla del pedido de §A.2; con «S/» en cada celda no cabe en 390 px. La frase de arriba repite S/ 490.60, S/ 12.27 y S/ 478.33 con «S/». Observado por el auditor como menor.
+- **D-42 · Comparador solo para SKU con precio** (04/11/2026). `#/m3-2?sku=n` abre el SKU pedido si tiene ofertas con precio (P-02); si no, abre el aceite. Descartado: pantalla vacía o error.
+- **D-43 · Reclamos y fechas de entrega** (04/11/2026). Un reclamo se abre desde M1-4 sobre la parte de un proveedor; se rotula «Escenario de simulación» (es el escenario E5). Las fechas de entrega se cuentan desde el pago (o la confirmación, si aún no se paga) más el plazo del proveedor.
+- **D-44 · Lista habitual de M1-2** (04/11/2026). Las marcas iniciales se derivan de las líneas del pedido 0042 (P-12), no se escriben a mano. La lista se edita en la pantalla pero no se guarda en el store: no la usa ninguna regla.
+- **D-45 · Catálogo de Qhapaq** (04/11/2026). En M2-2 los SKU de envases aparecen deshabilitados («fuera de tu categoría»), así la casilla ecológica nunca aparece para Qhapaq (P-11). «Guardar precio» solo actúa sobre las dos ofertas con precio; un precio nuevo cuenta como confirmación (D-27).
+
