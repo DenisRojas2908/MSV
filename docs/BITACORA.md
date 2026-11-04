@@ -4,6 +4,17 @@ Solo se agrega. Una entrada por checkpoint, la más reciente arriba.
 
 ---
 
+## 04/11/2026 14:47 · F4 · Tablero M5 cerrado
+
+- **Qué se hizo:** M5-1 a M5-4 con pestañas. Auditor sobre M5: sin bloqueos; 4 menores aplicados (regla de 4 semanas, una sola etiqueta algedónica, espacios en por vencer, rótulo de escenario sin ámbar). Inicio de F5: escenarios E1 a E5 como funciones del store con una prueba cada uno; pantallas incrustables y sincronización entre pestañas.
+- **Archivos:** `src/modules/m5-tablero/*`, `src/simulacion/escenarios.ts`, `src/ui/incrustada.tsx`, `src/registro.ts`, `tests/escenarios.test.ts`.
+- **Decisiones:** D-48 a D-51.
+- **Pruebas:** 73 pasan.
+- **Para revisar:** `#/m5-1` (rótulo literal del umbral, ver observación); `#/m5-3` (textos de las tres alertas); `#/m5-4` (filas U1, U2, U3).
+- **Siguiente paso:** interfaz del panel de simulación.
+
+---
+
 ## 04/11/2026 14:44 · F2 y F3 · Proveedor M2 y comprador M1 cerrados
 
 - **Qué se hizo:** M2-1 a M2-4 (Distribuidora Qhapaq, con pestañas) y M1-1 a M1-4. Flujo de reclamo probado: M1-4 → retenido en M4-4 y M2-4. Auditor sobre M1 y M2: 1 «corregir» (M1-3 prometía precios de 24 insumos) y 2 menores, aplicados o registrados (D-46, D-47). M5 (F4) construida.

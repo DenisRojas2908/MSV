@@ -152,17 +152,17 @@ Cada fila es un texto visible y dónde editarlo. Las partes entre `{…}` son da
 | Producto, por ejemplo «${EJEMPLO | `src/modules/m3-comparador/M3_1Buscador.tsx:42` |
 | Aviso de precio: | `src/modules/m3-comparador/M3_1Buscador.tsx:74` |
 | Sin resultados. | `src/modules/m3-comparador/M3_1Buscador.tsx:117` |
-| Comparador | `src/modules/m3-comparador/M3_2Comparador.tsx:29` |
-| Precio de menor a mayor · con IGV | `src/modules/m3-comparador/M3_2Comparador.tsx:40` |
-| Entrega en {c.proveedor.plazoHoras} h | `src/modules/m3-comparador/M3_2Comparador.tsx:57` |
-| subió de | `src/modules/m3-comparador/M3_2Comparador.tsx:70` |
-| Agregar al pedido | `src/modules/m3-comparador/M3_2Comparador.tsx:78` |
-| Cantidad | `src/modules/m3-comparador/M3_2Comparador.tsx:88` |
-| ¿Cómo ordenamos? | `src/modules/m3-comparador/M3_2Comparador.tsx:98` |
-| Por precio, de menor a mayor. A igual precio, primero el menor plazo de entrega y luego la | `src/modules/m3-comparador/M3_2Comparador.tsx:100` |
-| El orden no cambia porque alguien pague. No hay destacados. | `src/modules/m3-comparador/M3_2Comparador.tsx:101` |
-| Un cambio de criterios se avisa con {AVISO_CAMBIO_CRITERIOS_H} horas de anticipación. | `src/modules/m3-comparador/M3_2Comparador.tsx:102` |
-| Solo se muestran precios confirmados en los últimos {VIGENCIA_DIAS} días. | `src/modules/m3-comparador/M3_2Comparador.tsx:103` |
+| Comparador | `src/modules/m3-comparador/M3_2Comparador.tsx:28` |
+| Precio de menor a mayor · con IGV | `src/modules/m3-comparador/M3_2Comparador.tsx:39` |
+| Entrega en {c.proveedor.plazoHoras} h | `src/modules/m3-comparador/M3_2Comparador.tsx:56` |
+| subió de | `src/modules/m3-comparador/M3_2Comparador.tsx:69` |
+| Agregar al pedido | `src/modules/m3-comparador/M3_2Comparador.tsx:77` |
+| Cantidad | `src/modules/m3-comparador/M3_2Comparador.tsx:87` |
+| ¿Cómo ordenamos? | `src/modules/m3-comparador/M3_2Comparador.tsx:97` |
+| Por precio, de menor a mayor. A igual precio, primero el menor plazo de entrega y luego la | `src/modules/m3-comparador/M3_2Comparador.tsx:99` |
+| El orden no cambia porque alguien pague. No hay destacados. | `src/modules/m3-comparador/M3_2Comparador.tsx:100` |
+| Un cambio de criterios se avisa con {AVISO_CAMBIO_CRITERIOS_H} horas de anticipación. | `src/modules/m3-comparador/M3_2Comparador.tsx:101` |
+| Solo se muestran precios confirmados en los últimos {VIGENCIA_DIAS} días. | `src/modules/m3-comparador/M3_2Comparador.tsx:102` |
 | Alerta de precio | `src/modules/m3-comparador/M3_3Alerta.tsx:16` |
 | No hay alertas de precio. | `src/modules/m3-comparador/M3_3Alerta.tsx:19` |
 | Alternativas | `src/modules/m3-comparador/M3_3Alerta.tsx:30` |
@@ -233,7 +233,7 @@ Cada fila es un texto visible y dónde editarlo. Las partes entre `{…}` son da
 | <Porcentaje valor={t.preciosVigentesPct | `src/modules/m5-tablero/M5_1Tablero.tsx:49` |
 | <Porcentaje valor={t.reclamosCerradosEn48hPct | `src/modules/m5-tablero/M5_1Tablero.tsx:50` |
 | <Porcentaje pb={t.precioDistintoHoyPb | `src/modules/m5-tablero/M5_1Tablero.tsx:53` |
-| Canal algedónico activo | `src/modules/m5-tablero/M5_1Tablero.tsx:55` |
+| Señal algedónica activa | `src/modules/m5-tablero/M5_1Tablero.tsx:55` |
 | <span className= | `src/modules/m5-tablero/M5_1Tablero.tsx:59` |
 | Semáforos y vigencia | `src/modules/m5-tablero/M5_2Semaforos.tsx:22` |
 | Cobertura por SKU · S2-M1 | `src/modules/m5-tablero/M5_2Semaforos.tsx:27` |
@@ -242,9 +242,10 @@ Cada fila es un texto visible y dónde editarlo. Las partes entre `{…}` son da
 | UMBRAL_CATEGORIA_PCT | `src/modules/m5-tablero/M5_2Semaforos.tsx:69` |
 | Ofertas por vencer en 48 horas · S2-M3 | `src/modules/m5-tablero/M5_2Semaforos.tsx:75` |
 | Hoy | `src/modules/m5-tablero/M5_2Semaforos.tsx:76` |
-| · precio vigente: confirmado en los últimos {VIGENCIA_DIAS} días | `src/modules/m5-tablero/M5_2Semaforos.tsx:76` |
-| Regla de vigencia | `src/modules/m5-tablero/M5_2Semaforos.tsx:102` |
-| El proveedor confirma su precio en su catálogo; confirmar o cambiar el precio reinicia los | `src/modules/m5-tablero/M5_2Semaforos.tsx:106` |
+| · vigencia de {VIGENCIA_DIAS} días | `src/modules/m5-tablero/M5_2Semaforos.tsx:76` |
+| quedan {d} días | `src/modules/m5-tablero/M5_2Semaforos.tsx:97` |
+| Regla de vigencia | `src/modules/m5-tablero/M5_2Semaforos.tsx:107` |
+| El proveedor confirma su precio en su catálogo; confirmar o cambiar el precio reinicia los | `src/modules/m5-tablero/M5_2Semaforos.tsx:111` |
 | Valor | `src/modules/m5-tablero/M5_3Alertas.tsx:31` |
 | Estado | `src/modules/m5-tablero/M5_3Alertas.tsx:36` |
 | Alertas | `src/modules/m5-tablero/M5_3Alertas.tsx:52` |
