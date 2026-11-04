@@ -16,7 +16,8 @@ export const TABLERO = {
   preciosVigentesPct: 93,
   reclamosCerradosEn48hPct: 96,
   precioDistintoHoyPb: 30 as PuntosBasicos,
-  metaPrecioDistintoTexto: '1 % en un día activa el canal algedónico (2 h)',
+  /** D-55: §A.2 actualizada por el DP; coincide con D-10 (más de 1 %). */
+  metaPrecioDistintoTexto: 'Más de 1 % de los pedidos de un día con precio distinto activa el canal algedónico',
   metaCoberturaTexto: '70 % o más',
   /** D-14: la comisión del mes se calcula (2.5 %). */
   ventasDelMes: soles('186,400.00'),
