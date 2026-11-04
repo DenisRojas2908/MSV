@@ -2,20 +2,16 @@
 import { BellRing, ChevronRight, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { formatearCalificacion } from '../../domain/umbrales';
-import { useDemo } from '../../store/demo';
 import { useAlertas } from '../../store/selectores';
-import { Dinero, Pantalla, Porcentaje, RotuloEscenario, Tarjeta } from '../../ui';
+import { Dinero, Pantalla, Porcentaje, Tarjeta } from '../../ui';
 import { CabeceraComprador } from '../comun/CabeceraComprador';
 
 export function M3_3Alerta() {
   const alertas = useAlertas();
-  const escenarios = useDemo((s) => s.escenarios);
-  const enEscenario = escenarios.includes('E2') || escenarios.includes('E3');
 
   return (
     <Pantalla id="M3-3" titulo="Alerta de precio" contexto={<CabeceraComprador />} volver="/m3-1">
       <div className="flex h-full flex-col gap-3">
-        {enEscenario && <div><RotuloEscenario /></div>}
         {alertas.length === 0 && <p className="text-sm text-texto/70">No hay alertas de precio.</p>}
         {alertas.map((a) => (
           <section key={a.oferta.id} className="flex flex-col gap-3">

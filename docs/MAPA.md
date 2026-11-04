@@ -59,7 +59,7 @@ Conceptos que aparecen:
 | Archivo | Qué hace |
 |---|---|
 | `inicial.ts` | `estadoInicial()`: 09/11/2026 09:00, ofertas de §A.2, pedido 0042 pagado (D-08) |
-| `demo.ts` | `useDemo`: el store. Acciones: `confirmarPrecio`, `actualizarPrecio`, `reemplazarOferta`, `agregarAlCarrito`, `cargarPedido0042`, `confirmarPedido`, `pagarPedido`, `abrirReclamo`, `fijarAhora`, `fijarPrecioDistinto`, `marcarEscenario`, `reiniciarDemo` |
+| `demo.ts` | `useDemo`: el store. Cada acción pasa por `aplicar()`: un solo cambio con su evento y su marca de escenario (D-52). Acciones: `confirmarPrecio`, `actualizarPrecio`, `reemplazarOferta`, `agregarAlCarrito`, `cargarPedido0042`, `confirmarPedido`, `pagarPedido`, `abrirReclamo`, `fijarAhora`, `fijarPrecioDistinto`, `marcarEscenario`, `reiniciarDemo` |
 | `selectores.ts` | `calcularResumenSemaforo`, `calcularTablero` (puras) y los hooks `useResumenSemaforo`, `useComparador`, `useAlertas`, `usePorVencer`, `useResumenPedido`, `useTablero` |
 | `persistencia.ts` | guarda en `localStorage` con try/catch |
 | `captura.ts` | detecta `?captura=1` antes o después del `#` (D-18) |

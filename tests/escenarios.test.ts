@@ -112,6 +112,26 @@ describe('escenarios de §F', () => {
     expect({ ahora, ofertas, carrito, pedidos, reclamos, eventos, precioDistintoHoyPb, escenarios }).toEqual(estadoInicial());
   });
 
+  it('cada escenario cambia el estado en una sola actualización, con su marca y su evento (auditoría F7)', () => {
+    const acciones: [string, () => void][] = [
+      ['E1', e1PrecioVencido],
+      ['E2', e2Antes],
+      ['E3', () => e3PrecioNuevo(soles('125.00'))],
+      ['E4', () => e4PrecioDistinto(150)],
+      ['E5', () => e5Reclamo()],
+    ];
+    for (const [id, accion] of acciones) {
+      s().reiniciarDemo();
+      let cambios = 0;
+      const fin = useDemo.subscribe(() => (cambios += 1));
+      accion();
+      fin();
+      expect(cambios, id).toBe(1);
+      expect(s().escenarios, id).toEqual([id]);
+      expect(s().eventos[0]?.escenario, id).toBe(id);
+    }
+  });
+
   it('lectura de valores del expositor', () => {
     expect(leerPorcentaje('0.3')).toBe(30);
     expect(leerPorcentaje('2')).toBe(200);

@@ -43,7 +43,7 @@ export const ESCENARIOS: readonly Escenario[] = [
   {
     id: 'E3',
     nombre: 'Precio fijado',
-    accion: 'Con el pedido N.° 0042 confirmado, escribe un nuevo precio para el aceite de Qhapaq',
+    accion: 'Con el pedido N.° 0042 confirmado, escribe un nuevo precio para el aceite de Qhapaq',
     esperado: 'El pedido conserva S/ 118.00; un pedido nuevo usa el precio nuevo; el indicador de precio distinto no cambia',
     mecanismo: 'S2-M5',
     origen: 'S2: caso de prueba 2',
@@ -61,9 +61,9 @@ export const ESCENARIOS: readonly Escenario[] = [
   {
     id: 'E5',
     nombre: 'Reclamo',
-    accion: 'Rosa abre un reclamo sobre la parte de un proveedor del pedido N.° 0042',
+    accion: 'Rosa abre un reclamo sobre la parte de un proveedor del pedido N.° 0042',
     esperado:
-      'La liquidación de ese proveedor queda retenida; corren las 48 h de U1 y las 24 h del descargo de U2; si el monto superara S/ 550 sería excepción al S3 (en el pedido N.° 0042 no ocurre)',
+      'La liquidación de ese proveedor queda retenida; corren las 48 h de U1 y las 24 h del descargo de U2; si el monto superara S/ 550 sería excepción al S3 (en el pedido N.° 0042 no ocurre)',
     mecanismo: 'S2-M8',
     origen: 'S2-M8; S3 §6.5',
     pantallas: [{ id: 'M1-4' }, { id: 'M4-4' }, { id: 'M2-4' }, { id: 'M5-3' }],
@@ -76,8 +76,7 @@ const ACEITE_QHAPAQ = 'aceite-qhapaq';
 
 /** E1: el reloj pasa al día siguiente de la demo (10/11/2026). */
 export function e1PrecioVencido(): void {
-  s().fijarAhora(sumarDias(FECHA_DEMO, 1));
-  s().marcarEscenario('E1');
+  s().fijarAhora(sumarDias(FECHA_DEMO, 1), { escenario: 'E1' });
 }
 
 function arrozInicial() {
@@ -89,17 +88,15 @@ function arrozInicial() {
 /** E2, antes: el arroz de Wayna en su precio anterior, con la misma confirmación (08/11) (D-09). */
 export function e2Antes(): void {
   const o = arrozInicial();
-  s().reemplazarOferta({ id: o.id, skuN: o.skuN, proveedorId: o.proveedorId, precio: o.precioAnterior!, confirmadaEl: o.confirmadaEl });
-  s().marcarEscenario('E2');
+  s().reemplazarOferta({ id: o.id, skuN: o.skuN, proveedorId: o.proveedorId, precio: o.precioAnterior!, confirmadaEl: o.confirmadaEl }, 'E2');
 }
 
 /** E2, después: sube al precio de §A.2 y aparece la alerta. */
 export function e2Subida(): void {
-  s().reemplazarOferta({ ...arrozInicial() });
-  s().marcarEscenario('E2');
+  s().reemplazarOferta({ ...arrozInicial() }, 'E2');
 }
 
-/** E3 requiere el pedido N.° 0042 confirmado o pagado (no en el carrito). */
+/** E3 requiere el pedido N.° 0042 confirmado o pagado (no en el carrito). */
 export function e3Disponible(): boolean {
   return s().pedidos.some((p) => p.numero === NUMERO_PEDIDO_EJEMPLO);
 }
@@ -116,15 +113,13 @@ export function e3PedidoNuevo(): void {
 
 /** E4: porcentaje de pedidos del día con precio distinto (lo escribe el expositor, P-06). */
 export function e4PrecioDistinto(pb: PuntosBasicos): void {
-  s().fijarPrecioDistinto(pb);
-  s().marcarEscenario('E4');
+  s().fijarPrecioDistinto(pb, 'E4');
 }
 
-/** E5: reclamo sobre la parte de Distribuidora Qhapaq del pedido N.° 0042 (D-21). */
+/** E5: reclamo sobre la parte de Distribuidora Qhapaq del pedido N.° 0042 (D-21). */
 export function e5Reclamo(descripcion = ''): void {
   if (!e3Disponible()) return;
   s().abrirReclamo(NUMERO_PEDIDO_EJEMPLO, PROVEEDOR_M2, descripcion);
-  s().marcarEscenario('E5');
 }
 
 /** '1.5' → 150 pb; null si no es un porcentaje válido (hasta dos decimales). */

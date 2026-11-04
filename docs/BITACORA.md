@@ -4,6 +4,17 @@ Solo se agrega. Una entrada por checkpoint, la más reciente arriba.
 
 ---
 
+## 04/11/2026 15:02 · F7 · Auditoría y cierre
+
+- **Qué se hizo:** auditoría completa con el subagente `auditor` (20 pantallas, E1 a E5, criterios F1 a F6) → `docs/AUDITORIA.md`. Sin bloqueos. Corregidos los 3 «corregir»: sincronización entre pestañas (acciones atómicas), rótulo de escenario en todas las pantallas, M3-4 sin corte en E1. Corregidos los 7 menores. Capturas regeneradas: 20 de 20 correctas.
+- **Archivos:** `src/store/demo.ts`, `src/ui/Pantalla.tsx`, `src/simulacion/*`, `src/modules/*`, `tests/escenarios.test.ts`, `docs/AUDITORIA.md`, `capturas/*`.
+- **Decisiones:** D-52 a D-54.
+- **Pruebas:** 74 pasan.
+- **Para revisar:** `#/simulacion` con las pantallas abiertas en otra pestaña; `#/m3-2` después de E1 («No disponible»); `docs/AUDITORIA.md`.
+- **Siguiente paso:** activar GitHub Pages; decisiones P-xx abiertas.
+
+---
+
 ## 04/11/2026 14:51 · F6 · Capturas y despliegue cerrados
 
 - **Qué se hizo:** `scripts/capturas.ts` (Playwright 1.63 y vite preview): 20 PNG con tamaño exacto, sin cortes ni scroll, sin palabras de §A.5, verificados leyendo la cabecera PNG. Las 20 capturas se versionan en `capturas/`. GitHub Action que corre `npm test` y solo entonces despliega en Pages. README con Windows y Vercel.

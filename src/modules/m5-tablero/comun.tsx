@@ -2,21 +2,16 @@
 import type { ReactNode } from 'react';
 import { ROTULO_TABLERO } from '../../data/tablero';
 import type { ZonaCobertura } from '../../domain/semaforo';
-import { useDemo } from '../../store/demo';
-import { Etiqueta, Pantalla, Pestanas, RotuloEscenario, Semaforo } from '../../ui';
+import { Etiqueta, Pantalla, Pestanas, Semaforo } from '../../ui';
 
 export function PantallaTablero({ id, titulo, children }: { id: string; titulo: string; children: ReactNode }) {
-  const escenario = useDemo((s) => s.escenarios.length > 0);
   return (
     <Pantalla
       id={id}
       titulo={titulo}
       contexto={
-        <span className="flex items-center gap-3">
-          {escenario && <RotuloEscenario />}
-          <span>
-            <span className="font-semibold text-texto">Sistema 3</span> · tablero de indicadores
-          </span>
+        <span>
+          <span className="font-semibold text-texto">Sistema 3</span> · tablero de indicadores
         </span>
       }
       subbarra={<Pestanas modulo="M5" activa={id} />}

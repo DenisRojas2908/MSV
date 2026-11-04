@@ -1,11 +1,12 @@
 // Store único de la simulación (Zustand). Las reglas viven en src/domain;
 // aquí solo se cambia el estado y se deja constancia en `eventos`.
 import { create } from 'zustand';
-import { NUMERO_PEDIDO_EJEMPLO } from '../data/demo';
+import { HORA_INICIO, NUMERO_PEDIDO_EJEMPLO } from '../data/demo';
 import { LINEAS_PEDIDO_0042 } from '../data/pedido0042';
 import { PROVEEDORES } from '../data/proveedores';
 import { SKUS } from '../data/skus';
-import { fechaDeInstante, instante } from '../domain/fechas';
+import { formatearPuntosBasicos } from '../domain/dinero';
+import { fechaDeInstante, formatearFecha, instante } from '../domain/fechas';
 import { buscarOferta, fijarPrecios, lineasVencidas, siguienteNumero } from '../domain/pedido';
 import type { Centimos, FechaISO, Oferta, ProveedorId, PuntosBasicos } from '../domain/tipos';
 import { esModoCaptura } from './captura';
@@ -18,7 +19,7 @@ export interface AccionesDemo {
   /** Precio nuevo: cuenta como confirmación (D-27). Si sube, aparece la alerta (D-11). */
   actualizarPrecio: (ofertaId: string, nuevo: Centimos) => void;
   /** Para escenarios: reemplaza una oferta tal cual (E2 conserva la fecha 08/11). */
-  reemplazarOferta: (oferta: Oferta) => void;
+  reemplazarOferta: (oferta: Oferta, escenario?: EscenarioId) => void;
   agregarAlCarrito: (ofertaId: string, cantidad: number) => void;
   cambiarCantidad: (ofertaId: string, cantidad: number) => void;
   quitarDelCarrito: (ofertaId: string) => void;
@@ -28,9 +29,9 @@ export interface AccionesDemo {
   confirmarPedido: () => string | null;
   pagarPedido: (numero: string) => void;
   abrirReclamo: (numero: string, proveedorId: ProveedorId, descripcion: string) => void;
-  fijarAhora: (fecha: FechaISO, hhmm?: string) => void;
+  fijarAhora: (fecha: FechaISO, opciones?: { hhmm?: string; escenario?: EscenarioId }) => void;
   avanzarHoras: (horas: number) => void;
-  fijarPrecioDistinto: (pb: PuntosBasicos) => void;
+  fijarPrecioDistinto: (pb: PuntosBasicos, escenario?: EscenarioId) => void;
   marcarEscenario: (id: EscenarioId) => void;
   reiniciarDemo: () => void;
 }
@@ -46,31 +47,48 @@ function nombreOferta(o: Oferta): string {
 }
 
 export const useDemo = create<EstadoDemo>()((set, get) => {
-  const evento = (texto: string, escenario?: EscenarioId) =>
-    set((s) => ({ eventos: [{ en: s.ahora, texto, ...(escenario ? { escenario } : {}) }, ...s.eventos] }));
   const hoy = () => fechaDeInstante(get().ahora);
+
+  /**
+   * Cada acción hace un solo set(): el cambio, su evento y la marca de escenario juntos.
+   * Así otra pestaña nunca recibe un estado a medias (hallazgo 1 de la auditoría F7).
+   */
+  const aplicar = (calcular: (s: EstadoDemo) => Partial<DatosDemo>, texto: (s: EstadoDemo) => string, escenario?: EscenarioId) =>
+    set((s) => {
+      const cambio = calcular(s);
+      const despues = { ...s, ...cambio };
+      return {
+        ...cambio,
+        eventos: [{ en: despues.ahora, texto: texto(despues), ...(escenario ? { escenario } : {}) }, ...s.eventos],
+        ...(escenario && !s.escenarios.includes(escenario) ? { escenarios: [...s.escenarios, escenario] } : {}),
+      };
+    });
 
   return {
     ...((!captura && leer()) || estadoInicial()),
 
-    confirmarPrecio: (ofertaId) => {
-      set((s) => ({ ofertas: s.ofertas.map((o) => (o.id === ofertaId ? { ...o, confirmadaEl: hoy() } : o)) }));
-      evento(`Precio confirmado: ${nombreOferta(buscarOferta(get().ofertas, ofertaId))}`);
-    },
+    confirmarPrecio: (ofertaId) =>
+      aplicar(
+        (s) => ({ ofertas: s.ofertas.map((o) => (o.id === ofertaId ? { ...o, confirmadaEl: hoy() } : o)) }),
+        (s) => `Precio confirmado: ${nombreOferta(buscarOferta(s.ofertas, ofertaId))}`,
+      ),
 
-    actualizarPrecio: (ofertaId, nuevo) => {
-      set((s) => ({
-        ofertas: s.ofertas.map((o) =>
-          o.id === ofertaId ? { ...o, precioAnterior: o.precio, precio: nuevo, confirmadaEl: hoy() } : o,
-        ),
-        // Un precio nuevo en vivo es el escenario E3 (§F): se rotula «Escenario de simulación».
-        escenarios: s.escenarios.includes('E3') ? s.escenarios : [...s.escenarios, 'E3'],
-      }));
-      evento(`Precio nuevo: ${nombreOferta(buscarOferta(get().ofertas, ofertaId))}`);
-    },
+    // Un precio nuevo en vivo es el escenario E3 (§F, D-47).
+    actualizarPrecio: (ofertaId, nuevo) =>
+      aplicar(
+        (s) => ({
+          ofertas: s.ofertas.map((o) => (o.id === ofertaId ? { ...o, precioAnterior: o.precio, precio: nuevo, confirmadaEl: hoy() } : o)),
+        }),
+        (s) => `Precio nuevo: ${nombreOferta(buscarOferta(s.ofertas, ofertaId))}`,
+        'E3',
+      ),
 
-    reemplazarOferta: (oferta) =>
-      set((s) => ({ ofertas: s.ofertas.map((o) => (o.id === oferta.id ? { ...oferta } : o)) })),
+    reemplazarOferta: (oferta, escenario) =>
+      aplicar(
+        (s) => ({ ofertas: s.ofertas.map((o) => (o.id === oferta.id ? { ...oferta } : o)) }),
+        () => `Precio cambiado: ${nombreOferta(oferta)}`,
+        escenario,
+      ),
 
     agregarAlCarrito: (ofertaId, cantidad) =>
       set((s) => {
@@ -96,47 +114,63 @@ export const useDemo = create<EstadoDemo>()((set, get) => {
         return { carrito: lineas.length ? { ...s.carrito, lineas } : null };
       }),
 
-    cargarPedido0042: () => {
-      set((s) => ({
-        pedidos: s.pedidos.filter((p) => p.numero !== NUMERO_PEDIDO_EJEMPLO),
-        reclamos: s.reclamos.filter((r) => r.pedidoNumero !== NUMERO_PEDIDO_EJEMPLO),
-        carrito: { numero: NUMERO_PEDIDO_EJEMPLO, lineas: LINEAS_PEDIDO_0042.map((l) => ({ ...l })) },
-      }));
-      evento(`Pedido N.° ${NUMERO_PEDIDO_EJEMPLO} cargado en el carrito`);
-    },
+    cargarPedido0042: () =>
+      aplicar(
+        (s) => ({
+          pedidos: s.pedidos.filter((p) => p.numero !== NUMERO_PEDIDO_EJEMPLO),
+          reclamos: s.reclamos.filter((r) => r.pedidoNumero !== NUMERO_PEDIDO_EJEMPLO),
+          carrito: { numero: NUMERO_PEDIDO_EJEMPLO, lineas: LINEAS_PEDIDO_0042.map((l) => ({ ...l })) },
+        }),
+        () => `Pedido N.° ${NUMERO_PEDIDO_EJEMPLO} cargado en el carrito`,
+      ),
 
     confirmarPedido: () => {
       const s = get();
       if (!s.carrito || s.carrito.lineas.length === 0) return null;
       if (lineasVencidas(s.carrito.lineas, s.ofertas, hoy()).length > 0) return null;
-      const numero = s.carrito.numero;
-      set({
-        carrito: null,
-        pedidos: [
-          ...s.pedidos.filter((p) => p.numero !== numero),
-          { numero, fecha: hoy(), etapa: 'confirmado', lineas: fijarPrecios(s.carrito.lineas, s.ofertas), confirmadoEn: s.ahora },
-        ],
-      });
-      evento(`Pedido N.° ${numero} confirmado: precio fijado`);
-      return numero;
+      const carrito = s.carrito;
+      aplicar(
+        (x) => ({
+          carrito: null,
+          pedidos: [
+            ...x.pedidos.filter((p) => p.numero !== carrito.numero),
+            { numero: carrito.numero, fecha: hoy(), etapa: 'confirmado', lineas: fijarPrecios(carrito.lineas, x.ofertas), confirmadoEn: x.ahora },
+          ],
+        }),
+        () => `Pedido N.° ${carrito.numero} confirmado: precio fijado`,
+      );
+      return carrito.numero;
     },
 
-    pagarPedido: (numero) => {
-      set((s) => ({ pedidos: s.pedidos.map((p) => (p.numero === numero ? { ...p, etapa: 'pagado', pagadoEn: s.ahora } : p)) }));
-      evento(`Pedido N.° ${numero} pagado en una sola operación`);
-    },
+    pagarPedido: (numero) =>
+      aplicar(
+        (s) => ({ pedidos: s.pedidos.map((p) => (p.numero === numero ? { ...p, etapa: 'pagado', pagadoEn: s.ahora } : p)) }),
+        () => `Pedido N.° ${numero} pagado en una sola operación`,
+      ),
 
-    abrirReclamo: (numero, proveedorId, descripcion) => {
-      set((s) => ({
-        reclamos: [...s.reclamos, { id: `R-${s.reclamos.length + 1}`, pedidoNumero: numero, proveedorId, descripcion, abiertoEn: s.ahora }],
-      }));
-      const prov = PROVEEDORES.find((p) => p.id === proveedorId);
-      evento(`Reclamo abierto: pedido N.° ${numero} · ${prov?.nombre ?? ''}`);
-    },
+    // Un reclamo es el escenario E5 (D-43).
+    abrirReclamo: (numero, proveedorId, descripcion) =>
+      aplicar(
+        (s) => ({
+          reclamos: [...s.reclamos, { id: `R-${s.reclamos.length + 1}`, pedidoNumero: numero, proveedorId, descripcion, abiertoEn: s.ahora }],
+        }),
+        () => `Reclamo abierto: pedido N.° ${numero} · ${PROVEEDORES.find((p) => p.id === proveedorId)?.nombre ?? ''}`,
+        'E5',
+      ),
 
-    fijarAhora: (fecha, hhmm = '09:00') => set({ ahora: instante(fecha, hhmm) }),
+    fijarAhora: (fecha, opciones = {}) =>
+      aplicar(
+        () => ({ ahora: instante(fecha, opciones.hhmm ?? HORA_INICIO) }),
+        (s) => `Reloj en ${formatearFecha(fechaDeInstante(s.ahora))}`,
+        opciones.escenario,
+      ),
     avanzarHoras: (horas) => set((s) => ({ ahora: s.ahora + horas * 60 })),
-    fijarPrecioDistinto: (pb) => set({ precioDistintoHoyPb: pb }),
+    fijarPrecioDistinto: (pb, escenario) =>
+      aplicar(
+        () => ({ precioDistintoHoyPb: pb }),
+        () => `Pedidos de hoy con precio distinto: ${formatearPuntosBasicos(pb)}`,
+        escenario,
+      ),
     marcarEscenario: (id) => set((s) => ({ escenarios: s.escenarios.includes(id) ? s.escenarios : [...s.escenarios, id] })),
 
     reiniciarDemo: () => {
@@ -146,18 +180,27 @@ export const useDemo = create<EstadoDemo>()((set, get) => {
   };
 });
 
+/** true mientras se aplica un estado que llegó de otra pestaña: ese estado no se vuelve a guardar. */
+let desdeOtraPestana = false;
+
 if (!captura) {
   useDemo.subscribe((s) => {
+    if (desdeOtraPestana) return;
     const { ahora, ofertas, carrito, pedidos, reclamos, eventos, precioDistintoHoyPb, escenarios } = s;
     guardar({ ahora, ofertas, carrito, pedidos, reclamos, eventos, precioDistintoHoyPb, escenarios });
   });
 }
 
 // Si el panel de simulación y las pantallas están en pestañas distintas, se mantienen al día:
-// cada pestaña escucha los cambios que la otra guarda en localStorage.
+// cada pestaña escucha los cambios que la otra guarda en localStorage (D-51).
 if (!captura && typeof window !== 'undefined') {
   window.addEventListener('storage', (e) => {
     if (e.key !== CLAVE) return;
-    useDemo.setState(e.newValue ? leer() ?? estadoInicial() : estadoInicial());
+    desdeOtraPestana = true;
+    try {
+      useDemo.setState(e.newValue ? leer() ?? estadoInicial() : estadoInicial());
+    } finally {
+      desdeOtraPestana = false;
+    }
   });
 }

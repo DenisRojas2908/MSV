@@ -15,7 +15,9 @@ import {
 import { reclamosEscalanS3 } from '../../domain/umbrales';
 import type { ReactNode } from 'react';
 import { useDemo } from '../../store/demo';
-import { buscarProveedor, usePedido, useResumenPedido, useTablero } from '../../store/selectores';
+import { buscarProveedor, useTablero } from '../../store/selectores';
+import { PROVEEDORES } from '../../data/proveedores';
+import { resumirPedido } from '../../domain/pedido';
 import { Dinero, Etiqueta, Fecha, Porcentaje, RotuloEscenario, Semaforo, Tarjeta } from '../../ui';
 import { PantallaTablero } from './comun';
 
@@ -44,8 +46,8 @@ export function M5_3Alertas() {
   const t = useTablero();
   const reclamos = useDemo((s) => s.reclamos);
   const e4 = useDemo((s) => s.escenarios.includes('E4'));
-  const pedido = usePedido('0042');
-  const resumen = useResumenPedido(pedido?.lineas);
+  const pedidos = useDemo((s) => s.pedidos);
+  const ofertas = useDemo((s) => s.ofertas);
   const fuera = t.reclamosFuera48hPct;
 
   return (
@@ -100,7 +102,8 @@ export function M5_3Alertas() {
           {reclamos.length > 0 && (
             <ul className="mt-2 space-y-1">
               {reclamos.map((r) => {
-                const sub = resumen?.grupos.find((g) => g.proveedor.id === r.proveedorId)?.subtotal ?? 0;
+                const p = pedidos.find((x) => x.numero === r.pedidoNumero);
+                const sub = p ? resumirPedido(p.lineas, ofertas, PROVEEDORES).grupos.find((g) => g.proveedor.id === r.proveedorId)?.subtotal ?? 0 : 0;
                 return (
                   <li key={r.id} className="flex flex-wrap items-center gap-2 text-xs">
                     <RotuloEscenario />

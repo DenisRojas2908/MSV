@@ -4,6 +4,7 @@ import { useContext, type ReactNode } from 'react';
 import { ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { pantalla, TAMANOS } from '../data/pantallas';
+import { useDemo } from '../store/demo';
 import { Marca } from './Marca';
 import { Pie } from './Pie';
 import { SoloMarco } from './incrustada';
@@ -28,6 +29,8 @@ export function Pantalla({ id, titulo, contexto, volver, subbarra, expositor, ch
   const { ancho, alto } = TAMANOS[info.dispositivo];
   const captura = useModoCaptura();
   const incrustada = useContext(SoloMarco);
+  // §F: todo lo que cambia un escenario se rotula. En captura el estado es el inicial: nunca aparece.
+  const escenario = useDemo((s) => s.escenarios.length > 0);
   const web = info.dispositivo === 'web';
 
   const marco = (
@@ -46,7 +49,12 @@ export function Pantalla({ id, titulo, contexto, volver, subbarra, expositor, ch
             <ChevronLeft size={web ? 24 : 22} />
           </Link>
         )}
-        {titulo}
+        <span className="min-w-0 truncate">{titulo}</span>
+        {escenario && (
+          <span className={`ml-auto shrink-0 whitespace-nowrap rounded-full border border-dashed border-blanco/70 px-2 py-0.5 font-medium ${web ? 'text-xs' : 'text-[10px]'}`}>
+            Escenario de simulación
+          </span>
+        )}
       </div>
       {subbarra}
       <main data-contenido className={`min-h-0 flex-1 overflow-hidden ${web ? 'px-10 py-6' : 'px-4 py-3'}`}>

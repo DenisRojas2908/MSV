@@ -2,14 +2,12 @@
 import { NOMBRE_CATEGORIA } from '../../data/demo';
 import { OFERTAS_AMBAR, OFERTAS_VERDE } from '../../domain/reglas';
 import type { Categoria } from '../../domain/tipos';
-import { useDemo } from '../../store/demo';
 import { useResumenSemaforo } from '../../store/selectores';
-import { Etiqueta, Pantalla, Porcentaje, Punto, RotuloEscenario } from '../../ui';
+import { Etiqueta, Pantalla, Porcentaje, Punto } from '../../ui';
 import { CabeceraComprador } from '../comun/CabeceraComprador';
 
 export function M3_4Semaforo() {
   const sem = useResumenSemaforo();
-  const enEscenario = useDemo((s) => s.escenarios.includes('E1'));
   const c = sem.total;
 
   return (
@@ -24,7 +22,6 @@ export function M3_4Semaforo() {
             <span className="inline-flex items-center gap-1"><Punto color="ambar" /> {sem.conteo.ambar} ámbar</span>
             <span className="inline-flex items-center gap-1"><Punto color="rojo" /> {sem.conteo.rojo} rojos</span>
             {sem.zona !== 'dentro-meta' && <Etiqueta tono="ambar">Bajo la meta</Etiqueta>}
-            {enEscenario && <RotuloEscenario />}
           </p>
           <p className="mt-0.5 text-[11px] leading-tight text-texto/60">Verde: {OFERTAS_VERDE} ofertas · ámbar: {OFERTAS_AMBAR} · rojo: {OFERTAS_AMBAR - 1} o ninguna. A la derecha, ofertas vigentes.</p>
         </div>
