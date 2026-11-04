@@ -156,9 +156,9 @@ function ControlesE3() {
         <Boton onClick={() => monto !== null && e3PrecioNuevo(monto)} disabled={monto === null || !disponible}>Aplicar precio nuevo</Boton>
         <Boton sec onClick={e3PedidoNuevo}>Pedido nuevo con 1 aceite</Boton>
       </div>
-      {!disponible && <p className="mt-2 text-xs text-texto/70">El pedido N.° {NUMERO_PEDIDO_EJEMPLO} está en el carrito: confírmalo primero.</p>}
+      {!disponible && <p className="mt-2 text-xs text-texto/70">El pedido N.° {NUMERO_PEDIDO_EJEMPLO} está en el carrito: confírmalo primero.</p>}
       <ul className="mt-3 text-xs">
-        <Dato k={`Aceite en el pedido N.° ${NUMERO_PEDIDO_EJEMPLO}`}>{linea ? <><Dinero c={linea.precioUnitario} /> · fijado</> : '—'}</Dato>
+        <Dato k={`Aceite en el pedido N.° ${NUMERO_PEDIDO_EJEMPLO}`}>{linea ? <><Dinero c={linea.precioUnitario} /> · fijado</> : '—'}</Dato>
         <Dato k="Precio actual de Qhapaq">{aceite ? <Dinero c={aceite.oferta.precio} /> : '—'}</Dato>
         <Dato k="Precio distinto al mostrado"><Porcentaje pb={t.precioDistintoHoyPb} /></Dato>
       </ul>
