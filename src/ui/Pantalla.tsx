@@ -1,0 +1,65 @@
+// Marco de cada pantalla: tamaño exacto de §B.1, marca arriba a la izquierda,
+// barra verde con el título y pie. En modo captura solo se dibuja el marco.
+import type { ReactNode } from 'react';
+import { Link } from 'react-router-dom';
+import { pantalla, TAMANOS } from '../data/pantallas';
+import { Marca } from './Marca';
+import { Pie } from './Pie';
+import { useModoCaptura } from './useModoCaptura';
+
+interface Props {
+  id: string;
+  titulo: string;
+  /** A la derecha de la marca (por ejemplo, el nombre del negocio). */
+  contexto?: ReactNode;
+  /** Debajo de la barra verde (pestañas, volver). */
+  subbarra?: ReactNode;
+  /** Controles del expositor: se dibujan fuera del marco y nunca salen en capturas. */
+  expositor?: ReactNode;
+  children: ReactNode;
+}
+
+export function Pantalla({ id, titulo, contexto, subbarra, expositor, children }: Props) {
+  const info = pantalla(id);
+  const { ancho, alto } = TAMANOS[info.dispositivo];
+  const captura = useModoCaptura();
+  const web = info.dispositivo === 'web';
+
+  const marco = (
+    <div
+      data-pantalla={id}
+      className={`flex flex-col overflow-hidden bg-crema ${captura ? '' : 'shadow-xl ring-1 ring-texto/20'} ${!captura && !web ? 'rounded-[28px]' : ''}`}
+      style={{ width: ancho, height: alto }}
+    >
+      <header className={`flex shrink-0 items-center justify-between bg-blanco ${web ? 'h-16 px-10' : 'h-14 px-5'}`}>
+        <Marca grande={web} />
+        <div className="text-right text-sm text-texto/70">{contexto}</div>
+      </header>
+      <div className={`flex shrink-0 items-center bg-mallki font-semibold text-blanco ${web ? 'h-12 px-10 text-lg' : 'h-11 px-5 text-base'}`}>
+        {titulo}
+      </div>
+      {subbarra}
+      <main data-contenido className={`min-h-0 flex-1 overflow-hidden ${web ? 'px-10 py-6' : 'px-4 py-3'}`}>
+        {children}
+      </main>
+      <Pie />
+    </div>
+  );
+
+  if (captura) return marco;
+
+  return (
+    <div className="flex min-h-screen flex-col items-center gap-4 p-6">
+      <div className="flex w-full max-w-[1440px] flex-wrap items-center gap-3 text-sm">
+        <Link to="/" className="font-semibold text-mallki underline underline-offset-2">
+          Índice
+        </Link>
+        <span className="text-texto/60">
+          {info.id} {info.nombre} · {ancho} × {alto}
+        </span>
+        <div className="ml-auto flex flex-wrap items-center gap-2">{expositor}</div>
+      </div>
+      {marco}
+    </div>
+  );
+}
