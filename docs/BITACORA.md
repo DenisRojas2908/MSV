@@ -4,6 +4,17 @@ Solo se agrega. Una entrada por checkpoint, la más reciente arriba.
 
 ---
 
+## 04/11/2026 14:49 · F5 · Modo simulación cerrado
+
+- **Qué se hizo:** panel `#/simulacion` con reloj, «Reiniciar demo», E1 a E5 con controles, resultados calculados y las pantallas afectadas en paralelo; sincronización entre pestañas; guía de la feria.
+- **Archivos:** `src/simulacion/index.tsx`, `src/simulacion/escenarios.ts`, `docs/GUIA_DEMO.md`, `docs/MAPA.md`.
+- **Decisiones:** D-48 a D-51.
+- **Pruebas:** 73 pasan (una por escenario, más el reinicio después de los cinco).
+- **Para revisar:** `#/simulacion` con E2 (antes y después de la subida); E4 con 1 y con 1.5; `docs/GUIA_DEMO.md`.
+- **Siguiente paso:** F6.
+
+---
+
 ## 04/11/2026 14:47 · F4 · Tablero M5 cerrado
 
 - **Qué se hizo:** M5-1 a M5-4 con pestañas. Auditor sobre M5: sin bloqueos; 4 menores aplicados (regla de 4 semanas, una sola etiqueta algedónica, espacios en por vencer, rótulo de escenario sin ámbar). Inicio de F5: escenarios E1 a E5 como funciones del store con una prueba cada uno; pantallas incrustables y sincronización entre pestañas.

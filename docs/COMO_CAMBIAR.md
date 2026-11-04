@@ -285,6 +285,30 @@ Cada fila es un texto visible y dónde editarlo. Las partes entre `{…}` son da
 
 | Texto | Archivo y línea |
 |---|---|
-| Panel de simulación | `src/simulacion/index.tsx:14` |
-| Índice | `src/simulacion/index.tsx:15` |
-| Reiniciar demo | `src/simulacion/index.tsx:21` |
+| Avanzar el reloj al día siguiente | `src/simulacion/index.tsx:99` |
+| NOMBRE_COLOR[sem.lista[0].color] | `src/simulacion/index.tsx:103` |
+| 1 · Antes de la subida | `src/simulacion/index.tsx:117` |
+| 2 · Aplicar la subida | `src/simulacion/index.tsx:118` |
+| subió | `src/simulacion/index.tsx:130` |
+| nuevo precio | `src/simulacion/index.tsx:154` |
+| Aplicar precio nuevo | `src/simulacion/index.tsx:156` |
+| Pedido nuevo con 1 aceite | `src/simulacion/index.tsx:157` |
+| El pedido N.° {NUMERO_PEDIDO_EJEMPLO} está en el carrito: confírmalo primero. | `src/simulacion/index.tsx:159` |
+| · fijado | `src/simulacion/index.tsx:161` |
+| porcentaje del día | `src/simulacion/index.tsx:177` |
+| por ciento | `src/simulacion/index.tsx:178` |
+| Aplicar | `src/simulacion/index.tsx:180` |
+| Activa · unidad ${t.senal.plazoUnidadHoras | `src/simulacion/index.tsx:185` |
+| Describe el problema | `src/simulacion/index.tsx:206` |
+| Abrir reclamo a {nombre} | `src/simulacion/index.tsx:209` |
+| Escenario de simulación | `src/simulacion/index.tsx:235` |
+| Qué hace: | `src/simulacion/index.tsx:240` |
+| Qué debe pasar: | `src/simulacion/index.tsx:241` |
+| Origen: {e.origen} | `src/simulacion/index.tsx:242` |
+| Panel de simulación | `src/simulacion/index.tsx:261` |
+| Vista del expositor · no aparece en las capturas | `src/simulacion/index.tsx:262` |
+| Hoy: | `src/simulacion/index.tsx:263` |
+| Índice | `src/simulacion/index.tsx:267` |
+| Eventos | `src/simulacion/index.tsx:275` |
+| Sin cambios desde el {formatearFecha(FECHA_DEMO)}. | `src/simulacion/index.tsx:277` |
+| Pantallas afectadas por {escenario.id} · {escenario.nombre} | `src/simulacion/index.tsx:288` |

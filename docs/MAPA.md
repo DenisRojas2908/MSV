@@ -74,12 +74,30 @@ Conceptos que aparecen:
 | `piezas.tsx` | `Tarjeta`, `Boton`, `Etiqueta`, `RotuloEscenario`, `Campo` |
 | `Indice.tsx` | índice `#/` con las 20 pantallas |
 | `useModoCaptura.ts` | oculta todo fuera del marco con `?captura=1` |
+| `Pestanas.tsx` | pestañas de M2 y M5 |
+| `incrustada.tsx` | `SoloMarco`, `ParametrosVista`, `useParametro` para el panel |
 
 ## `src/modules` · pantallas por módulo
 
-Cada carpeta tiene `index.ts` (qué componente va en cada pantalla) y un archivo por pantalla. `src/rutas.tsx` las registra.
+Cada carpeta tiene `index.ts` (qué componente va en cada pantalla) y un archivo por pantalla (`M3_2Comparador.tsx` = pantalla M3-2). `src/registro.ts` junta los 20 componentes; `src/rutas.tsx` los asigna a `#/m1-1` … `#/m5-4`.
+
+| Carpeta | Pantallas | Piezas propias |
+|---|---|---|
+| `comun/` | — | `CabeceraComprador` (nombre del negocio arriba a la derecha), `texto.ts` (búsqueda sin tildes) |
+| `m1-registro/` | M1-1 Registro, M1-2 Onboarding, M1-3 Inicio, M1-4 Mis pedidos y reclamos | — |
+| `m2-proveedor/` | M2-1 a M2-4 de Distribuidora Qhapaq | `comun.tsx`: marco con pestañas y `QHAPAQ` |
+| `m3-comparador/` | M3-1 Buscador, M3-2 Comparador (`?sku=n`), M3-3 Alerta, M3-4 Semáforo | — |
+| `m4-pedido-pago/` | M4-1 Carrito, M4-2 Confirmación, M4-3 Pago, M4-4 Seguimiento | `vista.ts`: qué pedido y etapa muestra cada pantalla (D-08); `GruposProveedor.tsx` |
+| `m5-tablero/` | M5-1 Tablero, M5-2 Semáforos, M5-3 Alertas, M5-4 Compromisos | `comun.tsx`: marco con pestañas, rótulo «Datos de demostración · mes 3 del piloto», zona de cobertura |
 
 ## `src/simulacion` · panel del presentador (F5)
+
+| Archivo | Qué hace |
+|---|---|
+| `escenarios.ts` | La tabla de §F (texto literal) y las acciones `e1PrecioVencido`, `e2Antes`, `e2Subida`, `e3PrecioNuevo`, `e3PedidoNuevo`, `e4PrecioDistinto`, `e5Reclamo`; `leerMonto`, `leerPorcentaje` |
+| `index.tsx` | `#/simulacion`: reloj, «Reiniciar demo», una tarjeta por escenario con sus controles y resultados, y las pantallas afectadas incrustadas y escaladas (`Vista`) |
+
+`src/ui/incrustada.tsx` permite dibujar una pantalla dentro del panel (solo el marco) y pasarle parámetros como `sku`. El store se sincroniza entre pestañas por `localStorage`.
 
 ## `tests/` · Vitest
 
