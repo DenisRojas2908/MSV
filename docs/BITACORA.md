@@ -1,0 +1,14 @@
+# Bitácora
+
+Solo se agrega. Una entrada por checkpoint, la más reciente arriba.
+
+---
+
+## 04/11/2026 14:20 · Preparación · Sistema de memoria y skills
+
+- **Qué se hizo:** memoria del proyecto en el repo (`ESTADO`, `BITACORA`, `MAPA`, `COMO_CAMBIAR`), skills `retomar`, `checkpoint`, `pantalla`, `capturas` y `cambio-dp`, subagente `auditor`, hook SessionStart para `npm install` en la nube.
+- **Archivos:** `CLAUDE.md`, `docs/*.md`, `.claude/`.
+- **Decisiones:** D-07 (una sola sesión).
+- **Pruebas:** aún no hay proyecto.
+- **Para revisar:** `CLAUDE.md` sección «Memoria y checkpoints»; `.claude/skills/cambio-dp/SKILL.md`.
+- **Siguiente paso:** F0.
