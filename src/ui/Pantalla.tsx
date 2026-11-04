@@ -1,6 +1,7 @@
 // Marco de cada pantalla: tamaño exacto de §B.1, marca arriba a la izquierda,
 // barra verde con el título y pie. En modo captura solo se dibuja el marco.
 import type { ReactNode } from 'react';
+import { ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { pantalla, TAMANOS } from '../data/pantallas';
 import { Marca } from './Marca';
@@ -12,14 +13,16 @@ interface Props {
   titulo: string;
   /** A la derecha de la marca (por ejemplo, el nombre del negocio). */
   contexto?: ReactNode;
-  /** Debajo de la barra verde (pestañas, volver). */
+  /** Ruta a la que vuelve la flecha de la barra verde. */
+  volver?: string;
+  /** Debajo de la barra verde (pestañas). */
   subbarra?: ReactNode;
   /** Controles del expositor: se dibujan fuera del marco y nunca salen en capturas. */
   expositor?: ReactNode;
   children: ReactNode;
 }
 
-export function Pantalla({ id, titulo, contexto, subbarra, expositor, children }: Props) {
+export function Pantalla({ id, titulo, contexto, volver, subbarra, expositor, children }: Props) {
   const info = pantalla(id);
   const { ancho, alto } = TAMANOS[info.dispositivo];
   const captura = useModoCaptura();
@@ -36,6 +39,11 @@ export function Pantalla({ id, titulo, contexto, subbarra, expositor, children }
         <div className="text-right text-sm text-texto/70">{contexto}</div>
       </header>
       <div className={`flex shrink-0 items-center bg-mallki font-semibold text-blanco ${web ? 'h-12 px-10 text-lg' : 'h-11 px-5 text-base'}`}>
+        {volver && (
+          <Link to={volver} aria-label="Volver" className="-ml-1 mr-1 text-blanco">
+            <ChevronLeft size={web ? 24 : 22} />
+          </Link>
+        )}
         {titulo}
       </div>
       {subbarra}
