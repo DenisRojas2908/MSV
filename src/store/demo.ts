@@ -10,7 +10,7 @@ import { buscarOferta, fijarPrecios, lineasVencidas, siguienteNumero } from '../
 import type { Centimos, FechaISO, Oferta, ProveedorId, PuntosBasicos } from '../domain/tipos';
 import { esModoCaptura } from './captura';
 import { estadoInicial, type DatosDemo, type EscenarioId } from './inicial';
-import { borrar, guardar, leer } from './persistencia';
+import { borrar, CLAVE, guardar, leer } from './persistencia';
 
 export interface AccionesDemo {
   /** M2-3: el proveedor confirma su precio; la vigencia vuelve a 7 días. */
@@ -150,5 +150,14 @@ if (!captura) {
   useDemo.subscribe((s) => {
     const { ahora, ofertas, carrito, pedidos, reclamos, eventos, precioDistintoHoyPb, escenarios } = s;
     guardar({ ahora, ofertas, carrito, pedidos, reclamos, eventos, precioDistintoHoyPb, escenarios });
+  });
+}
+
+// Si el panel de simulación y las pantallas están en pestañas distintas, se mantienen al día:
+// cada pestaña escucha los cambios que la otra guarda en localStorage.
+if (!captura && typeof window !== 'undefined') {
+  window.addEventListener('storage', (e) => {
+    if (e.key !== CLAVE) return;
+    useDemo.setState(e.newValue ? leer() ?? estadoInicial() : estadoInicial());
   });
 }

@@ -7,3 +7,4 @@ export { Tarjeta, Boton, Etiqueta, RotuloEscenario, Campo } from './piezas';
 export { Provisional } from './Provisional';
 export { Pestanas } from './Pestanas';
 export { useModoCaptura } from './useModoCaptura';
+export { SoloMarco, ParametrosVista, useParametro } from './incrustada';

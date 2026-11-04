@@ -75,3 +75,8 @@ Se usa el valor de «Mientras no se decida».
 - **D-45 · Catálogo de Qhapaq** (04/11/2026). En M2-2 los SKU de envases aparecen deshabilitados («fuera de tu categoría»), así la casilla ecológica nunca aparece para Qhapaq (P-11). «Guardar precio» solo actúa sobre las dos ofertas con precio; un precio nuevo cuenta como confirmación (D-27).
 - **D-46 · Plazo lleno en M2-2** (04/11/2026). El campo «Plazo de entrega» de M2-2 muestra «24 h», que es dato de §A.2 (plazo de Qhapaq), no un valor inventado. D-20 enumera como vacíos RUC, distritos, documentos y stock. El auditor lo marcó como menor: si el DP prefiere placeholder, se cambia en `src/modules/m2-proveedor/M2_2Catalogo.tsx`.
 - **D-47 · Un precio nuevo en vivo marca E3** (04/11/2026). `actualizarPrecio` registra el escenario E3, así M2-3, M5 y M3-3 rotulan «Escenario de simulación» cuando el expositor cambia un precio desde M2-2.
+- **D-48 · Tabla de escenarios literal** (04/11/2026). `src/simulacion/escenarios.ts` copia la tabla de §F (qué hace el presentador y qué debe pasar) como texto de referencia; por eso la prueba de cifras escritas a mano lo exceptúa. Lo que el panel muestra como resultado se calcula con el dominio.
+- **D-49 · Rótulo «Escenario de simulación»** (04/11/2026). Se dibuja con borde punteado gris, no en ámbar: §A.4 reserva el ámbar para el semáforo y las alertas (hallazgo menor del auditor de M5).
+- **D-50 · Una sola etiqueta para E4** (04/11/2026). M5-1 y M5-3 dicen «Señal algedónica activa» cuando el precio distinto pasa de 1 %.
+- **D-51 · Panel y pantallas en paralelo** (04/11/2026). El panel `#/simulacion` muestra las pantallas afectadas incrustadas y escaladas, con el mismo store. Si el expositor abre las pantallas en otra pestaña, ambas se sincronizan por `localStorage`.
+
