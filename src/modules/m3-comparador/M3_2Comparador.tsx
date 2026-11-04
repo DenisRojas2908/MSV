@@ -5,10 +5,10 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { skusConPrecio } from '../../domain/comparador';
 import { AVISO_CAMBIO_CRITERIOS_H, VIGENCIA_DIAS } from '../../domain/reglas';
-import { textoVigencia } from '../../domain/vigencia';
+import { esVigente, textoVigencia } from '../../domain/vigencia';
 import { formatearCalificacion } from '../../domain/umbrales';
 import { useDemo } from '../../store/demo';
-import { buscarSku, useComparador, useResumenSemaforo } from '../../store/selectores';
+import { buscarProveedor, buscarSku, useComparador, useHoy, useResumenSemaforo } from '../../store/selectores';
 import { Boton, Dinero, Etiqueta, Fecha, Pantalla, Semaforo, Tarjeta, useParametro } from '../../ui';
 import { CabeceraComprador } from '../comun/CabeceraComprador';
 
@@ -23,6 +23,8 @@ export function M3_2Comparador() {
   const navegar = useNavigate();
   const [cantidad, setCantidad] = useState(1);
   const [criterio, setCriterio] = useState(true);
+  const hoy = useHoy();
+  const vencidas = ofertas.filter((o) => o.skuN === skuN && !esVigente(o, hoy));
 
   return (
     <Pantalla id="M3-2" titulo="Comparador" contexto={<CabeceraComprador />} volver="/m3-1">
@@ -82,6 +84,13 @@ export function M3_2Comparador() {
             );
           })}
         </ol>
+
+        {vencidas.map((o) => (
+          <p key={o.id} className="flex items-center justify-between rounded-lg bg-texto/5 px-3 py-2 text-xs text-texto/70">
+            <span>{buscarProveedor(o.proveedorId).nombre} · confirmado <Fecha f={o.confirmadaEl} corta /></span>
+            <Etiqueta tono="rojo">No disponible</Etiqueta>
+          </p>
+        ))}
 
         <div className="flex items-center justify-between rounded-lg bg-blanco px-3 py-2 text-sm ring-1 ring-texto/10">
           <span className="text-texto/70">Cantidad</span>

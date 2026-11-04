@@ -3,8 +3,8 @@
 import { BellRing, ChevronRight, MessageCircle, MessageSquareWarning, Package, Search } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { COMPRADOR } from '../../data/comprador';
-import { NUMERO_PEDIDO_EJEMPLO } from '../../data/demo';
-import { useAlertas, usePedido, useResumenPedido } from '../../store/selectores';
+import { useDemo } from '../../store/demo';
+import { useAlertas, useResumenPedido } from '../../store/selectores';
 import { Dinero, Pantalla, Porcentaje } from '../../ui';
 import { CabeceraComprador } from '../comun/CabeceraComprador';
 
@@ -15,8 +15,10 @@ const ACCESOS = [
 ] as const;
 
 export function M1_3Inicio() {
-  const alerta = useAlertas()[0];
-  const pedido = usePedido(NUMERO_PEDIDO_EJEMPLO);
+  const alertas = useAlertas();
+  const alerta = alertas[0];
+  const pedidos = useDemo((s) => s.pedidos);
+  const pedido = pedidos[pedidos.length - 1] ?? null;
   const resumen = useResumenPedido(pedido?.lineas);
   const nombre = COMPRADOR.duena.split(' ')[0];
 
@@ -30,7 +32,7 @@ export function M1_3Inicio() {
             <BellRing size={20} className="shrink-0 text-ambar" />
             <span className="text-sm leading-snug">
               <span className="font-semibold">Aviso de precio:</span> {alerta.sku.nombre} de {alerta.proveedor.nombre} subió{' '}
-              <Porcentaje valor={alerta.variacion} />. Ver alternativas
+              <Porcentaje valor={alerta.variacion} />.{alertas.length > 1 && ` Y ${alertas.length - 1} ${alertas.length === 2 ? 'aviso' : 'avisos'} más.`} Ver alternativas
             </span>
             <ChevronRight size={18} className="ml-auto shrink-0" />
           </Link>
@@ -60,7 +62,7 @@ export function M1_3Inicio() {
               <span className="font-semibold">Pedido N.° {pedido.numero}</span>
               <span className="font-semibold"><Dinero c={resumen.total} /></span>
             </span>
-            <span className="block text-xs text-texto/60">{resumen.grupos.length} proveedores · un solo pago</span>
+            <span className="block text-xs text-texto/60">{resumen.grupos.length} {resumen.grupos.length === 1 ? 'proveedor' : 'proveedores'} · un solo pago</span>
           </Link>
         )}
 

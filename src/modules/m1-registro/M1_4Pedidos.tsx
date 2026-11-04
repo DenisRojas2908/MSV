@@ -17,7 +17,8 @@ export function M1_4Pedidos() {
   const reclamos = useDemo((s) => s.reclamos);
   const ahora = useDemo((s) => s.ahora);
   const abrir = useDemo((s) => s.abrirReclamo);
-  const pedido = pedidos[pedidos.length - 1] ?? null;
+  const [elegido, setElegido] = useState<string | null>(null);
+  const pedido = pedidos.find((p) => p.numero === elegido) ?? pedidos[pedidos.length - 1] ?? null;
   const resumen = useResumenPedido(pedido?.lineas);
   const [formulario, setFormulario] = useState(false);
   const [proveedor, setProveedor] = useState<ProveedorId | null>(null);
@@ -37,13 +38,27 @@ export function M1_4Pedidos() {
         <p className="text-sm text-texto/70">Todavía no tienes pedidos.</p>
       ) : (
         <div className="flex h-full flex-col gap-3">
+          {pedidos.length > 1 && (
+            <div className="flex gap-1.5">
+              {[...pedidos].reverse().map((p) => (
+                <button
+                  key={p.numero}
+                  type="button"
+                  onClick={() => setElegido(p.numero)}
+                  className={`rounded-full px-3 py-1 text-xs font-semibold ${p.numero === pedido.numero ? 'bg-mallki text-blanco' : 'bg-blanco ring-1 ring-texto/20'}`}
+                >
+                  N.°&nbsp;{p.numero}
+                </button>
+              ))}
+            </div>
+          )}
           <Tarjeta className="px-3.5 py-3">
             <div className="flex items-baseline justify-between">
               <h1 className="text-base font-bold">Pedido N.° {pedido.numero}</h1>
               <span className="font-bold"><Dinero c={resumen.total} /></span>
             </div>
             <p className="text-xs text-texto/60">
-              <Fecha f={pedido.fecha} /> · {resumen.grupos.length} proveedores · un solo pago
+              <Fecha f={pedido.fecha} /> · {resumen.grupos.length} {resumen.grupos.length === 1 ? 'proveedor' : 'proveedores'} · un solo pago
             </p>
             <ul className="mt-2 divide-y divide-texto/10">
               {resumen.grupos.map((g) => {

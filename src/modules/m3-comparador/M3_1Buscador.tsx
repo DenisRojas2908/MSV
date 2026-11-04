@@ -72,7 +72,7 @@ export function M3_1Buscador() {
             <BellRing size={18} className="shrink-0 text-ambar" />
             <span className="text-xs leading-snug">
               <span className="font-semibold">Aviso de precio:</span> {alerta.sku.nombre} de {alerta.proveedor.nombre} subió{' '}
-              <Porcentaje valor={alerta.variacion} />. Ver alternativas
+              <Porcentaje valor={alerta.variacion} />.{alertas.length > 1 && ` Y ${alertas.length - 1} ${alertas.length === 2 ? 'aviso' : 'avisos'} más.`} Ver alternativas
             </span>
             <ChevronRight size={16} className="ml-auto shrink-0" />
           </Link>

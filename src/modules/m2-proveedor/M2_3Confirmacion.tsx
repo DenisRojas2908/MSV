@@ -7,13 +7,12 @@ import { VIGENCIA_DIAS } from '../../domain/reglas';
 import { diasRestantes, estadoVigencia } from '../../domain/vigencia';
 import { useDemo } from '../../store/demo';
 import { useHoy } from '../../store/selectores';
-import { Boton, Dinero, Etiqueta, Fecha, RotuloEscenario, Tarjeta } from '../../ui';
+import { Boton, Dinero, Etiqueta, Fecha, Tarjeta } from '../../ui';
 import { PantallaProveedor, QHAPAQ } from './comun';
 
 export function M2_3Confirmacion() {
   const ofertas = useDemo((s) => s.ofertas);
   const confirmar = useDemo((s) => s.confirmarPrecio);
-  const escenario = useDemo((s) => s.escenarios.length > 0);
   const hoy = useHoy();
   const propias = ofertas.filter((o) => o.proveedorId === QHAPAQ.id);
 
@@ -27,7 +26,6 @@ export function M2_3Confirmacion() {
               Hoy <Fecha f={hoy} /> · confirma tus precios para que sigan en el comparador.
             </p>
           </div>
-          {escenario && <RotuloEscenario />}
         </div>
 
         <Tarjeta className="overflow-hidden">
