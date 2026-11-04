@@ -2,7 +2,7 @@
 // y las ofertas por vencer en 48 horas.
 import { NOMBRE_CATEGORIA } from '../../data/demo';
 import { SKUS } from '../../data/skus';
-import { OFERTAS_AMBAR, OFERTAS_VERDE, UMBRAL_CATEGORIA_PCT, VIGENCIA_DIAS } from '../../domain/reglas';
+import { OFERTAS_AMBAR, OFERTAS_VERDE, SEMANAS_CATEGORIA_ROJO, UMBRAL_CATEGORIA_PCT, VIGENCIA_DIAS } from '../../domain/reglas';
 import { categoriaEnAlerta } from '../../domain/semaforo';
 import type { Categoria } from '../../domain/tipos';
 import { diasRestantes, estadoVigencia, textoVigencia } from '../../domain/vigencia';
@@ -66,14 +66,14 @@ export function M5_2Semaforos() {
             })}
           </div>
           <p className="mt-3 text-xs text-texto/60">
-            Escala al S3: una categoría ancla bajo <Porcentaje valor={UMBRAL_CATEGORIA_PCT} /> de cobertura. El mismo cálculo alimenta el semáforo del comprador.
+            Escala al S3: una categoría en rojo {SEMANAS_CATEGORIA_ROJO} semanas seguidas o una categoría ancla bajo <Porcentaje valor={UMBRAL_CATEGORIA_PCT} /> de cobertura. El mismo cálculo alimenta el semáforo del comprador.
           </p>
         </Tarjeta>
 
         <div className="flex flex-col gap-5">
           <Tarjeta className="p-6">
             <h2 className="text-sm font-semibold text-texto/70">Ofertas por vencer en 48 horas · S2-M3</h2>
-            <p className="mt-1 text-xs text-texto/60">Hoy <Fecha f={hoy} /> · precio vigente: confirmado en los últimos {VIGENCIA_DIAS} días</p>
+            <p className="mt-1 text-xs text-texto/60">Hoy <Fecha f={hoy} /> · vigencia de {VIGENCIA_DIAS} días</p>
             {porVencer.length === 0 ? (
               <p className="mt-3 text-sm text-texto/70">Ninguna.</p>
             ) : (
@@ -88,9 +88,14 @@ export function M5_2Semaforos() {
                         <Dinero c={o.precio} />
                       </div>
                       <p className="text-sm">{buscarProveedor(o.proveedorId).nombre}</p>
-                      <p className="mt-1 flex items-center gap-2 text-xs text-texto/70">
-                        Confirmado <Fecha f={o.confirmadaEl} corta /> · {d} {d === 1 ? 'día' : 'días'}
-                        {textoVigencia(estadoVigencia(o, hoy)) && <Etiqueta tono="ambar">{textoVigencia(estadoVigencia(o, hoy))}</Etiqueta>}
+                      <p className="mt-1 text-xs text-texto/70">
+                        Confirmado <Fecha f={o.confirmadaEl} corta />
+                        {' · '}
+                        {textoVigencia(estadoVigencia(o, hoy)) ? (
+                          <Etiqueta tono="ambar">{textoVigencia(estadoVigencia(o, hoy))}</Etiqueta>
+                        ) : (
+                          <>quedan {d} días</>
+                        )}
                       </p>
                     </li>
                   );

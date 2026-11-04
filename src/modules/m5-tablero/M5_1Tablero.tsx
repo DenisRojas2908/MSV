@@ -52,7 +52,7 @@ export function M5_1Tablero() {
           nombre={NOMBRES_INDICADORES.precioDistinto}
           valor={<Porcentaje pb={t.precioDistintoHoyPb} />}
           meta={t.metaPrecioDistintoTexto}
-          pie={t.senal.activa ? <span className="text-sm font-semibold"><Semaforo color="rojo" etiqueta="Canal algedónico activo" /></span> : undefined}
+          pie={t.senal.activa ? <span className="text-sm font-semibold"><Semaforo color="rojo" etiqueta="Señal algedónica activa" /></span> : undefined}
         />
         <Indicador
           nombre={NOMBRES_INDICADORES.ventas}

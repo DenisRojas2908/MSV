@@ -51,7 +51,11 @@ export function Etiqueta({ children, tono = 'neutro' }: { children: ReactNode; t
 
 /** Rótulo que acompaña todo lo que cambia un escenario (§F). */
 export function RotuloEscenario() {
-  return <Etiqueta tono="ambar">Escenario de simulación</Etiqueta>;
+  return (
+    <span className="inline-flex items-center whitespace-nowrap rounded-full border border-dashed border-texto/40 px-2 py-0.5 text-xs font-medium text-texto/80">
+      Escenario de simulación
+    </span>
+  );
 }
 
 export function Campo({ etiqueta, valor, placeholder }: { etiqueta: string; valor?: string; placeholder?: string }) {

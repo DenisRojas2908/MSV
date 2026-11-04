@@ -15,6 +15,8 @@ export const OFERTAS_VERDE = 3;
 export const OFERTAS_AMBAR = 2;
 /** S2-M1: máximo de ofertas por SKU en el comparador. */
 export const MAX_OFERTAS_POR_SKU = 3;
+/** S2-M1: una categoría en rojo 4 semanas seguidas escala al S3. */
+export const SEMANAS_CATEGORIA_ROJO = 4;
 /** §D y D-25: alerta del S3 si una categoría ancla baja de 50 % de cobertura. */
 export const UMBRAL_CATEGORIA_PCT = 50;
 /** S2-M2: calificación menor a 3.5 pasa a revisión (en décimas). */
