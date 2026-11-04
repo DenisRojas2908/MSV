@@ -79,4 +79,7 @@ Se usa el valor de «Mientras no se decida».
 - **D-49 · Rótulo «Escenario de simulación»** (04/11/2026). Se dibuja con borde punteado gris, no en ámbar: §A.4 reserva el ámbar para el semáforo y las alertas (hallazgo menor del auditor de M5).
 - **D-50 · Una sola etiqueta para E4** (04/11/2026). M5-1 y M5-3 dicen «Señal algedónica activa» cuando el precio distinto pasa de 1 %.
 - **D-51 · Panel y pantallas en paralelo** (04/11/2026). El panel `#/simulacion` muestra las pantallas afectadas incrustadas y escaladas, con el mismo store. Si el expositor abre las pantallas en otra pestaña, ambas se sincronizan por `localStorage`.
+- **D-52 · Acciones atómicas del store** (04/11/2026, auditoría F7 #1). Cada acción hace un solo `set()` con el cambio, su evento y la marca de escenario; el estado que llega de otra pestaña no se vuelve a guardar. Una prueba exige una sola actualización por escenario.
+- **D-53 · Rótulo de escenario en la barra verde** (04/11/2026, auditoría F7 #2 y #3). Con cualquier escenario aplicado, todas las pantallas llevan «Escenario de simulación» en la barra verde. Las marcas puntuales (reclamo, retención, valor de E4) se conservan. En captura nunca aparece: el estado inicial no tiene escenarios.
+- **D-54 · Ajustes menores de la auditoría F7** (04/11/2026). M3-2 lista las ofertas «No disponible»; M1-4 permite elegir entre pedidos y M1-3 muestra el último; plurales de «proveedor»; los avisos de precio indican cuántos más hay; M5-3 toma el monto de cada reclamo de su propio pedido; espacios de no separación en «N.° 0042» del panel.
 
