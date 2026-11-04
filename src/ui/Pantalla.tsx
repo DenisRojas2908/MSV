@@ -1,11 +1,12 @@
 // Marco de cada pantalla: tamaño exacto de §B.1, marca arriba a la izquierda,
 // barra verde con el título y pie. En modo captura solo se dibuja el marco.
-import type { ReactNode } from 'react';
+import { useContext, type ReactNode } from 'react';
 import { ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { pantalla, TAMANOS } from '../data/pantallas';
 import { Marca } from './Marca';
 import { Pie } from './Pie';
+import { SoloMarco } from './incrustada';
 import { useModoCaptura } from './useModoCaptura';
 
 interface Props {
@@ -26,6 +27,7 @@ export function Pantalla({ id, titulo, contexto, volver, subbarra, expositor, ch
   const info = pantalla(id);
   const { ancho, alto } = TAMANOS[info.dispositivo];
   const captura = useModoCaptura();
+  const incrustada = useContext(SoloMarco);
   const web = info.dispositivo === 'web';
 
   const marco = (
@@ -54,7 +56,7 @@ export function Pantalla({ id, titulo, contexto, volver, subbarra, expositor, ch
     </div>
   );
 
-  if (captura) return marco;
+  if (captura || incrustada) return marco;
 
   return (
     <div className="flex min-h-screen flex-col items-center gap-4 p-6">

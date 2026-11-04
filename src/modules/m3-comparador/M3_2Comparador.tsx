@@ -2,20 +2,19 @@
 // sin destacados. «vence mañana» y «subió de» se calculan. «¿Cómo ordenamos?» (S2-M4).
 import { Info, Minus, Plus, Star } from 'lucide-react';
 import { useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { skusConPrecio } from '../../domain/comparador';
 import { AVISO_CAMBIO_CRITERIOS_H, VIGENCIA_DIAS } from '../../domain/reglas';
 import { textoVigencia } from '../../domain/vigencia';
 import { formatearCalificacion } from '../../domain/umbrales';
 import { useDemo } from '../../store/demo';
 import { buscarSku, useComparador, useResumenSemaforo } from '../../store/selectores';
-import { Boton, Dinero, Etiqueta, Fecha, Pantalla, Semaforo, Tarjeta } from '../../ui';
+import { Boton, Dinero, Etiqueta, Fecha, Pantalla, Semaforo, Tarjeta, useParametro } from '../../ui';
 import { CabeceraComprador } from '../comun/CabeceraComprador';
 
 export function M3_2Comparador() {
-  const [params] = useSearchParams();
   const ofertas = useDemo((s) => s.ofertas);
-  const pedido = Number(params.get('sku') ?? '1');
+  const pedido = Number(useParametro('sku') ?? '1');
   const skuN = skusConPrecio(ofertas).includes(pedido) ? pedido : 1;
   const sku = buscarSku(skuN);
   const lista = useComparador(skuN);
