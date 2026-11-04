@@ -20,3 +20,6 @@ export const MALLKI_EN_UNA_FRASE =
   'Mallki es un marketplace B2B asset-light que permite a las MYPE gastronómicas de Lima Centro comparar precios de insumos no perecibles y comprar a varios proveedores en un solo pedido.';
 
 export const PIE = 'Prototipo Mallki · datos de demostración';
+
+/** §B.3 M1-3: «Respondemos en menos de 4 horas hábiles». */
+export const AYUDA_WHATSAPP_HORAS_HABILES = 4;

@@ -5,6 +5,7 @@ import { esExcepcionS3, plazosReclamo } from '../../domain/reclamos';
 import {
   PLAZO_ALGEDONICO_S3_H,
   PLAZO_ALGEDONICO_UNIDAD_H,
+  PLAZO_CONCENTRACION_U2_H,
   PLAZO_DESCARGO_U2_H,
   PLAZO_RECLAMO_U1_H,
   UMBRAL_ALGEDONICO_PB,
@@ -81,12 +82,12 @@ export function M5_3Alertas() {
           estado={<span className="text-texto/60">Sin dato en la demostración</span>}
         >
           Cada alerta de precio reparte la demanda entre las alternativas. Si un proveedor concentra <Porcentaje valor={UMBRAL_CONCENTRACION_PCT} /> o más de
-          las ventas de una categoría después de las {PLAZO_DESCARGO_U2_H} horas de U2, escala al S3.
+          las ventas de una categoría después de las {PLAZO_CONCENTRACION_U2_H} horas de U2, escala al S3.
         </Alerta>
 
         <Alerta
           mecanismo="S2-M8 · dueño único del reclamo"
-          titulo="Reclamos fuera de 48 horas"
+          titulo={`Reclamos fuera de ${PLAZO_RECLAMO_U1_H} horas`}
           valor={<Porcentaje valor={fuera} />}
           detalleValor={<>derivado de <Porcentaje valor={t.reclamosCerradosEn48hPct} /> cerrados en {PLAZO_RECLAMO_U1_H} h</>}
           estado={

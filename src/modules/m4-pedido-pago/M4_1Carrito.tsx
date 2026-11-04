@@ -1,5 +1,6 @@
 // M4-1 Carrito (§B.3 M4): pedido agrupado por proveedor, con subtotal y plazo. Total S/ 490.60.
 import { useNavigate } from 'react-router-dom';
+import { NUMERO_PEDIDO_EJEMPLO } from '../../data/demo';
 import { lineasVencidas, proveedoresDelPedido } from '../../domain/pedido';
 import { useDemo } from '../../store/demo';
 import { useHoy, useResumenPedido } from '../../store/selectores';
@@ -25,7 +26,7 @@ export function M4_1Carrito() {
       titulo="Carrito"
       contexto={<CabeceraComprador />}
       volver="/m3-1"
-      expositor={<Boton variante="secundario" className="px-3 py-1.5 text-xs" onClick={cargar}>Cargar pedido N.° 0042</Boton>}
+      expositor={<Boton variante="secundario" className="px-3 py-1.5 text-xs" onClick={cargar}>Cargar pedido N.° {NUMERO_PEDIDO_EJEMPLO}</Boton>}
     >
       {!carrito || !resumen ? (
         <div className="flex h-full flex-col items-center justify-center gap-3 text-center">

@@ -28,6 +28,13 @@ describe('textos', () => {
       expect(t, f).not.toMatch(/\b\d{1,3}\.\d{2}\b(?![^{]*\})/);
     }
   });
+  it('ni «0042» ni «N horas» escritos a mano en módulos y simulación (auditoría independiente #11)', () => {
+    for (const f of UI.filter((x) => !x.endsWith('escenarios.ts'))) {
+      const t = sinComentarios(readFileSync(f, 'utf8'));
+      expect(t, f).not.toMatch(/(?<![\w/])0042(?!\w)/);
+      expect(t, f).not.toMatch(/\b\d+\s?(horas|h)\b/);
+    }
+  });
   it('nada de §A.5 en el código', () => {
     const prohibidas = [/health meter/i, /patrocinad/i, /recomendad/i, /tecnopor/i, /ya opera/i, /clientes actuales/i, /resultados obtenidos/i, /\bU4\b/, /Unidad 1\.1/];
     for (const f of TODO) {

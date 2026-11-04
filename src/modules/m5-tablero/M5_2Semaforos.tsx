@@ -2,7 +2,7 @@
 // y las ofertas por vencer en 48 horas.
 import { NOMBRE_CATEGORIA } from '../../data/demo';
 import { SKUS } from '../../data/skus';
-import { OFERTAS_AMBAR, OFERTAS_VERDE, SEMANAS_CATEGORIA_ROJO, UMBRAL_CATEGORIA_PCT, VIGENCIA_DIAS } from '../../domain/reglas';
+import { OFERTAS_AMBAR, OFERTAS_VERDE, POR_VENCER_DIAS, SEMANAS_CATEGORIA_ROJO, UMBRAL_CATEGORIA_PCT, VIGENCIA_DIAS } from '../../domain/reglas';
 import { categoriaEnAlerta } from '../../domain/semaforo';
 import type { Categoria } from '../../domain/tipos';
 import { diasRestantes, estadoVigencia, textoVigencia } from '../../domain/vigencia';
@@ -72,7 +72,7 @@ export function M5_2Semaforos() {
 
         <div className="flex flex-col gap-5">
           <Tarjeta className="p-6">
-            <h2 className="text-sm font-semibold text-texto/70">Ofertas por vencer en 48 horas · S2-M3</h2>
+            <h2 className="text-sm font-semibold text-texto/70">Ofertas por vencer en {POR_VENCER_DIAS * 24} horas · S2-M3</h2>
             <p className="mt-1 text-xs text-texto/60">Hoy <Fecha f={hoy} /> · vigencia de {VIGENCIA_DIAS} días</p>
             {porVencer.length === 0 ? (
               <p className="mt-3 text-sm text-texto/70">Ninguna.</p>
