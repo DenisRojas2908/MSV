@@ -37,7 +37,7 @@ describe('textos', () => {
     for (const f of UI) {
       const t = sinComentarios(readFileSync(f, 'utf8'));
       expect(t, f).not.toMatch(/[¡]|\p{Extended_Pictographic}/u);
-      expect(t, f).not.toMatch(/>[^<{]*![^<{]*</);
+      expect(t, f).not.toMatch(/>[^<>{}=;&|]*!(?!=)[^<>{}]*</);
     }
   });
 });

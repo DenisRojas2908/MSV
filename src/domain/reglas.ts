@@ -10,6 +10,9 @@ export const COMISION_PB: PuntosBasicos = 250;
 /** §A.1: meta de cobertura, 17 de 24 SKU con tres ofertas (70 % o más). */
 export const META_COBERTURA_SKU = 17;
 export const META_COBERTURA_PCT = 70;
+/** S2-M1: 3 ofertas vigentes = verde; 2 = ámbar; 1 o 0 = rojo. */
+export const OFERTAS_VERDE = 3;
+export const OFERTAS_AMBAR = 2;
 /** S2-M1: máximo de ofertas por SKU en el comparador. */
 export const MAX_OFERTAS_POR_SKU = 3;
 /** §D y D-25: alerta del S3 si una categoría ancla baja de 50 % de cobertura. */

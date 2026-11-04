@@ -1,10 +1,15 @@
 // Componentes de formato. Toda cifra visible pasa por aquí (nada escrito a mano).
-import { formatearPorcentaje, formatearPuntosBasicos, formatearSoles } from '../domain/dinero';
+import { formatearMonto, formatearPorcentaje, formatearPuntosBasicos, formatearSoles } from '../domain/dinero';
 import { formatearDiaMes, formatearFecha } from '../domain/fechas';
 import type { Centimos, FechaISO, PuntosBasicos } from '../domain/tipos';
 
 export function Dinero({ c, sinDecimales }: { c: Centimos; sinDecimales?: boolean }) {
   return <span className="whitespace-nowrap tabular-nums">{formatearSoles(c, { sinDecimales })}</span>;
+}
+
+/** Monto sin «S/», para columnas cuyo encabezado ya dice «S/». */
+export function Monto({ c }: { c: Centimos }) {
+  return <span className="whitespace-nowrap tabular-nums">{formatearMonto(c)}</span>;
 }
 
 export function Fecha({ f, corta }: { f: FechaISO; corta?: boolean }) {

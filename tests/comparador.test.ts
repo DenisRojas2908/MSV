@@ -18,6 +18,10 @@ describe('S2-M4 orden neutral', () => {
   it('al 10/11 el aceite muestra 2 ofertas', () => {
     expect(ids(ofertasComparables(1, ofertas(), PROVEEDORES, MANANA))).toEqual(['qhapaq', 'inti']);
   });
+  it('al 10/11 el «desde» del aceite es S/ 118.00 (la oferta vencida no cuenta)', () => {
+    const l = ofertasComparables(1, ofertas(), PROVEEDORES, MANANA);
+    expect(Math.min(...l.map((c) => c.oferta.precio))).toBe(soles('118.00'));
+  });
   it('desempate: menor plazo y luego confirmación más reciente (D-12)', () => {
     const o = ofertas().map((x) =>
       x.id === 'aceite-inti' ? { ...x, precio: soles('118.00') } : x.id === 'aceite-wayna' ? { ...x, precio: soles('118.00') } : x,

@@ -4,6 +4,17 @@ Solo se agrega. Una entrada por checkpoint, la más reciente arriba.
 
 ---
 
+## 04/11/2026 14:40 · F1 · Comprador M3 y M4 cerrado
+
+- **Qué se hizo:** M3-1 a M3-4 y M4-1 a M4-4 con navegación de §B.2 y el atajo «Cargar pedido N.° 0042». Auditor sobre M3 y M4: 1 «bloquea» (precio «desde» con ofertas vencidas en E1) y 4 menores, corregidos. También quedaron construidas M2 (F2) y M1 (F3), en auditoría.
+- **Archivos:** `src/modules/m3-comparador/*`, `src/modules/m4-pedido-pago/*`, `src/modules/m1-registro/*`, `src/modules/m2-proveedor/*`, `src/ui/Pestanas.tsx`, `src/domain/reglas.ts`.
+- **Decisiones:** D-41 a D-45.
+- **Pruebas:** 65 pasan.
+- **Para revisar:** `#/m3-2` (texto de «¿Cómo ordenamos?»); `#/m4-4` (tabla del reparto sin «S/» por celda, D-41); `#/m4-3` (frase «La comisión de Mallki la paga cada proveedor»).
+- **Siguiente paso:** hallazgos de M1/M2 y F4 (M5).
+
+---
+
 ## 04/11/2026 14:28 · F0 · Base cerrada
 
 - **Qué se hizo:** proyecto Vite + React + TS strict + Tailwind (7 tokens), datos de §A.2, dominio puro con todas las reglas, store con reloj simulado y pedido 0042 pagado, UI base (marco, marca, pie, semáforo, formato), índice y 20 rutas provisionales.

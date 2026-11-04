@@ -1,12 +1,13 @@
-// Pantallas del módulo M3. Cada entrada se reemplaza por la pantalla real.
-import { createElement, type ComponentType } from 'react';
-import { Provisional } from '../../ui/Provisional';
-
-const prov = (id: string): ComponentType => () => createElement(Provisional, { id });
+// Pantallas del módulo M3 · Comparador por SKU ancla (U3).
+import type { ComponentType } from 'react';
+import { M3_1Buscador } from './M3_1Buscador';
+import { M3_2Comparador } from './M3_2Comparador';
+import { M3_3Alerta } from './M3_3Alerta';
+import { M3_4Semaforo } from './M3_4Semaforo';
 
 export const PANTALLAS_M3: Record<string, ComponentType> = {
-  'M3-1': prov('M3-1'),
-  'M3-2': prov('M3-2'),
-  'M3-3': prov('M3-3'),
-  'M3-4': prov('M3-4'),
+  'M3-1': M3_1Buscador,
+  'M3-2': M3_2Comparador,
+  'M3-3': M3_3Alerta,
+  'M3-4': M3_4Semaforo,
 };
