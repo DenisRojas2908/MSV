@@ -63,6 +63,8 @@ export const useDemo = create<EstadoDemo>()((set, get) => {
         ofertas: s.ofertas.map((o) =>
           o.id === ofertaId ? { ...o, precioAnterior: o.precio, precio: nuevo, confirmadaEl: hoy() } : o,
         ),
+        // Un precio nuevo en vivo es el escenario E3 (§F): se rotula «Escenario de simulación».
+        escenarios: s.escenarios.includes('E3') ? s.escenarios : [...s.escenarios, 'E3'],
       }));
       evento(`Precio nuevo: ${nombreOferta(buscarOferta(get().ofertas, ofertaId))}`);
     },

@@ -4,13 +4,12 @@ import { BellRing, ChevronRight, MessageCircle, MessageSquareWarning, Package, S
 import { Link } from 'react-router-dom';
 import { COMPRADOR } from '../../data/comprador';
 import { NUMERO_PEDIDO_EJEMPLO } from '../../data/demo';
-import { SKUS } from '../../data/skus';
 import { useAlertas, usePedido, useResumenPedido } from '../../store/selectores';
 import { Dinero, Pantalla, Porcentaje } from '../../ui';
 import { CabeceraComprador } from '../comun/CabeceraComprador';
 
 const ACCESOS = [
-  { a: '/m3-1', titulo: 'Comparar', texto: `Precios de los ${SKUS.length} insumos, de menor a mayor`, Icono: Search },
+  { a: '/m3-1', titulo: 'Comparar', texto: 'Compara precios de insumos, de menor a mayor', Icono: Search },
   { a: '/m1-4', titulo: 'Mis pedidos', texto: 'Estado y entrega de cada proveedor', Icono: Package },
   { a: '/m1-4', titulo: 'Reclamos', texto: 'Abre un reclamo sobre un pedido', Icono: MessageSquareWarning },
 ] as const;

@@ -32,3 +32,13 @@ export const NOMBRES_INDICADORES = {
   precioDistinto: 'Pedidos con precio distinto al mostrado',
   ventas: 'Ventas del mes / comisión del mes',
 } as const;
+
+/** §G · Unidades operativas del Sistema 1. */
+export const UNIDADES = {
+  U1: 'U1 · Comprador',
+  U2: 'U2 · Proveedor',
+  U3: 'U3 · Analítica y Riesgo',
+} as const;
+
+/** §G · Canal C4 del S3. */
+export const CANAL_C4 = 'C4 · negociación de recursos y rendición';
