@@ -51,8 +51,20 @@ Se usa el valor de «Mientras no se decida».
 
 ## Observaciones para el DP
 
+- M5-1 muestra el umbral literal de §A.2, «1 % en un día activa el canal algedónico (2 h)». D-10 dice que la regla es estricta (más de 1 %) y que donde el lineamiento dice «desde 1 %» se escribe «más de 1 %»; ese rótulo de §A.2 no dice «desde» y por la regla de oro 1 se copia tal cual. Si prefieres «Más de 1 % en un día…», se cambia en `src/data/tablero.ts:19`.
+
 - Con los datos de la demo, envases y empaques tiene exactamente 50 % de cobertura (6 de 12 SKU en verde). Un SKU más que baje de verde dejaría esa categoría en alerta según el S3. Es un dato que el jurado podría notar.
 
 ## Registro de decisiones técnicas de Claude
 
 (Claude Code agrega aquí cada decisión: fecha, qué, por qué, alternativa descartada.)
+
+- **D-32 · Tailwind 3.4** (04/11/2026). `theme.colors` reemplaza la paleta completa: solo existen los 7 tokens (D-17). Descartado Tailwind 4: obliga a anular la paleta variable por variable.
+- **D-33 · Vitest 3** (04/11/2026). Es la versión compatible con Vite 6; con Vitest 2 los tipos de la configuración no compilan.
+- **D-34 · Cabecera** (04/11/2026). §A.4 pide la marca en verde arriba a la izquierda y el verde Mallki en la barra superior: la cabecera es blanca con «Mallki» en verde, y debajo va una barra verde con el título de la pantalla. Descartado: barra verde con la marca en blanco (contradice «en verde Mallki»).
+- **D-35 · Números de pedido** (04/11/2026). «Cargar pedido N.° 0042» saca el 0042 de la lista de pedidos (y sus reclamos) y lo pone en el carrito con el mismo número; un carrito nuevo toma el siguiente número (0043).
+- **D-36 · «Entregado»** (04/11/2026). La parte de un proveedor figura «Entregado» cuando el reloj alcanza pago + plazo (D-16). Con el reloj en 10/11 09:00 (E1), Qhapaq figura «Entregado».
+- **D-37 · Calificación en décimas** (04/11/2026). 4.6 se guarda como 46 para comparar con 3.5 sin floats.
+- **D-38 · Controles del expositor fuera del marco** (04/11/2026). Atajos como «Cargar pedido N.° 0042» se dibujan sobre el marco, no dentro, y nunca salen en capturas.
+- **D-39 · Empate total en el orden** (04/11/2026). Si tras D-12 sigue el empate, se conserva el orden de §A.2 (orden estable). No ocurre con los datos de la demo.
+- **D-40 · Porcentajes en puntos básicos** (04/11/2026). 0.3 % = 30 pb, para comparar con el umbral de 1 % sin floats.
