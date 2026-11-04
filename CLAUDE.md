@@ -1,3 +1,5 @@
+@docs/ESTADO.md
+
 # Mallki · Prototipo de simulación (Feria FIIS 2026-II)
 
 Este repositorio es el prototipo navegable de **Mallki**, un marketplace B2B asset-light de insumos no perecibles para las MYPE gastronómicas de Lima Centro. Es el entregable de software del curso Modelo del Sistema Viable (SI801, FIIS-UNI) y se presenta en la Feria de Proyectos FIIS 2026-II. **Mallki no opera**: todo lo que muestra es una simulación con datos de demostración.
@@ -62,7 +64,7 @@ scripts/capturas.ts     Playwright: genera capturas/M1-1_Registro.png …
 docs/
 ```
 
-`src/data`, `src/domain` y `src/store` se crean en la fase F0. Después, **solo se modifican si te lo pido explícitamente**: varias sesiones trabajan en paralelo y esas carpetas son compartidas.
+`src/data`, `src/domain` y `src/store` se crean en la fase F0. Desde el 04/11/2026 hay una sola sesión (D-07): las reglas de carpetas por sesión de `docs/PLAN.md` no aplican, pero esas tres carpetas solo cambian con una prueba que lo respalde.
 
 ## Convenciones técnicas
 
@@ -99,3 +101,11 @@ Si una prueba falla, se corrige el código, no la prueba. Las pruebas solo cambi
 ## Comandos
 
 - `npm run dev` · `npm test` · `npm run build` · `npm run capturas` · `npm run preview`
+
+## Memoria y checkpoints
+
+- La memoria del proyecto vive en el repo, no en la sesión: `docs/ESTADO.md` (foto actual, se carga sola), `docs/BITACORA.md` (historia, solo se agrega), `docs/MAPA.md` (mapa del código), `docs/COMO_CAMBIAR.md` (dónde se edita cada dato o texto) y, desde F5, `docs/GUIA_DEMO.md`.
+- Al iniciar una sesión, usa la skill `retomar`.
+- Haz checkpoint (skill `checkpoint`) al terminar cada pantalla, al cerrar cada fase, antes de una tarea larga, antes de detenerte y si pasaron más de 60 minutos desde el último (compara `TZ=America/Lima date` con `docs/ESTADO.md`).
+- Lee `BITACORA.md` y `MAPA.md` solo cuando los necesites, no al inicio.
+- Procedimientos: skills `pantalla`, `capturas`, `checkpoint`, `retomar` y `cambio-dp` (la invoca el DP). Auditoría: subagente `auditor`.
