@@ -4,6 +4,17 @@ Solo se agrega. Una entrada por checkpoint, la más reciente arriba.
 
 ---
 
+## 04/11/2026 14:44 · F2 y F3 · Proveedor M2 y comprador M1 cerrados
+
+- **Qué se hizo:** M2-1 a M2-4 (Distribuidora Qhapaq, con pestañas) y M1-1 a M1-4. Flujo de reclamo probado: M1-4 → retenido en M4-4 y M2-4. Auditor sobre M1 y M2: 1 «corregir» (M1-3 prometía precios de 24 insumos) y 2 menores, aplicados o registrados (D-46, D-47). M5 (F4) construida.
+- **Archivos:** `src/modules/m1-registro/*`, `src/modules/m2-proveedor/*`, `src/modules/m5-tablero/*`, `src/store/demo.ts`, `docs/COMO_CAMBIAR.md`.
+- **Decisiones:** D-44 a D-47.
+- **Pruebas:** 65 pasan.
+- **Para revisar:** `#/m2-2` (plazo «24 h» lleno, D-46); `#/m1-2` (lista habitual); `#/m2-4` (liquidación S/ 236.00 − S/ 5.90 = S/ 230.10).
+- **Siguiente paso:** hallazgos del auditor de M5 y F5.
+
+---
+
 ## 04/11/2026 14:40 · F1 · Comprador M3 y M4 cerrado
 
 - **Qué se hizo:** M3-1 a M3-4 y M4-1 a M4-4 con navegación de §B.2 y el atajo «Cargar pedido N.° 0042». Auditor sobre M3 y M4: 1 «bloquea» (precio «desde» con ofertas vencidas en E1) y 4 menores, corregidos. También quedaron construidas M2 (F2) y M1 (F3), en auditoría.

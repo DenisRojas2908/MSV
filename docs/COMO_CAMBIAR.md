@@ -50,18 +50,18 @@ Cada fila es un texto visible y dónde editarlo. Las partes entre `{…}` son da
 | Prefiero que me ayuden por WhatsApp | `src/modules/m1-registro/M1_2Onboarding.tsx:96` |
 | Vía asistida: una persona te acompaña por WhatsApp. | `src/modules/m1-registro/M1_2Onboarding.tsx:97` |
 | Continuar | `src/modules/m1-registro/M1_2Onboarding.tsx:102` |
-| Comparar | `src/modules/m1-registro/M1_3Inicio.tsx:13` |
-| Precios de los ${SKUS.length} insumos, de menor a mayor | `src/modules/m1-registro/M1_3Inicio.tsx:13` |
-| Mis pedidos | `src/modules/m1-registro/M1_3Inicio.tsx:14` |
-| Estado y entrega de cada proveedor | `src/modules/m1-registro/M1_3Inicio.tsx:14` |
-| Reclamos | `src/modules/m1-registro/M1_3Inicio.tsx:15` |
-| Abre un reclamo sobre un pedido | `src/modules/m1-registro/M1_3Inicio.tsx:15` |
-| Inicio | `src/modules/m1-registro/M1_3Inicio.tsx:25` |
-| Hola, {nombre} | `src/modules/m1-registro/M1_3Inicio.tsx:27` |
-| Aviso de precio: | `src/modules/m1-registro/M1_3Inicio.tsx:33` |
-| Último pedido | `src/modules/m1-registro/M1_3Inicio.tsx:59` |
-| Pedido N.° {pedido.numero} | `src/modules/m1-registro/M1_3Inicio.tsx:61` |
-| Respondemos en menos de 4 horas hábiles. | `src/modules/m1-registro/M1_3Inicio.tsx:72` |
+| Comparar | `src/modules/m1-registro/M1_3Inicio.tsx:12` |
+| Compara precios de insumos, de menor a mayor | `src/modules/m1-registro/M1_3Inicio.tsx:12` |
+| Mis pedidos | `src/modules/m1-registro/M1_3Inicio.tsx:13` |
+| Estado y entrega de cada proveedor | `src/modules/m1-registro/M1_3Inicio.tsx:13` |
+| Reclamos | `src/modules/m1-registro/M1_3Inicio.tsx:14` |
+| Abre un reclamo sobre un pedido | `src/modules/m1-registro/M1_3Inicio.tsx:14` |
+| Inicio | `src/modules/m1-registro/M1_3Inicio.tsx:24` |
+| Hola, {nombre} | `src/modules/m1-registro/M1_3Inicio.tsx:26` |
+| Aviso de precio: | `src/modules/m1-registro/M1_3Inicio.tsx:32` |
+| Último pedido | `src/modules/m1-registro/M1_3Inicio.tsx:58` |
+| Pedido N.° {pedido.numero} | `src/modules/m1-registro/M1_3Inicio.tsx:60` |
+| Respondemos en menos de 4 horas hábiles. | `src/modules/m1-registro/M1_3Inicio.tsx:71` |
 | Mis pedidos y reclamos | `src/modules/m1-registro/M1_4Pedidos.tsx:35` |
 | Todavía no tienes pedidos. | `src/modules/m1-registro/M1_4Pedidos.tsx:37` |
 | Pedido N.° {pedido.numero} | `src/modules/m1-registro/M1_4Pedidos.tsx:42` |
@@ -221,6 +221,64 @@ Cada fila es un texto visible y dónde editarlo. Las partes entre `{…}` son da
 | La comisión la paga el proveedor: tu total no cambia. | `src/modules/m4-pedido-pago/M4_4Seguimiento.tsx:93` |
 | Si abres un reclamo, el pago a ese proveedor se retiene hasta resolverlo. | `src/modules/m4-pedido-pago/M4_4Seguimiento.tsx:98` |
 | Ir a Mis pedidos | `src/modules/m4-pedido-pago/M4_4Seguimiento.tsx:101` |
+
+### M5
+
+| Texto | Archivo y línea |
+|---|---|
+| Meta o umbral | `src/modules/m5-tablero/M5_1Tablero.tsx:16` |
+| Tablero de indicadores | `src/modules/m5-tablero/M5_1Tablero.tsx:38` |
+| <><Porcentaje valor={t.cobertura.porcentaje | `src/modules/m5-tablero/M5_1Tablero.tsx:44` |
+| <Porcentaje valor={t.recompra60DiasPct | `src/modules/m5-tablero/M5_1Tablero.tsx:48` |
+| <Porcentaje valor={t.preciosVigentesPct | `src/modules/m5-tablero/M5_1Tablero.tsx:49` |
+| <Porcentaje valor={t.reclamosCerradosEn48hPct | `src/modules/m5-tablero/M5_1Tablero.tsx:50` |
+| <Porcentaje pb={t.precioDistintoHoyPb | `src/modules/m5-tablero/M5_1Tablero.tsx:53` |
+| Canal algedónico activo | `src/modules/m5-tablero/M5_1Tablero.tsx:55` |
+| <span className= | `src/modules/m5-tablero/M5_1Tablero.tsx:59` |
+| Semáforos y vigencia | `src/modules/m5-tablero/M5_2Semaforos.tsx:22` |
+| Cobertura por SKU · S2-M1 | `src/modules/m5-tablero/M5_2Semaforos.tsx:27` |
+| Verde: {OFERTAS_VERDE} ofertas · ámbar: {OFERTAS_AMBAR} · rojo: {OFERTAS_AMBAR - 1} o ning | `src/modules/m5-tablero/M5_2Semaforos.tsx:39` |
+| Alerta del S3 | `src/modules/m5-tablero/M5_2Semaforos.tsx:51` |
+| UMBRAL_CATEGORIA_PCT | `src/modules/m5-tablero/M5_2Semaforos.tsx:69` |
+| Ofertas por vencer en 48 horas · S2-M3 | `src/modules/m5-tablero/M5_2Semaforos.tsx:75` |
+| Hoy | `src/modules/m5-tablero/M5_2Semaforos.tsx:76` |
+| · precio vigente: confirmado en los últimos {VIGENCIA_DIAS} días | `src/modules/m5-tablero/M5_2Semaforos.tsx:76` |
+| Regla de vigencia | `src/modules/m5-tablero/M5_2Semaforos.tsx:102` |
+| El proveedor confirma su precio en su catálogo; confirmar o cambiar el precio reinicia los | `src/modules/m5-tablero/M5_2Semaforos.tsx:106` |
+| Valor | `src/modules/m5-tablero/M5_3Alertas.tsx:31` |
+| Estado | `src/modules/m5-tablero/M5_3Alertas.tsx:36` |
+| Alertas | `src/modules/m5-tablero/M5_3Alertas.tsx:52` |
+| Precio distinto al mostrado | `src/modules/m5-tablero/M5_3Alertas.tsx:56` |
+| <Porcentaje pb={t.precioDistintoHoyPb | `src/modules/m5-tablero/M5_3Alertas.tsx:57` |
+| Señal algedónica activa | `src/modules/m5-tablero/M5_3Alertas.tsx:62` |
+| La unidad tiene {t.senal.plazoUnidadHoras} h; si vence, el S3 {t.senal.plazoS3Horas} h. | `src/modules/m5-tablero/M5_3Alertas.tsx:63` |
+| Sin señal | `src/modules/m5-tablero/M5_3Alertas.tsx:66` |
+| Proveedor con ${UMBRAL_CONCENTRACION_PCT | `src/modules/m5-tablero/M5_3Alertas.tsx:76` |
+| Sin dato en la demostración | `src/modules/m5-tablero/M5_3Alertas.tsx:79` |
+| UMBRAL_CONCENTRACION_PCT | `src/modules/m5-tablero/M5_3Alertas.tsx:81` |
+| Reclamos fuera de 48 horas | `src/modules/m5-tablero/M5_3Alertas.tsx:87` |
+| <Porcentaje valor={fuera | `src/modules/m5-tablero/M5_3Alertas.tsx:88` |
+| derivado de | `src/modules/m5-tablero/M5_3Alertas.tsx:89` |
+| cerrados en {PLAZO_RECLAMO_U1_H} h | `src/modules/m5-tablero/M5_3Alertas.tsx:89` |
+| Excepción al S3 | `src/modules/m5-tablero/M5_3Alertas.tsx:92` |
+| Bajo el umbral de | `src/modules/m5-tablero/M5_3Alertas.tsx:94` |
+| <>Bajo el umbral de <Porcentaje valor={UMBRAL_RECLAMOS_FUERA_PCT | `src/modules/m5-tablero/M5_3Alertas.tsx:94` |
+| o más de los casos, o un reclamo sobre | `src/modules/m5-tablero/M5_3Alertas.tsx:99` |
+| UMBRAL_RECLAMOS_FUERA_PCT | `src/modules/m5-tablero/M5_3Alertas.tsx:99` |
+| · descargo U2 | `src/modules/m5-tablero/M5_3Alertas.tsx:109` |
+| liquidación retenida | `src/modules/m5-tablero/M5_3Alertas.tsx:110` |
+| Compromisos | `src/modules/m5-tablero/M5_4Compromisos.tsx:21` |
+| Unidad | `src/modules/m5-tablero/M5_4Compromisos.tsx:26` |
+| Meta a seis meses | `src/modules/m5-tablero/M5_4Compromisos.tsx:27` |
+| Logrado al mes 3 | `src/modules/m5-tablero/M5_4Compromisos.tsx:28` |
+| Canal | `src/modules/m5-tablero/M5_4Compromisos.tsx:29` |
+| lo logrado son datos de demostración. | `src/modules/m5-tablero/M5_4Compromisos.tsx:46` |
+| titulo | `src/modules/m5-tablero/comun.tsx:13` |
+| Sistema 3 | `src/modules/m5-tablero/comun.tsx:18` |
+| Dentro de la meta | `src/modules/m5-tablero/comun.tsx:33` |
+| Bajo la meta | `src/modules/m5-tablero/comun.tsx:34` |
+| Alerta del S3 | `src/modules/m5-tablero/comun.tsx:35` |
+| ZONA[zona].texto | `src/modules/m5-tablero/comun.tsx:40` |
 
 ### Simulación
 
