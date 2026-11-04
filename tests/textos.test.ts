@@ -19,7 +19,9 @@ const sinComentarios = (t: string) => t.replace(/\/\*[\s\S]*?\*\//g, '').replace
 
 describe('textos', () => {
   it('ningún monto ni porcentaje escrito a mano en ui, módulos o simulación', () => {
-    for (const f of UI) {
+    // escenarios.ts copia literalmente la tabla de §F (qué hace y qué debe pasar): es texto de la
+    // especificación, no una cifra calculada. Las cifras que muestra el panel salen del dominio (D-48).
+    for (const f of UI.filter((x) => !x.endsWith('escenarios.ts'))) {
       const t = sinComentarios(readFileSync(f, 'utf8'));
       expect(t, f).not.toMatch(/S\/\s?\d/);
       expect(t, f).not.toMatch(/\d\s?%/);
