@@ -1,6 +1,6 @@
 // S2-M1 · Semáforo de liquidez y cobertura (§A.3, §C, §D).
 import { porcentajeEntero } from './dinero';
-import { META_COBERTURA_SKU, UMBRAL_CATEGORIA_PCT } from './reglas';
+import { META_COBERTURA_SKU, OFERTAS_AMBAR, OFERTAS_VERDE, UMBRAL_CATEGORIA_PCT } from './reglas';
 import { esVigente } from './vigencia';
 import type { Categoria, Color, FechaISO, Oferta, Proveedor, ProveedorId, Sku } from './tipos';
 
@@ -31,8 +31,8 @@ export function ofertantesVigentes(
 
 /** 3 = verde, 2 = ámbar, 1 o 0 = rojo. */
 export function colorPorConteo(n: number): Color {
-  if (n >= 3) return 'verde';
-  if (n === 2) return 'ambar';
+  if (n >= OFERTAS_VERDE) return 'verde';
+  if (n === OFERTAS_AMBAR) return 'ambar';
   return 'rojo';
 }
 

@@ -27,7 +27,7 @@ export function M4_2Confirmacion() {
           </div>
           <GruposProveedor resumen={resumen} fijado entrega={(h) => fechaEntrega(baseEntrega(pedido), h)} />
           <FilaTotal total={resumen.total} />
-          <p className="text-xs text-texto/60">Las fechas de entrega se cuentan desde la confirmación, según el plazo de cada proveedor.</p>
+          <p className="text-xs text-texto/60">Cada proveedor despacha lo suyo, según su plazo de entrega.</p>
           {pedido.etapa === 'confirmado' ? (
             <Boton a="/m4-3" className="mt-auto w-full py-3.5 text-base">Ir a pagar</Boton>
           ) : (

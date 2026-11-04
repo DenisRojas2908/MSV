@@ -3,10 +3,11 @@ import { BellRing, Check, ChevronRight, Leaf, Search } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { NOMBRE_CATEGORIA } from '../../data/demo';
-import { skusConPrecio } from '../../domain/comparador';
+import { ofertasComparables, skusConPrecio } from '../../domain/comparador';
+import { PROVEEDORES } from '../../data/proveedores';
 import type { Categoria } from '../../domain/tipos';
 import { useDemo } from '../../store/demo';
-import { useAlertas, useResumenSemaforo } from '../../store/selectores';
+import { useAlertas, useHoy, useResumenSemaforo } from '../../store/selectores';
 import { Dinero, Pantalla, Porcentaje, Punto } from '../../ui';
 import { CabeceraComprador } from '../comun/CabeceraComprador';
 import { coincide } from '../comun/texto';
@@ -22,6 +23,7 @@ export function M3_1Buscador() {
   const ofertas = useDemo((s) => s.ofertas);
   const conPrecio = useMemo(() => skusConPrecio(ofertas), [ofertas]);
   const alerta = alertas[0];
+  const hoy = useHoy();
 
   const filas = sem.lista.filter((s) => {
     if (ecologica && !s.sku.ecologica) return false;
@@ -79,7 +81,7 @@ export function M3_1Buscador() {
         <ul className="min-h-0 flex-1 divide-y divide-texto/10 overflow-hidden rounded-xl bg-blanco ring-1 ring-texto/10">
           {filas.map(({ sku, color, ofertantes }) => {
             const abre = conPrecio.includes(sku.n);
-            const desde = ofertas.filter((o) => o.skuN === sku.n).map((o) => o.precio);
+            const desde = ofertasComparables(sku.n, ofertas, PROVEEDORES, hoy).map((c) => c.oferta.precio);
             const contenido = (
               <>
                 <Punto color={color} />

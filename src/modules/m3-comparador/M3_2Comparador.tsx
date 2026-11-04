@@ -3,6 +3,7 @@
 import { Info, Minus, Plus, Star } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { skusConPrecio } from '../../domain/comparador';
 import { AVISO_CAMBIO_CRITERIOS_H, VIGENCIA_DIAS } from '../../domain/reglas';
 import { textoVigencia } from '../../domain/vigencia';
 import { formatearCalificacion } from '../../domain/umbrales';
@@ -13,7 +14,9 @@ import { CabeceraComprador } from '../comun/CabeceraComprador';
 
 export function M3_2Comparador() {
   const [params] = useSearchParams();
-  const skuN = Number(params.get('sku') ?? '1') || 1;
+  const ofertas = useDemo((s) => s.ofertas);
+  const pedido = Number(params.get('sku') ?? '1');
+  const skuN = skusConPrecio(ofertas).includes(pedido) ? pedido : 1;
   const sku = buscarSku(skuN);
   const lista = useComparador(skuN);
   const sem = useResumenSemaforo().lista.find((s) => s.sku.n === skuN);

@@ -1,5 +1,6 @@
 // M3-4 Semáforo (§B.3 M3, S2-M1): los 24 SKU en el orden de §A.2 y «17 de 24 en verde: 71 %».
 import { NOMBRE_CATEGORIA } from '../../data/demo';
+import { OFERTAS_AMBAR, OFERTAS_VERDE } from '../../domain/reglas';
 import type { Categoria } from '../../domain/tipos';
 import { useDemo } from '../../store/demo';
 import { useResumenSemaforo } from '../../store/selectores';
@@ -25,7 +26,7 @@ export function M3_4Semaforo() {
             {sem.zona !== 'dentro-meta' && <Etiqueta tono="ambar">Bajo la meta</Etiqueta>}
             {enEscenario && <RotuloEscenario />}
           </p>
-          <p className="mt-0.5 text-[11px] leading-tight text-texto/60">Verde: 3 ofertas · ámbar: 2 · rojo: 1 o ninguna. A la derecha, ofertas vigentes.</p>
+          <p className="mt-0.5 text-[11px] leading-tight text-texto/60">Verde: {OFERTAS_VERDE} ofertas · ámbar: {OFERTAS_AMBAR} · rojo: {OFERTAS_AMBAR - 1} o ninguna. A la derecha, ofertas vigentes.</p>
         </div>
         {(['abarrotes', 'envases'] as Categoria[]).map((cat) => (
           <section key={cat}>
