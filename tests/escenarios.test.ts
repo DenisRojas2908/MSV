@@ -134,11 +134,28 @@ describe('escenarios de §F', () => {
     }
   });
 
+  it('un solo reclamo abierto por proveedor y pedido (S2-M8, auditoría independiente #7)', () => {
+    e5Reclamo('primero');
+    e5Reclamo('segundo');
+    s().abrirReclamo('0042', 'qhapaq', 'tercero');
+    expect(s().reclamos.map((r) => r.descripcion)).toEqual(['primero']);
+    s().abrirReclamo('0042', 'inti', 'otro proveedor');
+    expect(s().reclamos).toHaveLength(2);
+  });
+
   it('lectura de valores del expositor', () => {
     expect(leerPorcentaje('0.3')).toBe(30);
     expect(leerPorcentaje('2')).toBe(200);
     expect(leerPorcentaje('abc')).toBeNull();
     expect(leerMonto('125.5')).toBe(12550);
     expect(leerMonto('')).toBeNull();
+    // Auditoría independiente #8: precio mayor que 0, porcentaje entre 0 y 100.
+    expect(leerMonto('0')).toBeNull();
+    expect(leerMonto('0.00')).toBeNull();
+    expect(leerMonto('0.01')).toBe(1);
+    expect(leerPorcentaje('0')).toBe(0);
+    expect(leerPorcentaje('100')).toBe(10000);
+    expect(leerPorcentaje('100.01')).toBeNull();
+    expect(leerPorcentaje('250')).toBeNull();
   });
 });

@@ -9,3 +9,4 @@ export * from './pedido';
 export * from './alerta';
 export * from './reclamos';
 export * from './umbrales';
+export * from './entradas';

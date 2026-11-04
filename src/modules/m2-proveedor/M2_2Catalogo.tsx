@@ -5,7 +5,8 @@ import { Check, FileSpreadsheet, Leaf } from 'lucide-react';
 import { useState } from 'react';
 import { NOMBRE_CATEGORIA } from '../../data/demo';
 import { SKUS } from '../../data/skus';
-import { formatearMonto, soles } from '../../domain/dinero';
+import { formatearMonto } from '../../domain/dinero';
+import { leerMonto } from '../../domain/entradas';
 import { VIGENCIA_DIAS } from '../../domain/reglas';
 import type { Categoria } from '../../domain/tipos';
 import { useDemo } from '../../store/demo';
@@ -20,12 +21,12 @@ export function M2_2Catalogo() {
   const sku = SKUS.find((s) => s.n === skuN) ?? SKUS[0]!;
   const oferta = propias.find((o) => o.skuN === skuN);
   const [precio, setPrecio] = useState('');
-  const valido = /^\d+(\.\d{1,2})?$/.test(precio.trim());
+  const monto = leerMonto(precio);
+  const valido = monto !== null;
 
   const guardar = () => {
-    if (!oferta || !valido) return;
-    const [e, d = ''] = precio.trim().split('.');
-    actualizar(oferta.id, soles(`${e}.${d.padEnd(2, '0')}`));
+    if (!oferta || monto === null) return;
+    actualizar(oferta.id, monto);
     setPrecio('');
   };
 

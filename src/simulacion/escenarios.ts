@@ -3,7 +3,6 @@
 import { FECHA_DEMO, NUMERO_PEDIDO_EJEMPLO } from '../data/demo';
 import { OFERTAS_INICIALES } from '../data/ofertas';
 import { PROVEEDOR_M2 } from '../data/proveedores';
-import { soles } from '../domain/dinero';
 import { sumarDias } from '../domain/fechas';
 import type { Centimos, PuntosBasicos } from '../domain/tipos';
 import { useDemo } from '../store/demo';
@@ -122,16 +121,5 @@ export function e5Reclamo(descripcion = ''): void {
   s().abrirReclamo(NUMERO_PEDIDO_EJEMPLO, PROVEEDOR_M2, descripcion);
 }
 
-/** '1.5' → 150 pb; null si no es un porcentaje válido (hasta dos decimales). */
-export function leerPorcentaje(texto: string): PuntosBasicos | null {
-  const m = /^(\d{1,3})(?:[.,](\d{1,2}))?$/.exec(texto.trim());
-  if (!m) return null;
-  return Number(m[1]) * 100 + Number((m[2] ?? '').padEnd(2, '0'));
-}
-
-/** '125' o '125.5' → céntimos; null si no es un monto válido. */
-export function leerMonto(texto: string): Centimos | null {
-  const m = /^(\d{1,6})(?:[.,](\d{1,2}))?$/.exec(texto.trim());
-  if (!m) return null;
-  return soles(`${m[1]}.${(m[2] ?? '').padEnd(2, '0')}`);
-}
+/** Lectura validada de lo que escribe el expositor (auditoría independiente #8). */
+export { leerMonto, leerPorcentaje } from '../domain/entradas';
