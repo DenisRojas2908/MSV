@@ -4,6 +4,17 @@ Solo se agrega. Una entrada por checkpoint, la más reciente arriba.
 
 ---
 
+## 04/11/2026 14:51 · F6 · Capturas y despliegue cerrados
+
+- **Qué se hizo:** `scripts/capturas.ts` (Playwright 1.63 y vite preview): 20 PNG con tamaño exacto, sin cortes ni scroll, sin palabras de §A.5, verificados leyendo la cabecera PNG. Las 20 capturas se versionan en `capturas/`. GitHub Action que corre `npm test` y solo entonces despliega en Pages. README con Windows y Vercel.
+- **Archivos:** `scripts/capturas.ts`, `capturas/*.png`, `.github/workflows/desplegar.yml`, `README.md`, `package.json`.
+- **Decisiones:** D-30, D-31 aplicadas.
+- **Pruebas:** 73 pasan; 20 de 20 capturas correctas.
+- **Para revisar:** `capturas/` (las 20 imágenes); activar Pages en GitHub.
+- **Siguiente paso:** F7.
+
+---
+
 ## 04/11/2026 14:49 · F5 · Modo simulación cerrado
 
 - **Qué se hizo:** panel `#/simulacion` con reloj, «Reiniciar demo», E1 a E5 con controles, resultados calculados y las pantallas afectadas en paralelo; sincronización entre pestañas; guía de la feria.
