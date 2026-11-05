@@ -4,7 +4,7 @@ Recorrido clic a clic para el stand y la exposición. Todo es una simulación co
 
 ## Antes de empezar
 
-1. Abrir la URL publicada (o `npm run dev`) en dos ventanas:
+1. Abrir la demo (URL publicada, o sin internet según la sección «Plan sin internet») en dos ventanas:
    - **Ventana A (pantallas):** `#/` (índice). Para el comprador conviene una ventana angosta o el modo celular del navegador.
    - **Ventana B (expositor):** `#/simulacion`.
 2. En la ventana B, clic en **Reiniciar demo**. Todo vuelve al lunes 09/11/2026 y el pedido N.° 0042 queda pagado.
@@ -43,13 +43,17 @@ Ventana B, `#/simulacion`. Cada escenario muestra a la derecha las pantallas afe
 
 | Escenario | Clic | Qué se ve | MSV |
 |---|---|---|---|
-| E1 Precio vencido | «Avanzar el reloj al día siguiente» | El aceite de Wayna pasa a «No disponible»; el comparador muestra 2 ofertas; el aceite pasa a ámbar; cobertura 16 de 24 (67 %); M5 la marca «Bajo la meta». | S2-M3, S2-M1, S3 |
+| E1 Precio vencido | «Avanzar el reloj al día siguiente» | El aceite de Wayna pasa a «No disponible»: el comparador muestra 2 ofertas y, debajo, «La oferta de Abarrotes Wayna salió del comparador: precio no confirmado en 7 días.»; el aceite pasa a ámbar; cobertura 16 de 24 (67 %); M5 la marca «Bajo la meta». | S2-M3, S2-M1, S3 |
 | E2 Alerta de precio | «1 · Antes de la subida» y luego «2 · Aplicar la subida» | Con S/ 198.00 Wayna va primero; con S/ 210.00 baja al tercer lugar y aparece la alerta de 6 % con Comercial Inti S/ 199.00 y Distribuidora Qhapaq S/ 205.00. | S2-M6 |
 | E3 Precio fijado | Escribir un precio nuevo → «Aplicar precio nuevo»; luego «Pedido nuevo con 1 aceite» | El pedido N.° 0042 conserva S/ 118.00; el pedido nuevo usa el precio nuevo; el indicador de precio distinto no cambia. | S2-M5 |
 | E4 Error masivo | Escribir un porcentaje → «Aplicar» | Con más de 1 % se activa la señal algedónica: la unidad tiene 2 h; si vence, el S3 24 h. Con 1 % exacto no. | S2-M5, canal algedónico |
 | E5 Reclamo | «Abrir reclamo a Distribuidora Qhapaq» | La liquidación de Qhapaq queda retenida; corren las 48 h de U1 (cierre 11/11) y las 24 h de U2 (descargo 10/11); S/ 236.00 no supera S/ 550, no escala. | S2-M8 |
 
 Al terminar, **Reiniciar demo**.
+
+**Ojo con E3.** Si el precio nuevo es **mayor** que S/ 118.00, además del precio fijado aparece una **alerta de precio** del aceite de Qhapaq en M1-3, M3-1 y M3-3 («Y 1 aviso más»). No es un error: es la misma regla de E2 (S2-M6, D-11). Cualquier subida avisa a la compradora y le muestra alternativas. Cómo explicarlo: «El pedido ya confirmado no cambia: el precio quedó fijado. Para los pedidos nuevos, la compradora se entera de la subida y ve las otras ofertas vigentes». Si no quieres mostrar la alerta, usa un precio menor que S/ 118.00.
+
+Los valores que escribe el expositor se validan: el precio debe ser mayor que 0 y el porcentaje debe estar entre 0 y 100.
 
 ## Recorrido 4 · El tablero del S3 (1 minuto)
 
@@ -64,7 +68,49 @@ Al terminar, **Reiniciar demo**.
 
 «El prototipo es una simulación en un solo bloque porque su función es demostrar el diseño. Está dividido igual que la organización: cada módulo corresponde a una unidad, y por eso podría separarse cuando Mallki opere.»
 
+## Plan sin internet
+
+No dependas del wifi de la feria. Con la URL publicada, una recarga sin conexión deja la pestaña en blanco. Prepara alguna de estas opciones, en este orden:
+
+1. **Archivo único (recomendado).** Antes de la feria, con internet, en la laptop del stand:
+
+   ```bash
+   npm ci
+   ```
+
+   ```bash
+   npm run build:feria
+   ```
+
+   Se genera `feria/mallki-demo.html`: un solo archivo con todo incluido (la fuente Inter también). También está versionado en el repo, así que se puede descargar directo desde GitHub. Se abre con **doble clic**, sin servidor y sin internet: `mallki-demo.html#/` en una ventana y `mallki-demo.html#/simulacion` en la otra. Las dos ventanas se sincronizan. Verificado en Chromium con la red bloqueada.
+
+2. **Con Node (`npm run preview`).** Si el archivo único fallara:
+
+   ```bash
+   npm run build
+   ```
+
+   ```bash
+   npm run preview -- --port 4173
+   ```
+
+   Abrir `http://localhost:4173/#/` y `http://localhost:4173/#/simulacion`.
+
+3. **Sin Node, con Python.** Con la carpeta `dist/` ya compilada:
+
+   ```bash
+   python -m http.server 8080 --directory dist
+   ```
+
+   En Windows, `py` en lugar de `python`. Abrir `http://localhost:8080/#/`.
+
+`dist/index.html` **no** abre con doble clic: el navegador bloquea sus archivos separados. Para doble clic, usa siempre `feria/mallki-demo.html`.
+
+Cada forma de abrir la demo guarda su propio estado: el archivo, `localhost` y GitHub Pages no comparten nada. Al empezar, pulsa «Reiniciar demo».
+
 ## Si algo falla
 
 - Pantalla rara o datos cambiados: **Reiniciar demo** en `#/simulacion` o en `#/`.
-- Sin internet: la app no necesita conexión una vez cargada (la fuente Inter va incluida).
+- Una pantalla sale en blanco: abre `#/` y pulsa **Reiniciar demo**. El estado guardado se valida al leerlo; si no tiene la forma esperada, la demo vuelve al 09/11/2026.
+- Si el navegador bloquea el almacenamiento local (modo privado estricto), la demo funciona, pero no recuerda nada al recargar y las dos ventanas no se sincronizan. Usa una sola ventana y el panel con las pantallas incrustadas.
+- En una laptop de 1366 px o en un celular, las pantallas se reducen solas para verse completas. Las capturas oficiales no cambian.
