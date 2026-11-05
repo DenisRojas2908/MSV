@@ -53,7 +53,8 @@ export function M5_3Alertas() {
 
   return (
     <PantallaTablero id="M5-3" titulo="Alertas">
-      <div className="flex flex-col gap-4">
+      {/* Con muchos reclamos, las alertas se desplazan bajo las pestañas fijas (#14). */}
+      <div className="-m-1 flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto p-1 [&>*]:shrink-0">
         <Alerta
           mecanismo="S2-M5 · canal algedónico"
           titulo="Precio distinto al mostrado"
