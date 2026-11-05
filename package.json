@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "capturas": "npm run build && tsx scripts/capturas.ts"
+    "capturas": "npm run build && tsx scripts/capturas.ts",
+    "build:feria": "tsc -b && vite build --mode feria && node -e \"require('fs').renameSync('feria/index.html','feria/mallki-demo.html')\""
   },
   "dependencies": {
     "@fontsource/inter": "5.1.1",
@@ -31,6 +32,7 @@
     "tsx": "^4.19.2",
     "typescript": "5.7.2",
     "vite": "6.0.5",
+    "vite-plugin-singlefile": "^2.1.0",
     "vitest": "^3.0.5"
   }
 }
