@@ -34,24 +34,25 @@
 - **D-30 · Despliegue (era P-08)** (DP, 04/11/2026): GitHub Pages con GitHub Actions; la Action corre `npm test` antes de desplegar y no despliega si falla. Los 20 PNG se versionan en `capturas/`.
 - **D-31 · Playwright** (DP, 04/11/2026): se instala en F6, no en F0.
 
+- **D-55 · Rótulo del umbral algedónico (auditoría independiente #1)** (DP, 05/11/2026). §A.2 y M5-1 dicen «Más de 1 % de los pedidos de un día con precio distinto activa el canal algedónico». Criterio: el S3 entregado y D-10 mandan sobre el literal del lineamiento. El DP autorizó cambiar `ESPECIFICACION.md` §A.2; la prueba literal está en `tests/especificacion.test.ts`. Cierra la observación anterior sobre este rótulo.
+- **D-56 · Comparador solo con ofertas vigentes (auditoría independiente #9)** (DP, 05/11/2026). M3-2 lista solo las ofertas vigentes («2 ofertas» en E1). Debajo va una línea gris: «La oferta de Abarrotes Wayna salió del comparador: precio no confirmado en 7 días.», rotulada como escenario. Reemplaza la parte de D-54 que listaba las ofertas «No disponible».
+- **D-57 · «Alerta del S3» (auditoría independiente #20)** (DP, 05/11/2026). Una categoría ancla bajo 50 % se sigue rotulando «Alerta del S3». Para los reclamos, M5-3 conserva «Excepción al S3».
+- **D-58 · Plazo de Qhapaq en M2-2** (DP, 05/11/2026). Se aprueba D-46: el plazo de 24 h se queda lleno en M2-2.
+- **D-59 · Cierre de pendientes** (DP, 05/11/2026). Quedan decididos con su valor provisional:
+  - P-02: solo los 3 SKU con precio abren el comparador.
+  - P-03: «Cercado de Lima» seleccionado, sin lista.
+  - P-06: los valores de E3 y E4 los escribe el expositor, sin valor por defecto (validados, D-62).
+  - P-07: no se agrega el escenario de campaña.
+  - P-09: se usan los nombres de captura de §B.1.
+  - P-10: «Bajo la meta», en ámbar.
+  - P-11: M2-2 de Qhapaq, sin la casilla.
+  - P-12: marcados los tres SKU del pedido N.° 0042.
+
 ## Pendientes del DP
 
-Se usa el valor de «Mientras no se decida».
-
-| Código | Antes de | Pregunta | Mientras no se decida |
-|---|---|---|---|
-| P-02 | F1 | ¿Solo los 3 SKU con precios (aceite, arroz, táper de 1 lb) abren comparador, o el DP define precios para más SKU? | Solo esos 3 abren comparador; el resto muestra su semáforo y qué proveedores lo ofrecen, sin precio |
-| P-03 | F3 | Lista de distritos de Lima Centro para el registro | El campo muestra «Cercado de Lima» seleccionado, sin lista |
-| P-06 | F5 | Valores de E3 (nuevo precio del aceite de Qhapaq) y E4 (porcentaje de error): ¿fijos o los escribe el expositor en vivo? | Los escribe el expositor; sin valor por defecto |
-| P-07 | F5 | ¿Se agrega un escenario de campaña bloqueada por el semáforo (S2-M1)? No hay pantalla de campañas entre las 20 | No se agrega |
-| P-09 | F6 | Nombres cortos de las capturas propuestos en `ESPECIFICACION.md` §B.1 | Se usan los propuestos |
-| P-10 | F4 | Cómo se rotula la cobertura cuando está bajo la meta (70 %) pero sin cruzar la alerta del S3 (menos de 50 % en una categoría) | «Bajo la meta», en ámbar |
-| P-11 | F2 | La casilla «Opción ecológica (Ley 30884)» solo aplica a envases, y M2 es de Distribuidora Qhapaq (abarrotes). ¿Se muestra M2-2 con un proveedor de envases para que la casilla salga en la captura? | M2-2 de Qhapaq, sin la casilla |
-| P-12 | F3 | Lista habitual de Rosa en M1-2 | Marcados los tres SKU del pedido N.° 0042 |
+Ninguno.
 
 ## Observaciones para el DP
-
-- M5-1 muestra el umbral literal de §A.2, «1 % en un día activa el canal algedónico (2 h)». D-10 dice que la regla es estricta (más de 1 %) y que donde el lineamiento dice «desde 1 %» se escribe «más de 1 %»; ese rótulo de §A.2 no dice «desde» y por la regla de oro 1 se copia tal cual. Si prefieres «Más de 1 % en un día…», se cambia en `src/data/tablero.ts:19`.
 
 - Con los datos de la demo, envases y empaques tiene exactamente 50 % de cobertura (6 de 12 SKU en verde). Un SKU más que baje de verde dejaría esa categoría en alerta según el S3. Es un dato que el jurado podría notar.
 
@@ -81,5 +82,23 @@ Se usa el valor de «Mientras no se decida».
 - **D-51 · Panel y pantallas en paralelo** (04/11/2026). El panel `#/simulacion` muestra las pantallas afectadas incrustadas y escaladas, con el mismo store. Si el expositor abre las pantallas en otra pestaña, ambas se sincronizan por `localStorage`.
 - **D-52 · Acciones atómicas del store** (04/11/2026, auditoría F7 #1). Cada acción hace un solo `set()` con el cambio, su evento y la marca de escenario; el estado que llega de otra pestaña no se vuelve a guardar. Una prueba exige una sola actualización por escenario.
 - **D-53 · Rótulo de escenario en la barra verde** (04/11/2026, auditoría F7 #2 y #3). Con cualquier escenario aplicado, todas las pantallas llevan «Escenario de simulación» en la barra verde. Las marcas puntuales (reclamo, retención, valor de E4) se conservan. En captura nunca aparece: el estado inicial no tiene escenarios.
-- **D-54 · Ajustes menores de la auditoría F7** (04/11/2026). M3-2 lista las ofertas «No disponible»; M1-4 permite elegir entre pedidos y M1-3 muestra el último; plurales de «proveedor»; los avisos de precio indican cuántos más hay; M5-3 toma el monto de cada reclamo de su propio pedido; espacios de no separación en «N.° 0042» del panel.
-
+- **D-54 · Ajustes menores de la auditoría F7** (04/11/2026; la parte de M3-2 la reemplaza D-56). M3-2 lista las ofertas «No disponible»; M1-4 permite elegir entre pedidos y M1-3 muestra el último; plurales de «proveedor»; los avisos de precio indican cuántos más hay; M5-3 toma el monto de cada reclamo de su propio pedido; espacios de no separación en «N.° 0042» del panel.
+- **D-60 · Archivo único para la feria (auditoría independiente #16)** (DP, 05/11/2026). `npm run build:feria` usa `vite-plugin-singlefile` (librería autorizada por el DP) y genera `feria/mallki-demo.html`, con el JS, el CSS y la fuente Inter incrustados (1.46 MB). Abre con doble clic por `file://`, sin servidor ni internet. Verificado con Chromium sin red: 0 peticiones externas, Inter cargada y dos ventanas sincronizadas. El archivo se versiona para poder descargarlo desde GitHub. Descartado: un service worker para que GitHub Pages funcione sin conexión (más frágil y no resuelve el caso sin Node).
+- **D-61 · Escalado en vivo (auditoría independiente #17)** (DP, 05/11/2026). Fuera de captura, `Pantalla` reduce el marco con `transform: scale` para que quepa en el ancho disponible; nunca lo agranda. Verificado de 360 a 1920 px sin scroll horizontal. Con `?captura=1` y en el panel no se aplica. Descartado: `overflow-x-auto`, porque obliga a desplazarse en la feria.
+- **D-62 · Reglas de la auditoría independiente** (DP, 05/11/2026):
+  - Un solo reclamo abierto por proveedor y pedido (`puedeAbrirReclamo`, #7).
+  - Entradas validadas en `domain/entradas.ts`: precio mayor que 0 y porcentaje de 0 a 100 (#8).
+  - Plazo propio de S2-M6: `PLAZO_CONCENTRACION_U2_H` (#22).
+  - Estado de `localStorage` validado, con clave `mallki-demo-v2` (#12).
+- **D-63 · Pantallas de la auditoría independiente** (DP, 05/11/2026):
+  - M4-1: la línea vencida tiene «Elegir otra oferta» (la quita y abre M3-2 de ese SKU con la misma cantidad) y «Quitar» (#4). No hizo falta `cambiarCantidad`: la cantidad viaja al comparador.
+  - M1-4: filtra los reclamos por el pedido elegido y no ofrece un proveedor que ya tiene reclamo (#5, #7); con un reclamo sobre S/ 550 dice «Tu reclamo pasa a revisión especial» (#19).
+  - M3-3, M1-4 y M5-3: scroll interno con la cabecera fija (#13, #14).
+  - M4-4: antes de pagar, muestra el último pedido pagado o «Aún no hay pedidos pagados» (#10).
+  - M3-3: «Sin alternativas vigentes por ahora» (#21).
+  - Constantes en lugar de «0042» y «N horas» en los módulos; `AYUDA_WHATSAPP_HORAS_HABILES` (#11).
+- **D-64 · Pruebas y capturas de la auditoría independiente** (DP, 05/11/2026):
+  - `tests/especificacion.test.ts` compara con literales toda la tabla de §A.2 y los 20 archivos de §B.1. Verificado: cambiar 14.50 por 14.05 hace fallar la prueba (#24).
+  - Sin aserciones tautológicas (#23).
+  - `textos.test.ts` detecta «0042» y «N horas» escritos a mano (#11).
+  - `scripts/capturas.ts` detecta cortes en los cuatro bordes, texto truncado y listas con scroll interno (#25).

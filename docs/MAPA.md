@@ -21,7 +21,8 @@ Conceptos que aparecen:
 | Archivo | Qué hace |
 |---|---|
 | `package.json` | dependencias y comandos (`npm run dev`, `test`, `build`, `capturas`) |
-| `vite.config.ts` | empaquetador; `base: './'` para GitHub Pages; configuración de Vitest |
+| `vite.config.ts` | empaquetador; `base: './'` para GitHub Pages; modo `feria` (un solo HTML con `vite-plugin-singlefile`, D-60); configuración de Vitest |
+| `feria/mallki-demo.html` | la demo en un solo archivo, para abrir sin servidor ni internet (`npm run build:feria`) |
 | `tailwind.config.ts` | **los 7 colores de §A.4**; la paleta por defecto se borra (D-17) |
 | `tsconfig.json` | TypeScript en modo `strict` |
 
@@ -52,6 +53,7 @@ Conceptos que aparecen:
 | `pedido.ts` | `resumirPedido` (subtotal, comisión por línea, liquidación por proveedor), `fijarPrecios`, `lineasVencidas`, `estadoDeProveedor`, `fechaEntrega` | §A.3, S2-M5, D-16, D-26 |
 | `alerta.ts` | `variacionPorcentual`, `alertaDePrecio`, `alertasActivas`, `alternativas` | S2-M6, D-11, D-24 |
 | `reclamos.ts` | `plazosReclamo`, `liquidacionRetenida`, `esExcepcionS3` | S2-M8, D-21 |
+| `entradas.ts` | `leerMonto` (mayor que 0), `leerPorcentaje` (0 a 100): lo que escribe una persona en vivo | D-62 |
 | `umbrales.ts` | `senalPrecioDistinto` (> 1 %), `enRevision` (< 3.5), `reclamosFuera48h`, `comisionDelMes` | §E, S2-M2, D-10, D-14, D-22 |
 
 ## `src/store` · estado de la simulación
@@ -61,14 +63,14 @@ Conceptos que aparecen:
 | `inicial.ts` | `estadoInicial()`: 09/11/2026 09:00, ofertas de §A.2, pedido 0042 pagado (D-08) |
 | `demo.ts` | `useDemo`: el store. Cada acción pasa por `aplicar()`: un solo cambio con su evento y su marca de escenario (D-52). Acciones: `confirmarPrecio`, `actualizarPrecio`, `reemplazarOferta`, `agregarAlCarrito`, `cargarPedido0042`, `confirmarPedido`, `pagarPedido`, `abrirReclamo`, `fijarAhora`, `fijarPrecioDistinto`, `marcarEscenario`, `reiniciarDemo` |
 | `selectores.ts` | `calcularResumenSemaforo`, `calcularTablero` (puras) y los hooks `useResumenSemaforo`, `useComparador`, `useAlertas`, `usePorVencer`, `useResumenPedido`, `useTablero` |
-| `persistencia.ts` | guarda en `localStorage` con try/catch |
+| `persistencia.ts` | guarda en `localStorage` (clave `mallki-demo-v2`) con try/catch; `esDatosDemo` valida lo leído y, si no tiene la forma esperada, se usa el estado inicial (D-62) |
 | `captura.ts` | detecta `?captura=1` antes o después del `#` (D-18) |
 
 ## `src/ui` · piezas visuales comunes
 
 | Archivo | Qué hace |
 |---|---|
-| `Pantalla.tsx` | marco 390 × 844 o 1440 × 900, marca, barra verde con título, pie; controles del expositor fuera del marco |
+| `Pantalla.tsx` | marco 390 × 844 o 1440 × 900, marca, barra verde con título, pie; controles del expositor fuera del marco; en vivo, `Escalado` reduce el marco para que quepa en el ancho de la ventana (D-61) |
 | `formato.tsx` | `<Dinero c>`, `<Fecha f corta?>`, `<Porcentaje valor | pb>` |
 | `Semaforo.tsx` | `<Semaforo color>`, `<Punto color>` |
 | `piezas.tsx` | `Tarjeta`, `Boton`, `Etiqueta`, `RotuloEscenario`, `Campo` |
