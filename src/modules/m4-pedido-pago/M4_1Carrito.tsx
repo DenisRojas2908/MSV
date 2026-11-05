@@ -15,6 +15,16 @@ export function M4_1Carrito() {
   const ofertas = useDemo((s) => s.ofertas);
   const cargar = useDemo((s) => s.cargarPedido0042);
   const confirmar = useDemo((s) => s.confirmarPedido);
+  const quitar = useDemo((s) => s.quitarDelCarrito);
+  // Elegir otra oferta: la línea vencida sale del carrito y el comparador de ese SKU se abre
+  // con la misma cantidad, para agregar una oferta vigente.
+  const elegirOtra = (ofertaId: string) => {
+    const linea = carrito?.lineas.find((l) => l.ofertaId === ofertaId);
+    const oferta = ofertas.find((o) => o.id === ofertaId);
+    if (!linea || !oferta) return;
+    quitar(ofertaId);
+    navegar(`/m3-2?sku=${oferta.skuN}&cantidad=${linea.cantidad}`);
+  };
   const hoy = useHoy();
   const navegar = useNavigate();
   const vencidas = carrito ? lineasVencidas(carrito.lineas, ofertas, hoy) : [];
@@ -41,7 +51,7 @@ export function M4_1Carrito() {
               {n} {n === 1 ? 'proveedor' : 'proveedores'} · cada proveedor despacha lo suyo
             </p>
           </div>
-          <GruposProveedor resumen={resumen} vencidas={vencidas} />
+          <GruposProveedor resumen={resumen} vencidas={vencidas} onQuitar={quitar} onElegirOtra={elegirOtra} />
           <FilaTotal total={resumen.total} nota={`Un solo pago para ${n === 1 ? 'el proveedor' : `los ${n} proveedores`}`} />
           <Boton
             className="mt-auto w-full py-3.5 text-base"
