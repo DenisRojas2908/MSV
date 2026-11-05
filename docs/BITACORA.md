@@ -6,8 +6,8 @@ Solo se agrega. Una entrada por checkpoint, la más reciente arriba.
 
 ## 04/11/2026 19:08 · Despliegue · GitHub Pages activo
 
-- **Qué se hizo:** el DP activó GitHub Pages. La ejecución 3 había fallado con un 404 en «Publicar», porque Pages aún no estaba activado; las pruebas y la compilación habían pasado. Se relanzó solo el job \`desplegar\` y terminó en verde. Verificado con Chromium sobre la URL publicada: \`#/\`, \`#/m1-1\`, \`#/m3-2\`, \`#/m4-4\` (S/ 478.33), \`#/m5-1\` (rótulo nuevo) y \`#/simulacion\` cargan sin errores.
-- **Archivos:** \`docs/ESTADO.md\`, \`docs/BITACORA.md\`.
+- **Qué se hizo:** el DP activó GitHub Pages. La ejecución 3 había fallado con un 404 en «Publicar», porque Pages aún no estaba activado; las pruebas y la compilación habían pasado. Se relanzó solo el job `desplegar` y terminó en verde. Verificado con Chromium sobre la URL publicada: `#/`, `#/m1-1`, `#/m3-2`, `#/m4-4` (S/ 478.33), `#/m5-1` (rótulo nuevo) y `#/simulacion` cargan sin errores.
+- **Archivos:** `docs/ESTADO.md`, `docs/BITACORA.md`.
 - **Decisiones:** ninguna nueva (D-30).
 - **Pruebas:** 85 pasan, también en la Action.
 - **Para revisar:** https://denisrojas2908.github.io/MSV/#/ en la laptop y en el celular.
