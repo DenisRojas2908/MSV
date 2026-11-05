@@ -4,6 +4,20 @@ Solo se agrega. Una entrada por checkpoint, la más reciente arriba.
 
 ---
 
+## 04/11/2026 19:05 · Cambio del DP · Correcciones de la auditoría independiente
+
+- **Qué se hizo:**
+  - Informe traído desde `claude/nice-pasteur-34qljn`.
+  - Decisiones del DP: rótulo «Más de 1 %…» en §A.2 y M5-1 (#1); M3-2 solo con ofertas vigentes y una línea gris (#9); «Alerta del S3» (#20); D-46 aprobada; P-02 a P-12 cerrados.
+  - Correcciones: archivo único sin internet (#16), escalado en vivo (#17), carrito con línea vencida (#4), reclamos por pedido y uno por proveedor (#5, #7), `localStorage` validado con clave v2 (#12), scroll interno (#13, #14), «revisión especial» (#19), aviso de E3 (#6), entradas validadas (#8), M4-4 antes de pagar (#10), sin alternativas (#21), constantes (#11, #22), pruebas literales y sin tautologías (#23, #24), chequeo de capturas (#25).
+- **Archivos:** `docs/ESPECIFICACION.md` (solo §A.2, autorizado), `src/data/*`, `src/domain/{entradas,reclamos,reglas}.ts`, `src/store/{demo,persistencia}.ts`, `src/ui/Pantalla.tsx`, `src/modules/*`, `src/simulacion/escenarios.ts`, `scripts/capturas.ts`, `vite.config.ts`, `feria/mallki-demo.html`, `tests/*`, `docs/GUIA_DEMO.md`, `README.md`.
+- **Decisiones:** D-55 a D-64.
+- **Pruebas:** 85 pasan. La mutación 14.50 → 14.05 hace fallar `tests/especificacion.test.ts` (revertida). Capturas: 20 de 20; solo cambió `M5-1_Tablero.png` (rótulo).
+- **Para revisar:** `#/m5-1` (rótulo nuevo); `#/m3-2` después de E1 (línea gris); `feria/mallki-demo.html` con doble clic.
+- **Siguiente paso:** activar GitHub Pages.
+
+---
+
 ## 04/11/2026 15:02 · F7 · Auditoría y cierre
 
 - **Qué se hizo:** auditoría completa con el subagente `auditor` (20 pantallas, E1 a E5, criterios F1 a F6) → `docs/AUDITORIA.md`. Sin bloqueos. Corregidos los 3 «corregir»: sincronización entre pestañas (acciones atómicas), rótulo de escenario en todas las pantallas, M3-4 sin corte en E1. Corregidos los 7 menores. Capturas regeneradas: 20 de 20 correctas.
