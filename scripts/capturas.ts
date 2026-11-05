@@ -51,14 +51,32 @@ async function main() {
         const marco = document.querySelector('[data-pantalla]')!.getBoundingClientRect();
         const c = document.querySelector('[data-contenido]')!;
         const cb = c.getBoundingClientRect();
-        const fuera = [...c.querySelectorAll('*')].filter((e) => {
+        const todos = [...c.querySelectorAll('*')];
+        // Cortes en los cuatro bordes del área de contenido (auditoría independiente #25).
+        const fuera = todos.filter((e) => {
           const x = e.getBoundingClientRect();
-          return x.width > 0 && (x.bottom > cb.bottom + 0.5 || x.right > cb.right + 0.5);
+          return (
+            x.width > 0 &&
+            (x.bottom > cb.bottom + 0.5 || x.right > cb.right + 0.5 || x.top < cb.top - 0.5 || x.left < cb.left - 0.5)
+          );
+        }).length;
+        // Texto recortado con «…» (text-overflow: ellipsis) o que no cabe en su caja.
+        const truncados = todos.filter((e) => {
+          const el = e as HTMLElement;
+          return getComputedStyle(el).textOverflow === 'ellipsis' && el.scrollWidth > el.clientWidth;
+        }).length;
+        // Listas con scroll interno que ya no caben (en el estado inicial no debe haber ninguna).
+        const conScroll = todos.filter((e) => {
+          const el = e as HTMLElement;
+          const oy = getComputedStyle(el).overflowY;
+          return (oy === 'auto' || oy === 'scroll') && el.scrollHeight > el.clientHeight + 1;
         }).length;
         return {
           marco: [marco.x, marco.y, marco.width, marco.height],
           scroll: c.scrollHeight > c.clientHeight || c.scrollWidth > c.clientWidth,
           fuera,
+          truncados,
+          conScroll,
           doc: [document.documentElement.scrollWidth, document.documentElement.scrollHeight],
           texto: document.body.innerText,
         };
@@ -72,6 +90,8 @@ async function main() {
       if (x !== 0 || y !== 0 || w !== ancho || h !== alto) problemas.push(`marco ${w} × ${h} en (${x}, ${y})`);
       if (r.scroll) problemas.push('el contenido hace scroll');
       if (r.fuera > 0) problemas.push(`${r.fuera} elementos cortados`);
+      if (r.truncados > 0) problemas.push(`${r.truncados} textos truncados`);
+      if (r.conScroll > 0) problemas.push(`${r.conScroll} listas con scroll interno`);
       if (r.doc[0]! > ancho || r.doc[1]! > alto) problemas.push(`la página mide ${r.doc[0]} × ${r.doc[1]}`);
       for (const pal of PROHIBIDAS) if (pal.test(r.texto)) problemas.push(`texto prohibido ${pal}`);
       const png = tamanoPng(archivo);

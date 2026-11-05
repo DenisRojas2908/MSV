@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { fechaDeInstante } from '../../domain/fechas';
 import { baseEntrega, estadoDeProveedor, fechaEntrega } from '../../domain/pedido';
 import { PLAZO_RECLAMO_U1_H } from '../../domain/reglas';
-import { esExcepcionS3, plazosReclamo } from '../../domain/reclamos';
+import { esExcepcionS3, plazosReclamo, puedeAbrirReclamo } from '../../domain/reclamos';
 import type { ProveedorId } from '../../domain/tipos';
 import { useDemo } from '../../store/demo';
 import { buscarProveedor, buscarSku, useResumenPedido } from '../../store/selectores';
@@ -20,6 +20,9 @@ export function M1_4Pedidos() {
   const [elegido, setElegido] = useState<string | null>(null);
   const pedido = pedidos.find((p) => p.numero === elegido) ?? pedidos[pedidos.length - 1] ?? null;
   const resumen = useResumenPedido(pedido?.lineas);
+  // Solo los reclamos del pedido elegido (auditoría independiente #5).
+  const reclamosPedido = pedido ? reclamos.filter((r) => r.pedidoNumero === pedido.numero) : [];
+  const disponibles = pedido && resumen ? resumen.grupos.filter((g) => puedeAbrirReclamo(reclamos, pedido.numero, g.proveedor.id)) : [];
   const [formulario, setFormulario] = useState(false);
   const [proveedor, setProveedor] = useState<ProveedorId | null>(null);
   const [descripcion, setDescripcion] = useState('');
@@ -39,7 +42,7 @@ export function M1_4Pedidos() {
       ) : (
         <div className="flex h-full flex-col gap-3">
           {pedidos.length > 1 && (
-            <div className="flex gap-1.5">
+            <div className="flex shrink-0 gap-1.5">
               {[...pedidos].reverse().map((p) => (
                 <button
                   key={p.numero}
@@ -52,7 +55,7 @@ export function M1_4Pedidos() {
               ))}
             </div>
           )}
-          <Tarjeta className="px-3.5 py-3">
+          <Tarjeta className="shrink-0 px-3.5 py-3">
             <div className="flex items-baseline justify-between">
               <h1 className="text-base font-bold">Pedido N.° {pedido.numero}</h1>
               <span className="font-bold"><Dinero c={resumen.total} /></span>
@@ -81,9 +84,10 @@ export function M1_4Pedidos() {
             </ul>
           </Tarjeta>
 
-          <section className="flex flex-col gap-2">
+          {/* Con varios reclamos, esta sección se desplaza; el pedido queda fijo arriba (#14). */}
+          <section className="-mx-1 -mb-1 flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto px-1 pb-1">
             <h2 className="text-sm font-semibold">Reclamos</h2>
-            {reclamos.map((r) => {
+            {reclamosPedido.map((r) => {
               const p = buscarProveedor(r.proveedorId);
               const sub = resumen.grupos.find((g) => g.proveedor.id === r.proveedorId)?.subtotal ?? 0;
               return (
@@ -96,7 +100,7 @@ export function M1_4Pedidos() {
                   <p className="mt-1 text-xs">
                     Lo resolvemos hasta el <Fecha f={fechaDeInstante(plazosReclamo(r).cierreU1)} />. El pago a {p.nombre} queda retenido hasta resolverlo.
                   </p>
-                  {esExcepcionS3(sub) && <p className="mt-1 text-xs font-semibold">Monto sobre el umbral: pasa al S3.</p>}
+                  {esExcepcionS3(sub) && <p className="mt-1 text-xs font-semibold">Tu reclamo pasa a revisión especial.</p>}
                 </div>
               );
             })}
@@ -105,7 +109,7 @@ export function M1_4Pedidos() {
               <Tarjeta className="flex flex-col gap-2.5 px-3.5 py-3">
                 <p className="text-sm font-semibold">¿Sobre qué proveedor es el reclamo?</p>
                 <div className="flex flex-col gap-1.5">
-                  {resumen.grupos.map((g) => (
+                  {disponibles.map((g) => (
                     <button
                       key={g.proveedor.id}
                       type="button"
@@ -130,9 +134,12 @@ export function M1_4Pedidos() {
               </Tarjeta>
             ) : (
               <div className="rounded-xl bg-blanco px-3.5 py-3 ring-1 ring-texto/10">
-                <Boton className="w-full py-3 text-base" onClick={() => setFormulario(true)}>
+                <Boton className="w-full py-3 text-base" disabled={disponibles.length === 0} onClick={() => setFormulario(true)}>
                   <MessageSquareWarning size={18} /> Abrir reclamo
                 </Boton>
+                {disponibles.length === 0 && (
+                  <p className="mt-2 text-center text-xs text-texto/60">Ya tienes un reclamo abierto con cada proveedor de este pedido.</p>
+                )}
                 <p className="mt-2 flex items-center justify-center gap-1.5 text-sm font-medium text-mallki">
                   <Clock size={15} /> Lo resolvemos en {PLAZO_RECLAMO_U1_H} horas
                 </p>

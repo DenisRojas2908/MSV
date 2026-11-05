@@ -34,6 +34,8 @@ export const PLAZO_DESCARGO_U2_H = 24;
 export const UMBRAL_RECLAMO_S3: Centimos = 55_000;
 /** S2-M8: plazo incumplido en 5 % o más de los casos escala al S3. */
 export const UMBRAL_RECLAMOS_FUERA_PCT = 5;
+/** S2-M6: la concentración escala al S3 si persiste después de las 24 h de U2 (auditoría independiente #22). */
+export const PLAZO_CONCENTRACION_U2_H = 24;
 /** S2-M6: proveedor con 30 % o más de las ventas de una categoría (D-22). */
 export const UMBRAL_CONCENTRACION_PCT = 30;
 /** S2-M4: un cambio de criterios del ranking se avisa con 72 horas. */

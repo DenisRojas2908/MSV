@@ -32,6 +32,7 @@ Abre la dirección que muestra la consola (por ejemplo `http://localhost:5173/#/
 | `npm run build` | compila en `dist/` |
 | `npm run preview` | sirve `dist/` como en producción |
 | `npm run capturas` | compila y genera las 20 capturas en `capturas/` |
+| `npm run build:feria` | genera `feria/mallki-demo.html`: un solo archivo que abre con doble clic, sin servidor y sin internet |
 
 ## Capturas
 
@@ -62,6 +63,10 @@ npm run capturas
 ```
 
 Las capturas quedan en la carpeta `capturas\`. Las 20 de este repo ya están generadas y versionadas.
+
+## Sin internet (feria)
+
+`feria/mallki-demo.html` abre con doble clic y no necesita conexión. El plan completo está en [`docs/GUIA_DEMO.md`](docs/GUIA_DEMO.md), sección «Plan sin internet».
 
 ## Despliegue
 

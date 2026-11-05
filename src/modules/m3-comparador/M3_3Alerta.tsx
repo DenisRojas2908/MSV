@@ -11,10 +11,11 @@ export function M3_3Alerta() {
 
   return (
     <Pantalla id="M3-3" titulo="Alerta de precio" contexto={<CabeceraComprador />} volver="/m3-1">
-      <div className="flex h-full flex-col gap-3">
+      {/* Con varias alertas, la lista se desplaza dentro de la pantalla; la cabecera queda fija (#13). */}
+      <div className="-mx-1 -mt-1 flex h-full flex-col gap-3 overflow-y-auto px-1 pt-1">
         {alertas.length === 0 && <p className="text-sm text-texto/70">No hay alertas de precio.</p>}
         {alertas.map((a) => (
-          <section key={a.oferta.id} className="flex flex-col gap-3">
+          <section key={a.oferta.id} className="flex shrink-0 flex-col gap-3">
             <div className="flex gap-3 rounded-xl bg-ambar/15 p-4 ring-1 ring-ambar/50">
               <BellRing size={22} className="mt-0.5 shrink-0 text-ambar" />
               <p className="text-[15px] leading-snug">
@@ -26,6 +27,7 @@ export function M3_3Alerta() {
               <h2 className="text-sm font-semibold">Alternativas</h2>
               <p className="text-xs text-texto/70">Otras ofertas vigentes del mismo producto, de menor a mayor precio.</p>
             </div>
+            {a.alternativas.length === 0 && <p className="text-sm text-texto/70">Sin alternativas vigentes por ahora.</p>}
             <ul className="flex flex-col gap-2">
               {a.alternativas.map((c) => (
                 <li key={c.oferta.id}>

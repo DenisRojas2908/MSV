@@ -2,7 +2,7 @@
 
 Para editar a mano desde GitHub (botón del lápiz en el archivo). Después de cambiar, la Action corre `npm test`: si una prueba falla, el cambio contradice una invariante de `CLAUDE.md` y no se despliega.
 
-**Antes de cambiar un dato de §A.2, cámbialo en `docs/ESPECIFICACION.md`**: el código lo copia.
+**Antes de cambiar un dato de §A.2, cámbialo en `docs/ESPECIFICACION.md`**: el código lo copia. Además, `tests/especificacion.test.ts` repite cada dato de §A.2 y §B.1 como literal: cámbialo también ahí, o la prueba fallará a propósito.
 
 ## Datos de la demo
 
@@ -12,13 +12,14 @@ Para editar a mano desde GitHub (botón del lápiz en el archivo). Después de c
 | Hora inicial (no se muestra) | `src/data/demo.ts:7` |
 | Tipos de negocio del registro | `src/data/demo.ts:16` |
 | Pie «Prototipo Mallki · datos de demostración» | `src/data/demo.ts:22` |
+| «Respondemos en menos de 4 horas hábiles» (las 4 horas) | `src/data/demo.ts:25` |
 | Comprador: razón social, distrito, dueña, WhatsApp, RUC, tipo | `src/data/comprador.ts:6-11` |
 | Proveedores (nombre, categoría, calificación en décimas, plazo) | `src/data/proveedores.ts:5-10` |
 | SKU (nombre, presentación, ecológica, quién lo ofrece) | `src/data/skus.ts`, una línea por SKU en el orden de §A.2 |
 | Precios y fechas de confirmación | `src/data/ofertas.ts:7-15` (precio con `soles('116.90')`, fecha `'2026-11-03'`) |
 | Cantidades del pedido 0042 | `src/data/pedido0042.ts:6-8` |
 | Rótulo del tablero | `src/data/tablero.ts:7` |
-| Indicadores del tablero | `src/data/tablero.ts:10-22` |
+| Indicadores del tablero (incluido el rótulo «Más de 1 %…» de §A.2) | `src/data/tablero.ts:10-23` |
 | Nombres de los indicadores | `src/data/tablero.ts:25-34` |
 | Nombres de archivo de las capturas | `src/data/pantallas.ts`, lista `PANTALLAS` |
 
@@ -50,29 +51,30 @@ Cada fila es un texto visible y dónde editarlo. Las partes entre `{…}` son da
 | Prefiero que me ayuden por WhatsApp | `src/modules/m1-registro/M1_2Onboarding.tsx:96` |
 | Vía asistida: una persona te acompaña por WhatsApp. | `src/modules/m1-registro/M1_2Onboarding.tsx:97` |
 | Continuar | `src/modules/m1-registro/M1_2Onboarding.tsx:102` |
-| Comparar | `src/modules/m1-registro/M1_3Inicio.tsx:12` |
-| Compara precios de insumos, de menor a mayor | `src/modules/m1-registro/M1_3Inicio.tsx:12` |
-| Mis pedidos | `src/modules/m1-registro/M1_3Inicio.tsx:13` |
-| Estado y entrega de cada proveedor | `src/modules/m1-registro/M1_3Inicio.tsx:13` |
-| Reclamos | `src/modules/m1-registro/M1_3Inicio.tsx:14` |
-| Abre un reclamo sobre un pedido | `src/modules/m1-registro/M1_3Inicio.tsx:14` |
-| Inicio | `src/modules/m1-registro/M1_3Inicio.tsx:26` |
-| Hola, {nombre} | `src/modules/m1-registro/M1_3Inicio.tsx:28` |
-| Aviso de precio: | `src/modules/m1-registro/M1_3Inicio.tsx:34` |
-| Último pedido | `src/modules/m1-registro/M1_3Inicio.tsx:60` |
-| Pedido N.° {pedido.numero} | `src/modules/m1-registro/M1_3Inicio.tsx:62` |
-| Respondemos en menos de 4 horas hábiles. | `src/modules/m1-registro/M1_3Inicio.tsx:73` |
-| Mis pedidos y reclamos | `src/modules/m1-registro/M1_4Pedidos.tsx:36` |
-| Todavía no tienes pedidos. | `src/modules/m1-registro/M1_4Pedidos.tsx:38` |
-| Pedido N.° {pedido.numero} | `src/modules/m1-registro/M1_4Pedidos.tsx:57` |
-| Reclamos | `src/modules/m1-registro/M1_4Pedidos.tsx:85` |
-| Reclamo a {p.nombre} | `src/modules/m1-registro/M1_4Pedidos.tsx:92` |
-| Monto sobre el umbral: pasa al S3. | `src/modules/m1-registro/M1_4Pedidos.tsx:99` |
-| ¿Sobre qué proveedor es el reclamo? | `src/modules/m1-registro/M1_4Pedidos.tsx:106` |
-| Describe el problema | `src/modules/m1-registro/M1_4Pedidos.tsx:122` |
-| Cancelar | `src/modules/m1-registro/M1_4Pedidos.tsx:127` |
-| Enviar reclamo | `src/modules/m1-registro/M1_4Pedidos.tsx:128` |
-| Mientras se resuelve, el pago a ese proveedor se retiene. | `src/modules/m1-registro/M1_4Pedidos.tsx:139` |
+| Comparar | `src/modules/m1-registro/M1_3Inicio.tsx:13` |
+| Compara precios de insumos, de menor a mayor | `src/modules/m1-registro/M1_3Inicio.tsx:13` |
+| Mis pedidos | `src/modules/m1-registro/M1_3Inicio.tsx:14` |
+| Estado y entrega de cada proveedor | `src/modules/m1-registro/M1_3Inicio.tsx:14` |
+| Reclamos | `src/modules/m1-registro/M1_3Inicio.tsx:15` |
+| Abre un reclamo sobre un pedido | `src/modules/m1-registro/M1_3Inicio.tsx:15` |
+| Inicio | `src/modules/m1-registro/M1_3Inicio.tsx:27` |
+| Hola, {nombre} | `src/modules/m1-registro/M1_3Inicio.tsx:29` |
+| Aviso de precio: | `src/modules/m1-registro/M1_3Inicio.tsx:35` |
+| Último pedido | `src/modules/m1-registro/M1_3Inicio.tsx:61` |
+| Pedido N.° {pedido.numero} | `src/modules/m1-registro/M1_3Inicio.tsx:63` |
+| Respondemos en menos de {AYUDA_WHATSAPP_HORAS_HABILES} horas hábiles. | `src/modules/m1-registro/M1_3Inicio.tsx:74` |
+| Mis pedidos y reclamos | `src/modules/m1-registro/M1_4Pedidos.tsx:39` |
+| Todavía no tienes pedidos. | `src/modules/m1-registro/M1_4Pedidos.tsx:41` |
+| Pedido N.° {pedido.numero} | `src/modules/m1-registro/M1_4Pedidos.tsx:60` |
+| Reclamos | `src/modules/m1-registro/M1_4Pedidos.tsx:89` |
+| Reclamo a {p.nombre} | `src/modules/m1-registro/M1_4Pedidos.tsx:96` |
+| Tu reclamo pasa a revisión especial. | `src/modules/m1-registro/M1_4Pedidos.tsx:103` |
+| ¿Sobre qué proveedor es el reclamo? | `src/modules/m1-registro/M1_4Pedidos.tsx:110` |
+| Describe el problema | `src/modules/m1-registro/M1_4Pedidos.tsx:126` |
+| Cancelar | `src/modules/m1-registro/M1_4Pedidos.tsx:131` |
+| Enviar reclamo | `src/modules/m1-registro/M1_4Pedidos.tsx:132` |
+| Ya tienes un reclamo abierto con cada proveedor de este pedido. | `src/modules/m1-registro/M1_4Pedidos.tsx:141` |
+| Mientras se resuelve, el pago a ese proveedor se retiene. | `src/modules/m1-registro/M1_4Pedidos.tsx:146` |
 
 ### M2
 
@@ -95,24 +97,24 @@ Cada fila es un texto visible y dónde editarlo. Las partes entre `{…}` son da
 | Publicas tus precios en el catálogo y los confirmas al menos cada {VIGENCIA_DIAS} días. | `src/modules/m2-proveedor/M2_1Registro.tsx:55` |
 | El comparador ordena por precio, de menor a mayor. Nadie paga por aparecer primero. | `src/modules/m2-proveedor/M2_1Registro.tsx:56` |
 | Cada proveedor despacha lo suyo. | `src/modules/m2-proveedor/M2_1Registro.tsx:60` |
-| Catálogo | `src/modules/m2-proveedor/M2_2Catalogo.tsx:33` |
-| Lista de 24 SKU ancla | `src/modules/m2-proveedor/M2_2Catalogo.tsx:36` |
-| Elige el producto que vas a ofrecer. | `src/modules/m2-proveedor/M2_2Catalogo.tsx:37` |
-| · fuera de tu categoría | `src/modules/m2-proveedor/M2_2Catalogo.tsx:44` |
-| Precio con IGV (S/) | `src/modules/m2-proveedor/M2_2Catalogo.tsx:73` |
-| oferta ? formatearMonto(oferta.precio) : 'Precio con IGV' | `src/modules/m2-proveedor/M2_2Catalogo.tsx:78` |
-| Stock referencial | `src/modules/m2-proveedor/M2_2Catalogo.tsx:82` |
-| Unidades disponibles | `src/modules/m2-proveedor/M2_2Catalogo.tsx:82` |
-| Plazo de entrega | `src/modules/m2-proveedor/M2_2Catalogo.tsx:83` |
-| Guardar precio | `src/modules/m2-proveedor/M2_2Catalogo.tsx:91` |
-| Subir Excel | `src/modules/m2-proveedor/M2_2Catalogo.tsx:92` |
-| Un precio nuevo cuenta como confirmación: vuelve a estar vigente por {VIGENCIA_DIAS} días. | `src/modules/m2-proveedor/M2_2Catalogo.tsx:94` |
-| Mi catálogo | `src/modules/m2-proveedor/M2_2Catalogo.tsx:98` |
-| Producto | `src/modules/m2-proveedor/M2_2Catalogo.tsx:102` |
-| Precio | `src/modules/m2-proveedor/M2_2Catalogo.tsx:103` |
-| Plazo | `src/modules/m2-proveedor/M2_2Catalogo.tsx:104` |
-| Stock | `src/modules/m2-proveedor/M2_2Catalogo.tsx:105` |
-| Confirmado | `src/modules/m2-proveedor/M2_2Catalogo.tsx:106` |
+| Catálogo | `src/modules/m2-proveedor/M2_2Catalogo.tsx:34` |
+| Lista de 24 SKU ancla | `src/modules/m2-proveedor/M2_2Catalogo.tsx:37` |
+| Elige el producto que vas a ofrecer. | `src/modules/m2-proveedor/M2_2Catalogo.tsx:38` |
+| · fuera de tu categoría | `src/modules/m2-proveedor/M2_2Catalogo.tsx:45` |
+| Precio con IGV (S/) | `src/modules/m2-proveedor/M2_2Catalogo.tsx:74` |
+| oferta ? formatearMonto(oferta.precio) : 'Precio con IGV' | `src/modules/m2-proveedor/M2_2Catalogo.tsx:79` |
+| Stock referencial | `src/modules/m2-proveedor/M2_2Catalogo.tsx:83` |
+| Unidades disponibles | `src/modules/m2-proveedor/M2_2Catalogo.tsx:83` |
+| Plazo de entrega | `src/modules/m2-proveedor/M2_2Catalogo.tsx:84` |
+| Guardar precio | `src/modules/m2-proveedor/M2_2Catalogo.tsx:92` |
+| Subir Excel | `src/modules/m2-proveedor/M2_2Catalogo.tsx:93` |
+| Un precio nuevo cuenta como confirmación: vuelve a estar vigente por {VIGENCIA_DIAS} días. | `src/modules/m2-proveedor/M2_2Catalogo.tsx:95` |
+| Mi catálogo | `src/modules/m2-proveedor/M2_2Catalogo.tsx:99` |
+| Producto | `src/modules/m2-proveedor/M2_2Catalogo.tsx:103` |
+| Precio | `src/modules/m2-proveedor/M2_2Catalogo.tsx:104` |
+| Plazo | `src/modules/m2-proveedor/M2_2Catalogo.tsx:105` |
+| Stock | `src/modules/m2-proveedor/M2_2Catalogo.tsx:106` |
+| Confirmado | `src/modules/m2-proveedor/M2_2Catalogo.tsx:107` |
 | Confirmación de precios | `src/modules/m2-proveedor/M2_3Confirmacion.tsx:20` |
 | Tus ofertas | `src/modules/m2-proveedor/M2_3Confirmacion.tsx:24` |
 | Producto | `src/modules/m2-proveedor/M2_3Confirmacion.tsx:35` |
@@ -152,23 +154,23 @@ Cada fila es un texto visible y dónde editarlo. Las partes entre `{…}` son da
 | Producto, por ejemplo «${EJEMPLO | `src/modules/m3-comparador/M3_1Buscador.tsx:42` |
 | Aviso de precio: | `src/modules/m3-comparador/M3_1Buscador.tsx:74` |
 | Sin resultados. | `src/modules/m3-comparador/M3_1Buscador.tsx:117` |
-| Comparador | `src/modules/m3-comparador/M3_2Comparador.tsx:30` |
-| Precio de menor a mayor · con IGV | `src/modules/m3-comparador/M3_2Comparador.tsx:41` |
-| Entrega en {c.proveedor.plazoHoras} h | `src/modules/m3-comparador/M3_2Comparador.tsx:58` |
-| subió de | `src/modules/m3-comparador/M3_2Comparador.tsx:71` |
-| Agregar al pedido | `src/modules/m3-comparador/M3_2Comparador.tsx:79` |
-| No disponible | `src/modules/m3-comparador/M3_2Comparador.tsx:91` |
-| Cantidad | `src/modules/m3-comparador/M3_2Comparador.tsx:96` |
-| ¿Cómo ordenamos? | `src/modules/m3-comparador/M3_2Comparador.tsx:106` |
-| Por precio, de menor a mayor. A igual precio, primero el menor plazo de entrega y luego la | `src/modules/m3-comparador/M3_2Comparador.tsx:108` |
-| El orden no cambia porque alguien pague. No hay destacados. | `src/modules/m3-comparador/M3_2Comparador.tsx:109` |
-| Un cambio de criterios se avisa con {AVISO_CAMBIO_CRITERIOS_H} horas de anticipación. | `src/modules/m3-comparador/M3_2Comparador.tsx:110` |
-| Solo se muestran precios confirmados en los últimos {VIGENCIA_DIAS} días. | `src/modules/m3-comparador/M3_2Comparador.tsx:111` |
+| Comparador | `src/modules/m3-comparador/M3_2Comparador.tsx:31` |
+| Precio de menor a mayor · con IGV | `src/modules/m3-comparador/M3_2Comparador.tsx:42` |
+| Entrega en {c.proveedor.plazoHoras} h | `src/modules/m3-comparador/M3_2Comparador.tsx:59` |
+| subió de | `src/modules/m3-comparador/M3_2Comparador.tsx:72` |
+| Agregar al pedido | `src/modules/m3-comparador/M3_2Comparador.tsx:80` |
+| Cantidad | `src/modules/m3-comparador/M3_2Comparador.tsx:99` |
+| ¿Cómo ordenamos? | `src/modules/m3-comparador/M3_2Comparador.tsx:109` |
+| Por precio, de menor a mayor. A igual precio, primero el menor plazo de entrega y luego la | `src/modules/m3-comparador/M3_2Comparador.tsx:111` |
+| El orden no cambia porque alguien pague. No hay destacados. | `src/modules/m3-comparador/M3_2Comparador.tsx:112` |
+| Un cambio de criterios se avisa con {AVISO_CAMBIO_CRITERIOS_H} horas de anticipación. | `src/modules/m3-comparador/M3_2Comparador.tsx:113` |
+| Solo se muestran precios confirmados en los últimos {VIGENCIA_DIAS} días. | `src/modules/m3-comparador/M3_2Comparador.tsx:114` |
 | Alerta de precio | `src/modules/m3-comparador/M3_3Alerta.tsx:13` |
-| No hay alertas de precio. | `src/modules/m3-comparador/M3_3Alerta.tsx:15` |
-| Alternativas | `src/modules/m3-comparador/M3_3Alerta.tsx:26` |
-| Otras ofertas vigentes del mismo producto, de menor a mayor precio. | `src/modules/m3-comparador/M3_3Alerta.tsx:27` |
-| Entrega en {c.proveedor.plazoHoras} h | `src/modules/m3-comparador/M3_3Alerta.tsx:36` |
+| No hay alertas de precio. | `src/modules/m3-comparador/M3_3Alerta.tsx:16` |
+| Alternativas | `src/modules/m3-comparador/M3_3Alerta.tsx:27` |
+| Otras ofertas vigentes del mismo producto, de menor a mayor precio. | `src/modules/m3-comparador/M3_3Alerta.tsx:28` |
+| Sin alternativas vigentes por ahora. | `src/modules/m3-comparador/M3_3Alerta.tsx:30` |
+| Entrega en {c.proveedor.plazoHoras} h | `src/modules/m3-comparador/M3_3Alerta.tsx:38` |
 | Semáforo de cobertura | `src/modules/m3-comparador/M3_4Semaforo.tsx:14` |
 | Bajo la meta | `src/modules/m3-comparador/M3_4Semaforo.tsx:24` |
 | Verde: {OFERTAS_VERDE} ofertas · ámbar: {OFERTAS_AMBAR} · rojo: {OFERTAS_AMBAR - 1} o ning | `src/modules/m3-comparador/M3_4Semaforo.tsx:26` |
@@ -177,18 +179,20 @@ Cada fila es un texto visible y dónde editarlo. Las partes entre `{…}` son da
 
 | Texto | Archivo y línea |
 |---|---|
-| Entrega | `src/modules/m4-pedido-pago/GruposProveedor.tsx:26` |
-| Entrega en {g.proveedor.plazoHoras} h | `src/modules/m4-pedido-pago/GruposProveedor.tsx:28` |
-| Precio vencido: elige otra oferta | `src/modules/m4-pedido-pago/GruposProveedor.tsx:43` |
-| Subtotal | `src/modules/m4-pedido-pago/GruposProveedor.tsx:50` |
-| Total | `src/modules/m4-pedido-pago/GruposProveedor.tsx:64` |
-| Carrito | `src/modules/m4-pedido-pago/M4_1Carrito.tsx:25` |
-| Cargar pedido N.° 0042 | `src/modules/m4-pedido-pago/M4_1Carrito.tsx:28` |
-| Tu carrito está vacío. | `src/modules/m4-pedido-pago/M4_1Carrito.tsx:32` |
-| Comparar precios | `src/modules/m4-pedido-pago/M4_1Carrito.tsx:33` |
-| Pedido N.° {carrito.numero} | `src/modules/m4-pedido-pago/M4_1Carrito.tsx:38` |
-| Un solo pago para ${n === 1 ? 'el proveedor' :  | `src/modules/m4-pedido-pago/M4_1Carrito.tsx:44` |
-| Confirmar pedido | `src/modules/m4-pedido-pago/M4_1Carrito.tsx:50` |
+| Entrega | `src/modules/m4-pedido-pago/GruposProveedor.tsx:29` |
+| Entrega en {g.proveedor.plazoHoras} h | `src/modules/m4-pedido-pago/GruposProveedor.tsx:31` |
+| Precio vencido: elige otra oferta | `src/modules/m4-pedido-pago/GruposProveedor.tsx:46` |
+| Elegir otra oferta | `src/modules/m4-pedido-pago/GruposProveedor.tsx:51` |
+| Quitar | `src/modules/m4-pedido-pago/GruposProveedor.tsx:56` |
+| Subtotal | `src/modules/m4-pedido-pago/GruposProveedor.tsx:67` |
+| Total | `src/modules/m4-pedido-pago/GruposProveedor.tsx:81` |
+| Carrito | `src/modules/m4-pedido-pago/M4_1Carrito.tsx:36` |
+| Cargar pedido N.° {NUMERO_PEDIDO_EJEMPLO} | `src/modules/m4-pedido-pago/M4_1Carrito.tsx:39` |
+| Tu carrito está vacío. | `src/modules/m4-pedido-pago/M4_1Carrito.tsx:43` |
+| Comparar precios | `src/modules/m4-pedido-pago/M4_1Carrito.tsx:44` |
+| Pedido N.° {carrito.numero} | `src/modules/m4-pedido-pago/M4_1Carrito.tsx:49` |
+| Un solo pago para ${n === 1 ? 'el proveedor' :  | `src/modules/m4-pedido-pago/M4_1Carrito.tsx:55` |
+| Confirmar pedido | `src/modules/m4-pedido-pago/M4_1Carrito.tsx:61` |
 | Confirmación | `src/modules/m4-pedido-pago/M4_2Confirmacion.tsx:15` |
 | No hay un pedido confirmado. | `src/modules/m4-pedido-pago/M4_2Confirmacion.tsx:17` |
 | Cada proveedor despacha lo suyo, según su plazo de entrega. | `src/modules/m4-pedido-pago/M4_2Confirmacion.tsx:30` |
@@ -207,7 +211,7 @@ Cada fila es un texto visible y dónde editarlo. Las partes entre `{…}` son da
 | Pago registrado · ver seguimiento | `src/modules/m4-pedido-pago/M4_3Pago.tsx:83` |
 | Pagar | `src/modules/m4-pedido-pago/M4_3Pago.tsx:86` |
 | Seguimiento | `src/modules/m4-pedido-pago/M4_4Seguimiento.tsx:21` |
-| No hay pedidos. | `src/modules/m4-pedido-pago/M4_4Seguimiento.tsx:22` |
+| Aún no hay pedidos pagados. | `src/modules/m4-pedido-pago/M4_4Seguimiento.tsx:22` |
 | Seguimiento | `src/modules/m4-pedido-pago/M4_4Seguimiento.tsx:28` |
 | Pedido N.° {pedido.numero} | `src/modules/m4-pedido-pago/M4_4Seguimiento.tsx:31` |
 | Cómo se reparte tu pago | `src/modules/m4-pedido-pago/M4_4Seguimiento.tsx:51` |
@@ -241,34 +245,34 @@ Cada fila es un texto visible y dónde editarlo. Las partes entre `{…}` son da
 | Verde: {OFERTAS_VERDE} ofertas · ámbar: {OFERTAS_AMBAR} · rojo: {OFERTAS_AMBAR - 1} o ning | `src/modules/m5-tablero/M5_2Semaforos.tsx:39` |
 | Alerta del S3 | `src/modules/m5-tablero/M5_2Semaforos.tsx:51` |
 | UMBRAL_CATEGORIA_PCT | `src/modules/m5-tablero/M5_2Semaforos.tsx:69` |
-| Ofertas por vencer en 48 horas · S2-M3 | `src/modules/m5-tablero/M5_2Semaforos.tsx:75` |
+| Ofertas por vencer en {POR_VENCER_DIAS * 24} horas · S2-M3 | `src/modules/m5-tablero/M5_2Semaforos.tsx:75` |
 | Hoy | `src/modules/m5-tablero/M5_2Semaforos.tsx:76` |
 | · vigencia de {VIGENCIA_DIAS} días | `src/modules/m5-tablero/M5_2Semaforos.tsx:76` |
 | quedan {d} días | `src/modules/m5-tablero/M5_2Semaforos.tsx:97` |
 | Regla de vigencia | `src/modules/m5-tablero/M5_2Semaforos.tsx:107` |
 | El proveedor confirma su precio en su catálogo; confirmar o cambiar el precio reinicia los | `src/modules/m5-tablero/M5_2Semaforos.tsx:111` |
-| Valor | `src/modules/m5-tablero/M5_3Alertas.tsx:33` |
-| Estado | `src/modules/m5-tablero/M5_3Alertas.tsx:38` |
-| Alertas | `src/modules/m5-tablero/M5_3Alertas.tsx:54` |
-| Precio distinto al mostrado | `src/modules/m5-tablero/M5_3Alertas.tsx:58` |
-| <Porcentaje pb={t.precioDistintoHoyPb | `src/modules/m5-tablero/M5_3Alertas.tsx:59` |
-| Señal algedónica activa | `src/modules/m5-tablero/M5_3Alertas.tsx:64` |
-| La unidad tiene {t.senal.plazoUnidadHoras} h; si vence, el S3 {t.senal.plazoS3Horas} h. | `src/modules/m5-tablero/M5_3Alertas.tsx:65` |
-| Sin señal | `src/modules/m5-tablero/M5_3Alertas.tsx:68` |
-| Proveedor con ${UMBRAL_CONCENTRACION_PCT | `src/modules/m5-tablero/M5_3Alertas.tsx:78` |
-| Sin dato en la demostración | `src/modules/m5-tablero/M5_3Alertas.tsx:81` |
-| UMBRAL_CONCENTRACION_PCT | `src/modules/m5-tablero/M5_3Alertas.tsx:83` |
-| Reclamos fuera de 48 horas | `src/modules/m5-tablero/M5_3Alertas.tsx:89` |
-| <Porcentaje valor={fuera | `src/modules/m5-tablero/M5_3Alertas.tsx:90` |
-| derivado de | `src/modules/m5-tablero/M5_3Alertas.tsx:91` |
-| cerrados en {PLAZO_RECLAMO_U1_H} h | `src/modules/m5-tablero/M5_3Alertas.tsx:91` |
-| Excepción al S3 | `src/modules/m5-tablero/M5_3Alertas.tsx:94` |
-| Bajo el umbral de | `src/modules/m5-tablero/M5_3Alertas.tsx:96` |
-| <>Bajo el umbral de <Porcentaje valor={UMBRAL_RECLAMOS_FUERA_PCT | `src/modules/m5-tablero/M5_3Alertas.tsx:96` |
-| o más de los casos, o un reclamo sobre | `src/modules/m5-tablero/M5_3Alertas.tsx:101` |
-| UMBRAL_RECLAMOS_FUERA_PCT | `src/modules/m5-tablero/M5_3Alertas.tsx:101` |
-| · descargo U2 | `src/modules/m5-tablero/M5_3Alertas.tsx:112` |
-| liquidación retenida | `src/modules/m5-tablero/M5_3Alertas.tsx:113` |
+| Valor | `src/modules/m5-tablero/M5_3Alertas.tsx:34` |
+| Estado | `src/modules/m5-tablero/M5_3Alertas.tsx:39` |
+| Alertas | `src/modules/m5-tablero/M5_3Alertas.tsx:55` |
+| Precio distinto al mostrado | `src/modules/m5-tablero/M5_3Alertas.tsx:60` |
+| <Porcentaje pb={t.precioDistintoHoyPb | `src/modules/m5-tablero/M5_3Alertas.tsx:61` |
+| Señal algedónica activa | `src/modules/m5-tablero/M5_3Alertas.tsx:66` |
+| La unidad tiene {t.senal.plazoUnidadHoras} h; si vence, el S3 {t.senal.plazoS3Horas} h. | `src/modules/m5-tablero/M5_3Alertas.tsx:67` |
+| Sin señal | `src/modules/m5-tablero/M5_3Alertas.tsx:70` |
+| Proveedor con ${UMBRAL_CONCENTRACION_PCT | `src/modules/m5-tablero/M5_3Alertas.tsx:80` |
+| Sin dato en la demostración | `src/modules/m5-tablero/M5_3Alertas.tsx:83` |
+| UMBRAL_CONCENTRACION_PCT | `src/modules/m5-tablero/M5_3Alertas.tsx:85` |
+| Reclamos fuera de ${PLAZO_RECLAMO_U1_H | `src/modules/m5-tablero/M5_3Alertas.tsx:91` |
+| <Porcentaje valor={fuera | `src/modules/m5-tablero/M5_3Alertas.tsx:92` |
+| derivado de | `src/modules/m5-tablero/M5_3Alertas.tsx:93` |
+| cerrados en {PLAZO_RECLAMO_U1_H} h | `src/modules/m5-tablero/M5_3Alertas.tsx:93` |
+| Excepción al S3 | `src/modules/m5-tablero/M5_3Alertas.tsx:96` |
+| Bajo el umbral de | `src/modules/m5-tablero/M5_3Alertas.tsx:98` |
+| <>Bajo el umbral de <Porcentaje valor={UMBRAL_RECLAMOS_FUERA_PCT | `src/modules/m5-tablero/M5_3Alertas.tsx:98` |
+| o más de los casos, o un reclamo sobre | `src/modules/m5-tablero/M5_3Alertas.tsx:103` |
+| UMBRAL_RECLAMOS_FUERA_PCT | `src/modules/m5-tablero/M5_3Alertas.tsx:103` |
+| · descargo U2 | `src/modules/m5-tablero/M5_3Alertas.tsx:114` |
+| liquidación retenida | `src/modules/m5-tablero/M5_3Alertas.tsx:115` |
 | Compromisos | `src/modules/m5-tablero/M5_4Compromisos.tsx:21` |
 | Unidad | `src/modules/m5-tablero/M5_4Compromisos.tsx:26` |
 | Meta a seis meses | `src/modules/m5-tablero/M5_4Compromisos.tsx:27` |

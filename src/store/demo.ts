@@ -8,6 +8,7 @@ import { SKUS } from '../data/skus';
 import { formatearPuntosBasicos } from '../domain/dinero';
 import { fechaDeInstante, formatearFecha, instante } from '../domain/fechas';
 import { buscarOferta, fijarPrecios, lineasVencidas, siguienteNumero } from '../domain/pedido';
+import { puedeAbrirReclamo } from '../domain/reclamos';
 import type { Centimos, FechaISO, Oferta, ProveedorId, PuntosBasicos } from '../domain/tipos';
 import { esModoCaptura } from './captura';
 import { estadoInicial, type DatosDemo, type EscenarioId } from './inicial';
@@ -149,14 +150,16 @@ export const useDemo = create<EstadoDemo>()((set, get) => {
       ),
 
     // Un reclamo es el escenario E5 (D-43).
-    abrirReclamo: (numero, proveedorId, descripcion) =>
+    abrirReclamo: (numero, proveedorId, descripcion) => {
+      if (!puedeAbrirReclamo(get().reclamos, numero, proveedorId)) return;
       aplicar(
         (s) => ({
           reclamos: [...s.reclamos, { id: `R-${s.reclamos.length + 1}`, pedidoNumero: numero, proveedorId, descripcion, abiertoEn: s.ahora }],
         }),
         () => `Reclamo abierto: pedido N.° ${numero} · ${PROVEEDORES.find((p) => p.id === proveedorId)?.nombre ?? ''}`,
         'E5',
-      ),
+      );
+    },
 
     fijarAhora: (fecha, opciones = {}) =>
       aplicar(

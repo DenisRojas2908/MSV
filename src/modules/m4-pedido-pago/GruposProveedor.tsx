@@ -10,10 +10,13 @@ interface Props {
   /** Fecha de entrega por proveedor; si no se da, se muestra el plazo. */
   entrega?: (plazoHoras: number) => FechaISO;
   vencidas?: string[];
+  /** Controles de una línea con precio vencido (D-26, auditoría independiente #4). */
+  onQuitar?: (ofertaId: string) => void;
+  onElegirOtra?: (ofertaId: string) => void;
   fijado?: boolean;
 }
 
-export function GruposProveedor({ resumen, entrega, vencidas = [], fijado }: Props) {
+export function GruposProveedor({ resumen, entrega, vencidas = [], fijado, onQuitar, onElegirOtra }: Props) {
   return (
     <ul className="flex flex-col gap-2">
       {resumen.grupos.map((g) => (
@@ -41,6 +44,20 @@ export function GruposProveedor({ resumen, entrega, vencidas = [], fijado }: Pro
                       {fijado && <Lock size={11} className="text-mallki" aria-label="Precio fijado" />}
                     </span>
                     {vencida && <span className="block text-xs font-medium text-rojo">Precio vencido: elige otra oferta</span>}
+                    {vencida && (onQuitar || onElegirOtra) && (
+                      <span className="mt-1 flex gap-3 text-xs font-semibold">
+                        {onElegirOtra && (
+                          <button type="button" onClick={() => onElegirOtra(l.oferta.id)} className="text-mallki underline underline-offset-2">
+                            Elegir otra oferta
+                          </button>
+                        )}
+                        {onQuitar && (
+                          <button type="button" onClick={() => onQuitar(l.oferta.id)} className="text-texto/70 underline underline-offset-2">
+                            Quitar
+                          </button>
+                        )}
+                      </span>
+                    )}
                   </span>
                   {g.lineas.length > 1 && <span className="tabular-nums"><Dinero c={l.subtotal} /></span>}
                 </div>

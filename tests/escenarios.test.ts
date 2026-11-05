@@ -20,7 +20,6 @@ import {
   leerPorcentaje,
 } from '../src/simulacion/escenarios';
 import { useDemo } from '../src/store/demo';
-import { estadoInicial } from '../src/store/inicial';
 import { calcularResumenSemaforo, calcularTablero } from '../src/store/selectores';
 import { PROVEEDORES, SKUS } from './ayuda';
 
@@ -108,8 +107,11 @@ describe('escenarios de §F', () => {
     e4PrecioDistinto(150);
     e5Reclamo();
     s().reiniciarDemo();
-    const { ahora, ofertas, carrito, pedidos, reclamos, eventos, precioDistintoHoyPb, escenarios } = s();
-    expect({ ahora, ofertas, carrito, pedidos, reclamos, eventos, precioDistintoHoyPb, escenarios }).toEqual(estadoInicial());
+    expect(hoy()).toBe('2026-11-09');
+    expect(s().ofertas.find((o) => o.id === 'arroz-wayna')!.precio).toBe(soles('210.00'));
+    expect(s().ofertas.find((o) => o.id === 'aceite-qhapaq')!.precio).toBe(soles('118.00'));
+    expect([s().reclamos.length, s().precioDistintoHoyPb, s().escenarios.length, s().carrito]).toEqual([0, 30, 0, null]);
+    expect(calcularResumenSemaforo(s().ofertas, s().ahora).conteo).toEqual({ verde: 17, ambar: 5, rojo: 2 });
   });
 
   it('cada escenario cambia el estado en una sola actualización, con su marca y su evento (auditoría F7)', () => {
@@ -132,11 +134,28 @@ describe('escenarios de §F', () => {
     }
   });
 
+  it('un solo reclamo abierto por proveedor y pedido (S2-M8, auditoría independiente #7)', () => {
+    e5Reclamo('primero');
+    e5Reclamo('segundo');
+    s().abrirReclamo('0042', 'qhapaq', 'tercero');
+    expect(s().reclamos.map((r) => r.descripcion)).toEqual(['primero']);
+    s().abrirReclamo('0042', 'inti', 'otro proveedor');
+    expect(s().reclamos).toHaveLength(2);
+  });
+
   it('lectura de valores del expositor', () => {
     expect(leerPorcentaje('0.3')).toBe(30);
     expect(leerPorcentaje('2')).toBe(200);
     expect(leerPorcentaje('abc')).toBeNull();
     expect(leerMonto('125.5')).toBe(12550);
     expect(leerMonto('')).toBeNull();
+    // Auditoría independiente #8: precio mayor que 0, porcentaje entre 0 y 100.
+    expect(leerMonto('0')).toBeNull();
+    expect(leerMonto('0.00')).toBeNull();
+    expect(leerMonto('0.01')).toBe(1);
+    expect(leerPorcentaje('0')).toBe(0);
+    expect(leerPorcentaje('100')).toBe(10000);
+    expect(leerPorcentaje('100.01')).toBeNull();
+    expect(leerPorcentaje('250')).toBeNull();
   });
 });

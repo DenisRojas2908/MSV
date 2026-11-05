@@ -22,6 +22,11 @@ export function liquidacionRetenida(reclamos: readonly Reclamo[], pedidoNumero: 
   return reclamos.some((r) => r.pedidoNumero === pedidoNumero && r.proveedorId === proveedorId);
 }
 
+/** S2-M8, dueño único: un solo reclamo abierto por proveedor y pedido (auditoría independiente #7). */
+export function puedeAbrirReclamo(reclamos: readonly Reclamo[], pedidoNumero: string, proveedorId: ProveedorId): boolean {
+  return !reclamos.some((r) => r.pedidoNumero === pedidoNumero && r.proveedorId === proveedorId);
+}
+
 /** Reclamo sobre 0.1 UIT (S/ 550): excepción al S3. Se compara el subtotal del proveedor (D-21). */
 export function esExcepcionS3(subtotalReclamado: Centimos): boolean {
   return subtotalReclamado > UMBRAL_RECLAMO_S3;

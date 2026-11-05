@@ -3,6 +3,7 @@
 import { BellRing, ChevronRight, MessageCircle, MessageSquareWarning, Package, Search } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { COMPRADOR } from '../../data/comprador';
+import { AYUDA_WHATSAPP_HORAS_HABILES } from '../../data/demo';
 import { useDemo } from '../../store/demo';
 import { useAlertas, useResumenPedido } from '../../store/selectores';
 import { Dinero, Pantalla, Porcentaje } from '../../ui';
@@ -70,7 +71,7 @@ export function M1_3Inicio() {
           <button type="button" className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-mallki py-3 font-semibold text-blanco">
             <MessageCircle size={18} /> Ayuda por WhatsApp
           </button>
-          <p className="mt-1.5 text-xs text-texto/70">Respondemos en menos de 4 horas hábiles.</p>
+          <p className="mt-1.5 text-xs text-texto/70">Respondemos en menos de {AYUDA_WHATSAPP_HORAS_HABILES} horas hábiles.</p>
         </div>
       </div>
     </Pantalla>

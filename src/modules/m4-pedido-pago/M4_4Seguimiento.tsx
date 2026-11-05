@@ -19,7 +19,7 @@ export function M4_4Seguimiento() {
   if (!pedido || !resumen) {
     return (
       <Pantalla id="M4-4" titulo="Seguimiento" contexto={<CabeceraComprador />} volver="/m1-3">
-        <p className="text-sm text-texto/70">No hay pedidos.</p>
+        <p className="text-sm text-texto/70">Aún no hay pedidos pagados.</p>
       </Pantalla>
     );
   }

@@ -9,7 +9,7 @@ import { esVigente, textoVigencia } from '../../domain/vigencia';
 import { formatearCalificacion } from '../../domain/umbrales';
 import { useDemo } from '../../store/demo';
 import { buscarProveedor, buscarSku, useComparador, useHoy, useResumenSemaforo } from '../../store/selectores';
-import { Boton, Dinero, Etiqueta, Fecha, Pantalla, Semaforo, Tarjeta, useParametro } from '../../ui';
+import { Boton, Dinero, Etiqueta, Fecha, Pantalla, RotuloEscenario, Semaforo, Tarjeta, useParametro } from '../../ui';
 import { CabeceraComprador } from '../comun/CabeceraComprador';
 
 export function M3_2Comparador() {
@@ -21,7 +21,8 @@ export function M3_2Comparador() {
   const sem = useResumenSemaforo().lista.find((s) => s.sku.n === skuN);
   const agregar = useDemo((s) => s.agregarAlCarrito);
   const navegar = useNavigate();
-  const [cantidad, setCantidad] = useState(1);
+  const cantidadInicial = Number(useParametro('cantidad') ?? '1');
+  const [cantidad, setCantidad] = useState(Number.isSafeInteger(cantidadInicial) && cantidadInicial > 0 ? cantidadInicial : 1);
   const [criterio, setCriterio] = useState(true);
   const hoy = useHoy();
   const vencidas = ofertas.filter((o) => o.skuN === skuN && !esVigente(o, hoy));
@@ -86,9 +87,11 @@ export function M3_2Comparador() {
         </ol>
 
         {vencidas.map((o) => (
-          <p key={o.id} className="flex items-center justify-between rounded-lg bg-texto/5 px-3 py-2 text-xs text-texto/70">
-            <span>{buscarProveedor(o.proveedorId).nombre} · confirmado <Fecha f={o.confirmadaEl} corta /></span>
-            <Etiqueta tono="rojo">No disponible</Etiqueta>
+          <p key={o.id} className="flex items-start justify-between gap-2 text-xs leading-snug text-texto/60">
+            <span>
+              La oferta de {buscarProveedor(o.proveedorId).nombre} salió del comparador: precio no confirmado en {VIGENCIA_DIAS} días.
+            </span>
+            <RotuloEscenario />
           </p>
         ))}
 

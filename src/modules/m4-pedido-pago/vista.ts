@@ -18,7 +18,7 @@ export function useCarritoVista(): Carrito | null {
   );
 }
 
-/** El pedido más reciente (o el 0042 en captura) con la etapa que corresponde. */
+/** El pedido más reciente (o el pedido de ejemplo en captura) con la etapa que corresponde. */
 export function usePedidoVista(etapaFicha: Pedido['etapa']): Pedido | null {
   const captura = useModoCaptura();
   const pedidos = useDemo((s) => s.pedidos);
@@ -28,6 +28,8 @@ export function usePedidoVista(etapaFicha: Pedido['etapa']): Pedido | null {
       if (!p) return null;
       return etapaFicha === 'confirmado' ? { ...p, etapa: 'confirmado', pagadoEn: undefined } : p;
     }
+    // M4-4 es posterior al pago: muestra el último pedido pagado (auditoría independiente #10).
+    if (etapaFicha === 'pagado') return [...pedidos].reverse().find((p) => p.etapa === 'pagado') ?? null;
     return pedidos[pedidos.length - 1] ?? null;
   }, [captura, pedidos, etapaFicha]);
 }

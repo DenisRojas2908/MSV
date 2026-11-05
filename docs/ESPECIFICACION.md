@@ -116,7 +116,7 @@ Mes 3 del piloto, supuesto. **En el artículo y en la diapositiva de resultados 
 | Recompra a 60 días                      | 34 %                  | 30 % o más                                     |
 | Precios vigentes                        | 93 %                  | —                                              |
 | Reclamos cerrados en 48 h               | 96 %                  | —                                              |
-| Pedidos con precio distinto al mostrado | 0.3 %                 | 1 % en un día activa el canal algedónico (2 h) |
+| Pedidos con precio distinto al mostrado | 0.3 %                 | Más de 1 % de los pedidos de un día con precio distinto activa el canal algedónico |
 | Ventas del mes / comisión del mes       | S/ 186,400 / S/ 4,660 | —                                              |
 
 ### A.3 Definiciones para calcular
