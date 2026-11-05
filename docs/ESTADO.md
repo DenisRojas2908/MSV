@@ -8,17 +8,16 @@
 - 20 pantallas, panel `#/simulacion`, 20 capturas (solo cambió M5-1), archivo único `feria/mallki-demo.html`.
 
 ## Qué funciona y cómo verlo
+- Publicado en GitHub Pages: https://denisrojas2908.github.io/MSV/ (índice) y https://denisrojas2908.github.io/MSV/#/simulacion. Cada push a `main` corre `npm test` y vuelve a publicar.
 - `npm test` (85 pruebas), `npm run build`, `npm run build:feria`, `npm run capturas` (20 de 20).
 - Sin internet: doble clic en `feria/mallki-demo.html` (ver `docs/GUIA_DEMO.md`, «Plan sin internet»).
 - En vivo, las pantallas se reducen para caber en 1366 px y en celular.
 
 ## Siguiente paso exacto
-- DP: activar GitHub Pages (Settings → Pages → Source: GitHub Actions) y volver a correr la Action.
-- Cambios del DP: `/cambio-dp <pedido>`.
+- Nada pendiente. Cambios del DP: `/cambio-dp <pedido>`.
 
 ## Pendientes del DP
 - Ninguno (D-59 cerró P-02 a P-12).
 
 ## Riesgos o deudas
-- Si el repo es privado, GitHub Pages puede requerir un plan pago (alternativa: Vercel o el archivo único).
 - `feria/mallki-demo.html` se regenera a mano con `npm run build:feria` después de cada cambio.
