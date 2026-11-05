@@ -1,6 +1,6 @@
 // Marco de cada pantalla: tamaño exacto de §B.1, marca arriba a la izquierda,
 // barra verde con el título y pie. En modo captura solo se dibuja el marco.
-import { useContext, type ReactNode } from 'react';
+import { useContext, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { pantalla, TAMANOS } from '../data/pantallas';
@@ -67,8 +67,8 @@ export function Pantalla({ id, titulo, contexto, volver, subbarra, expositor, ch
   if (captura || incrustada) return marco;
 
   return (
-    <div className="flex min-h-screen flex-col items-center gap-4 p-6">
-      <div className="flex w-full max-w-[1440px] flex-wrap items-center gap-3 text-sm">
+    <div className="flex min-h-screen flex-col items-center gap-4 px-0 py-4 sm:px-6 sm:py-6">
+      <div className="flex w-full max-w-[1440px] flex-wrap items-center gap-3 px-4 text-sm sm:px-0">
         <Link to="/" className="font-semibold text-mallki underline underline-offset-2">
           Índice
         </Link>
@@ -77,7 +77,38 @@ export function Pantalla({ id, titulo, contexto, volver, subbarra, expositor, ch
         </span>
         <div className="ml-auto flex flex-wrap items-center gap-2">{expositor}</div>
       </div>
-      {marco}
+      <Escalado ancho={ancho} alto={alto}>
+        {marco}
+      </Escalado>
+    </div>
+  );
+}
+
+/**
+ * En vivo, el marco se reduce para caber completo en el ancho disponible (laptop de 1366 px,
+ * celular de 375 px). Nunca se agranda. En captura no se usa: la pantalla sale a tamaño real
+ * (auditoría independiente #17).
+ */
+function Escalado({ ancho, alto, children }: { ancho: number; alto: number; children: ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [disponible, setDisponible] = useState(ancho);
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const medir = () => setDisponible(el.clientWidth);
+    medir();
+    const ro = new ResizeObserver(medir);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+  const escala = Math.min(1, disponible / ancho);
+  return (
+    <div ref={ref} className="flex w-full justify-center">
+      <div style={{ width: ancho * escala, height: alto * escala }}>
+        <div style={{ width: ancho, height: alto, transform: escala < 1 ? `scale(${escala})` : undefined, transformOrigin: 'top left' }}>
+          {children}
+        </div>
+      </div>
     </div>
   );
 }
